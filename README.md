@@ -35,6 +35,12 @@ Envoyer will be triggered from the `.github/workspace/ci-cd.yml`
     * Digital Ocean Spaces for files backups
   * Laravel Shift
     * Let's talk about this
+  * Horizon is setup 
+    * Make sure the daemon is running on Forge just look at the other sites
+    * /horizon works if your user is set to `is_admin` in the db
+  * Logs
+    * /log-viewer works if your user is set to `is_admin` in the db
+  * 
 
 ### Postmark
 
