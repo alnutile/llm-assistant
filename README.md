@@ -36,6 +36,16 @@ Envoyer will be triggered from the `.github/workspace/ci-cd.yml`
   * Laravel Shift
     * Let's talk about this
 
+### Postmark
+
+Already installed set `.env`
+
+```dotenv
+POSTMARK_TOKEN=I_WILL_GIVE_THI
+MAIL_MAILER=postmark
+MAIL_FROM_ADDRESS="no-reply@break9.io"
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
 ### Seed Admins 
 
