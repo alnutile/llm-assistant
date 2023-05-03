@@ -87,21 +87,21 @@ jobs:
 
 
 
-  cd:
-    runs-on: ubuntu-latest
-    needs: ci
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.1
-          tools: composer:v2
-          coverage: none
-      - name: Require Vapor CLI
-        run: composer global require laravel/vapor-cli
-      - name: Install Project Dependencies
-        run: |
-          curl https://forge.laravel.com/servers/663970/sites/1921413/deploy/http?token=${{ secrets.FORGE }}
+#  cd:
+#    runs-on: ubuntu-latest
+#    needs: ci
+#    if: github.ref == 'refs/heads/main'
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: 8.1
+#          tools: composer:v2
+#          coverage: none
+#      - name: Require Vapor CLI
+#        run: composer global require laravel/vapor-cli
+#      - name: Install Project Dependencies
+#        run: |
+#          curl https://forge.laravel.com/servers/663970/sites/1921413/deploy/http?token=${{ secrets.FORGE }}
