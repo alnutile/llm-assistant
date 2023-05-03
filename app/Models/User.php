@@ -10,6 +10,14 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property int $id
+ * @property int $is_admin
+ * @property int $current_team_id
+ * @property string $name
+ * @property string $password
+ * @property string $email
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
