@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d028d5fa2e46df624cb20b0c00e1509",
+    "content-hash": "c77ca778b686a5a1eb6ccca5523142e4",
     "packages": [
         {
             "name": "alnutile/fixtures",
@@ -4142,6 +4142,79 @@
                 }
             ],
             "time": "2023-04-28T07:47:42+00:00"
+        },
+        {
+            "name": "sundance-solutions/security-portal-client",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alnutile/security-portal-client.git",
+                "reference": "b3ecdf7c18540edc414049e5515dc10fc5370e39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alnutile/security-portal-client/zipball/b3ecdf7c18540edc414049e5515dc10fc5370e39",
+                "reference": "b3ecdf7c18540edc414049e5515dc10fc5370e39",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.5",
+                "illuminate/contracts": "^9.0|^10.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SundanceSolutions\\SecurityPortalClient\\SecurityPortalClientServiceProvider"
+                    ],
+                    "aliases": {
+                        "SecurityPortalClient": "SundanceSolutions\\SecurityPortalClient\\Facades\\SecurityPortalClient"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SundanceSolutions\\SecurityPortalClient\\": "src/",
+                    "SundanceSolutions\\SecurityPortalClient\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alfred Nutile",
+                    "email": "info@sundancesolutions.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is a client for a soon to be opensource portal",
+            "homepage": "https://github.com/sundancesolutions/security-portal-client",
+            "keywords": [
+                "SundanceSolutions",
+                "laravel",
+                "security-portal-client"
+            ],
+            "support": {
+                "issues": "https://github.com/alnutile/security-portal-client/issues",
+                "source": "https://github.com/alnutile/security-portal-client/tree/0.0.2"
+            },
+            "time": "2023-04-29T12:30:31+00:00"
         },
         {
             "name": "symfony/console",

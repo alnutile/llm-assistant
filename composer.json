@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "opcodesio/log-viewer": "^2.4",
         "spatie/laravel-backup": "^8.1",
+        "sundance-solutions/security-portal-client": "^0.0.2",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
