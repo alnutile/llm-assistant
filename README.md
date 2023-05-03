@@ -16,16 +16,25 @@ Envoyer will be triggered from the `.github/workspace/ci-cd.yml`
   * Forge
     * SSL
     * Daemon for Horizon
-    * Backups DB 
-    * Email (postmark)
+    * Backups DB (already setup just make sure your server is there)
+    * Email (postmark - see notes below)
     * Spatie files backups
-    * Admin Accounts
+    * Admin Accounts (see notes below)
   * Envoyer
+    * I will set this up for you (sent you invite to this project to use as a template)
   * Postmark
+    * The server is setup I can share a token
+    * MAIL_FROM_ADDRESS="no-reply@break9.com"
+    * MAIL_FROM_NAME="${APP_NAME}"
+    * php artisan break:test_email will send test
   * Security Portal
+    * I can get you a token for this
   * Backups
     * Database
-    * Spaces for files
+      * This used Forge just make sure the db is added to the dbs
+    * Digital Ocean Spaces for files backups
+  * Laravel Shift
+    * Let's talk about this
 
 
 ### Seed Admins 
