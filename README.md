@@ -14,7 +14,7 @@ Envoyer will be triggered from the `.github/workspace/ci-cd.yml`
 
 ### New Servers
   * Forge
-    * SSL
+    * SSL with Let's encrypt
     * Daemon for Horizon
     * Backups DB (already setup just make sure your server is there)
     * Email (postmark - see notes below)
@@ -40,7 +40,11 @@ Envoyer will be triggered from the `.github/workspace/ci-cd.yml`
     * /horizon works if your user is set to `is_admin` in the db
   * Logs
     * /log-viewer works if your user is set to `is_admin` in the db
-  * 
+  * Add the Github, Forge Badge to the repo
+  * Magic Login is passwordless that is used
+  * UI Notes
+    * Stick to the Jetstream components and patterns just look in the resources/js/Components folder and Auth for tips
+
 
 ### Postmark
 
@@ -49,7 +53,7 @@ Already installed set `.env`
 ```dotenv
 POSTMARK_TOKEN=I_WILL_GIVE_THI
 MAIL_MAILER=postmark
-MAIL_FROM_ADDRESS="no-reply@break9.io"
+MAIL_FROM_ADDRESS="no-reply@break9.com"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
