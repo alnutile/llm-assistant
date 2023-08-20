@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d926c3082f02df693f7cc3fc7b78afe",
+    "content-hash": "a1ebd406fb1a9d8ae18fab285a32d65c",
     "packages": [
         {
             "name": "alnutile/fixtures",
@@ -5078,6 +5078,80 @@
                 "source": "https://github.com/alnutile/larachain-token-count/tree/1.0.0"
             },
             "time": "2023-05-31T18:50:48+00:00"
+        },
+        {
+            "name": "sundance-solutions/larachain-trim-text",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alnutile/larachain-trim-text.git",
+                "reference": "5152777fc2ad05e35463e116250260803b0578bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alnutile/larachain-trim-text/zipball/5152777fc2ad05e35463e116250260803b0578bb",
+                "reference": "5152777fc2ad05e35463e116250260803b0578bb",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0",
+                "voku/stop-words": "^2.0",
+                "wamania/php-stemmer": "^3.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SundanceSolutions\\LarachainTrimText\\LarachainTrimTextServiceProvider"
+                    ],
+                    "aliases": {
+                        "LarachainTrimText": "SundanceSolutions\\LarachainTrimText\\Facades\\LarachainTrimText"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SundanceSolutions\\LarachainTrimText\\": "src/",
+                    "SundanceSolutions\\LarachainTrimText\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alfred Nutile",
+                    "email": "365385+alnutile@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This will help short text for prompts ",
+            "homepage": "https://github.com/sundance-solutions/larachain-trim-text",
+            "keywords": [
+                "larachain-trim-text",
+                "laravel",
+                "sundance-solutions"
+            ],
+            "support": {
+                "issues": "https://github.com/alnutile/larachain-trim-text/issues",
+                "source": "https://github.com/alnutile/larachain-trim-text/tree/1.0.1"
+            },
+            "time": "2023-05-19T18:07:02+00:00"
         },
         {
             "name": "sundance-solutions/security-portal-client",

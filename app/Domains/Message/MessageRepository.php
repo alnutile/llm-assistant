@@ -25,6 +25,8 @@ class MessageRepository
     }
 
     public function handle(Message $message):Response {
+        $this->parent_message = $message;
+
         $this->messageBuilder->setMessages($this->createPrompt());
 
         return ChatClient::chat($this->messageBuilder->getMessagesLimitTokenCount(
@@ -42,7 +44,8 @@ class MessageRepository
 
         $messages = Message::query()
             ->where("parent_id", $this->parent_message->id)->latest()
-            ->limit(3);
+            ->limit(3)
+            ->get();
 
         foreach($messages as $message) {
             $prompts[] = MessageDto::from([
