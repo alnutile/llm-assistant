@@ -1,13 +1,16 @@
 <template>
     <AppLayout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex justify-between">
                 Dashboard
+                <SecondaryButtonLink
+                    class="z-50"
+                    :href="route('messages.create')">new message</SecondaryButtonLink>
             </h2>
         </template>
         <main>
 
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 rounded-t">
+        <div class="mx-auto max-w-7xl px-4 py8 sm:px-6 lg:px-8 rounded-t">
             <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <!-- Schedule -->
                 <div class="lg:col-start-3 lg:row-end-1">
@@ -79,6 +82,7 @@ import { BellIcon, XMarkIcon as XMarkIconOutline } from '@heroicons/vue/24/outli
 import { CheckCircleIcon } from '@heroicons/vue/24/solid'
 import Calendar from "./Components/Calendar.vue";
 import Activities from "./Components/Activities.vue";
+import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 
 const navigation = [
 

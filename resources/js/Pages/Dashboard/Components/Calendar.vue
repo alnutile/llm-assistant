@@ -11,7 +11,7 @@
                 <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
             </button>
         </div>
-        <div class="mt-6 grid grid-cols-7 text-center text-xs leading-6 text-gray-500">
+        <div class="mt-6 grid grid-cols-7 text-center text-xs leading-6 text-gray-300">
             <div>M</div>
             <div>T</div>
             <div>W</div>
@@ -20,9 +20,8 @@
             <div>S</div>
             <div>S</div>
         </div>
-        <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 dark:bg-slate-800 text-sm shadow ring-1 ring-gray-200
-dark:border-gray-700
-">
+        <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-400 dark:bg-slate-600
+        text-sm shadow ring-1 ring-gray-800 dark:border-gray-700">
             <button v-for="(day, dayIdx) in days" :key="day.date" type="button"
                     :class="['py-1.5 hover:bg-gray-100 focus:z-10', day.isCurrentMonth ? 'bg-white dark:text-gray-300 dark:bg-slate-500' : 'bg-gray-50 dark:bg-gray-400 dark:text-gray-100', (day.isSelected || day.isToday) && 'font-semibold', day.isSelected && 'text-white', !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900', !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-400', day.isToday && !day.isSelected && 'text-indigo-600', dayIdx === 0 && 'rounded-tl-lg', dayIdx === 6 && 'rounded-tr-lg', dayIdx === days.length - 7 && 'rounded-bl-lg', dayIdx === days.length - 1 && 'rounded-br-lg']">
                 <time :datetime="day.date"

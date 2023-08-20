@@ -18,10 +18,10 @@ class MetaDataFactory extends Factory
     public function definition(): array
     {
         return [
-            "user_id" => User::factory(),
+            'user_id' => User::factory(),
             'label' => fake()->word,
             'content' => fake()->words(3, true),
-            'active' => 1
+            'active' => 1,
         ];
     }
 }

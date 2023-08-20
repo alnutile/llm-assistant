@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('meta_data', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->string("label");
-            $table->longText("content");
-            $table->boolean("active")
+            $table->string('label');
+            $table->longText('content');
+            $table->boolean('active')
                 ->default(1);
             $table->timestamps();
         });
