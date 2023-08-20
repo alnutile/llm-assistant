@@ -18,7 +18,7 @@ class TagFactory extends Factory
     {
         return [
             'label' => fake()->word,
-            'active' => 1
+            'active' => 1,
         ];
     }
 }

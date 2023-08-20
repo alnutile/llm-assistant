@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string("label");
-            $table->boolean("active")->default(1);
+            $table->string('label');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

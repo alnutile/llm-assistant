@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $label
- * @property boolean $active
+ * @property bool $active
  */
 class Tag extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
-
-
 }
