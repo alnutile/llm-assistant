@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\MetaData;
 
 /**
  * @property int $id
@@ -90,6 +91,11 @@ class User extends Authenticatable
             'name' => explode(' ', $user->name, 2)[0]."'s Team",
             'personal_team' => true,
         ]));
+    }
+
+    public function meta_data()
+    {
+        return $this->hasMany(MetaData::class);
     }
 
     public function messages()
