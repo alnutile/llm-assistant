@@ -57,7 +57,7 @@ Route::middleware([
     );
 
     Route::controller(MessageReplyController::class)->group(
-        function() {
+        function () {
             Route::put('/message_reply/{message}/update', 'reply')
                 ->name('message_reply.reply');
         }

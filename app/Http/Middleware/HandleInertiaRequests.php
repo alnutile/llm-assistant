@@ -35,12 +35,13 @@ class HandleInertiaRequests extends Middleware
     {
         $profile_photo_url = null;
 
-        if(!auth()->guest()) {
+        if (! auth()->guest()) {
             $profile_photo_url = auth()->user()->profile_photo_url;
         }
+
         return array_merge(parent::share($request), [
             'copy' => config('copy'),
-            'profile_photo_url' => $profile_photo_url
+            'profile_photo_url' => $profile_photo_url,
         ]);
     }
 }

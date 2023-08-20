@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ReplyMessageCreateJob;
 use App\Models\Message;
-use Illuminate\Http\Request;
 
 class MessageReplyController extends Controller
 {
-
-    public function reply(Message $message) {
+    public function reply(Message $message)
+    {
         $validated = request()->validate([
             'content' => ['required'],
         ]);
@@ -24,7 +23,7 @@ class MessageReplyController extends Controller
         /**
          * @NOTE we always start with the parent
          */
-        if($message->parent_id) {
+        if ($message->parent_id) {
             $message = $message->parent;
         }
 

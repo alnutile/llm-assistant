@@ -4,12 +4,11 @@ namespace App\Jobs;
 
 use App\Models\Message;
 use App\OpenAi\Dtos\Response;
+use Facades\App\Domains\Message\MessageRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Facades\App\Domains\Message\MessageRepository;
 use Illuminate\Queue\SerializesModels;
 
 class ReplyMessageCreateJob implements ShouldQueue

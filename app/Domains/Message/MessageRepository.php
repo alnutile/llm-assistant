@@ -46,7 +46,7 @@ class MessageRepository
 
         $prompts[] = MessageDto::from([
             'role' => 'user',
-            'content' => $this->parent_message->content
+            'content' => $this->parent_message->content,
         ]);
 
         $messages = Message::query()
