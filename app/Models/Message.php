@@ -31,10 +31,11 @@ class Message extends Model
     ];
 
     protected $appends = [
-        'message_formatted'
+        'message_formatted',
     ];
 
-    public function getMessageFormattedAttribute() {
+    public function getMessageFormattedAttribute()
+    {
         return str($this->content)->markdown()->toString();
     }
 

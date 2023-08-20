@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\Message;
 use App\OpenAi\Dtos\Response;
 use Facades\App\Domains\Message\MessageRepository;
-use App\Models\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -34,11 +34,11 @@ class MessageCreatedJob implements ShouldQueue
             Message::create([
                 'user_id' => $this->message->user_id,
                 'content' => $results->content,
-                'role' => "assistant",
-                'parent_id' => $this->message->id
+                'role' => 'assistant',
+                'parent_id' => $this->message->id,
             ]);
         } catch (\Exception $e) {
-            logger("Error getting results");
+            logger('Error getting results');
             logger($e->getMessage());
             $this->fail();
         }

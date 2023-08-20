@@ -10,13 +10,13 @@ use Tests\TestCase;
 
 class MessageCreatedJobTest extends TestCase
 {
-
-    public function test_makes_message() {
+    public function test_makes_message()
+    {
         $dto = Response::from([
-            'content' => "foobar",
-            'role' => "assistant",
+            'content' => 'foobar',
+            'role' => 'assistant',
             'token_count' => 100,
-            'finish_reason' => "stop",
+            'finish_reason' => 'stop',
         ]);
 
         MessageRepository::shouldReceive('handle')
@@ -25,11 +25,11 @@ class MessageCreatedJobTest extends TestCase
 
         $message = Message::factory()->create();
 
-        $this->assertDatabaseCount("messages", 1);
+        $this->assertDatabaseCount('messages', 1);
         $job = new MessageCreatedJob($message);
         $job->handle();
-        $this->assertDatabaseCount("messages", 2);
+        $this->assertDatabaseCount('messages', 2);
         $child = $message->children->first();
-        $this->assertEquals("foobar", $child->content);
+        $this->assertEquals('foobar', $child->content);
     }
 }
