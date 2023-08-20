@@ -62,17 +62,15 @@ class MessageControllerTest extends TestCase
         $metaData2 = MetaData::factory()->create();
         $message->meta_data()->attach([
             $metaData1->id,
-            $metaData2->id
+            $metaData2->id,
         ]);
 
         $child = Message::factory()->create([
-            'parent_id' => $message->id
+            'parent_id' => $message->id,
         ]);
 
-
-
         $this->actingAs($user)->put(route('messages.update', [
-            'message' => $message->id
+            'message' => $message->id,
         ]), [
             'content' => 'Foo bar',
             'meta_data' => [

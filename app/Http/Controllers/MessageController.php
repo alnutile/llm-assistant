@@ -45,7 +45,8 @@ class MessageController extends Controller
         ]);
     }
 
-    public function update(Message $message) {
+    public function update(Message $message)
+    {
         $validated = request()->validate([
             'content' => ['required'],
             'meta_data' => ['nullable'],

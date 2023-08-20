@@ -1,6 +1,14 @@
 [
     {
         "role": "system",
-        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question:Project History: url: https:\/\/larachain.io\/,\ntitle: LaraChain,\ndescription: \"This open-source PHP alternative to LangChain is a robust foundation for AI projects. It facilitated my deep exploration into OpenAIs API, vector embedding databases, and more.\",\n\nurl: NDA,\ntitle: NDA Project,\ndescription: \"I contributed to a product that utilized LaraChains technology, enabling the client to construct data-rich brochures around resources. This project was driven by OpenAI and innovative ideas for creating detailed content around various topics.\",\n\nurl: https:\/\/nextchapters.com\/,\ntitle: NextChapters,\ndescription: \"I was instrumental in integrating AI into the writing process on this platform. While its still evolving, users can already create entire books with OpenAI.\",\n\nurl: https:\/\/simplerecipes.io\/,\ntitle: SimpleRecipes,\ndescription: This platform leverages the OpenAI API to generate recipes. Users can swiftly search existing recipes or create their own.,### End Meta Data ### \n\n\n"
+        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question:illum: ea impedit nisisit: tenetur sed unde### End Meta Data ### \n\n\n"
+    },
+    {
+        "role": "user",
+        "content": "Et et suscipit."
+    },
+    {
+        "role": "user",
+        "content": "Ut sunt deserunt dolor sit voluptas."
     }
 ]

@@ -30,7 +30,7 @@ class MessageRepository
 
         $this->messageBuilder->setMessages($this->createPrompt());
 
-        put_fixture("messages_being_sent.json", $this->messageBuilder->getMessagesLimitTokenCount(
+        put_fixture('messages_being_sent.json', $this->messageBuilder->getMessagesLimitTokenCount(
             remove_token_count: true
         ));
 
