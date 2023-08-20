@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -66,4 +68,28 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public static function createUserAndTeam(string $email, string $password, bool $is_admin = false): User
+    {
+        return tap(User::create([
+            'name' => str($email)->before("@")->headline()->toString(),
+            'email' => $email,
+            'password' => Hash::make($password),
+            'is_admin' => $is_admin,
+        ]), function (User $user) {
+            User::createTeam($user);
+        });
+    }
+
+    /**
+     * Create a personal team for the user.
+     */
+    public static function createTeam(User $user): void
+    {
+        $user->ownedTeams()->save(Team::forceCreate([
+            'user_id' => $user->id,
+            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'personal_team' => true,
+        ]));
+    }
 }
