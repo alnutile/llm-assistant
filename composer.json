@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.8",
         "mis3085/tiktoken-for-laravel": "^0.1.2",
         "opcodesio/log-viewer": "^2.4",
+        "openai-php/laravel": "^0.6.0",
         "spatie/laravel-backup": "^8.1",
         "sundance-solutions/larachain-token-count": "^1.0",
         "sundance-solutions/security-portal-client": "^0.0.2",

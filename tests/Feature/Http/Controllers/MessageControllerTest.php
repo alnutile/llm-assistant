@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\MetaData;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -19,12 +20,20 @@ class MessageControllerTest extends TestCase
     public function test_store()
     {
         $user = User::factory()->create();
-
+        $metaData1 = MetaData::factory()->create();
+        $metaData2 = MetaData::factory()->create();
         $this->assertDatabaseCount('messages', 0);
         $this->actingAs($user)->post(route('messages.store'), [
             'message' => 'Foo bar',
+            'meta_data' => [
+                $metaData1,
+                $metaData2
+            ]
         ]);
         $this->assertDatabaseCount('messages', 1);
+
+        $message = Message::first();
+        $this->assertCount(2, $message->meta_data);
     }
 
     public function test_show()

@@ -6,9 +6,20 @@
 
         <div class="flex justify-end gap-2 items-center">
             <div>{{ message.created_at}}</div>
-            <SecondaryButton :href="route('messages.show', {
+            <SecondaryButton
+                v-if="!route().current('messages.show', {
+                    message: message.id
+                })"
+                :href="route('messages.show', {
                 message: message.id
             })">view</SecondaryButton>
+        </div>
+
+        <div class="justify-start flex gap-2">
+            Meta Data:
+            <div v-for="meta in message.meta_data" :key="meta.id" class="bg-indigo-500 text-white py-0.5 px-1.5">
+                {{ meta.label }}
+            </div>
         </div>
     </div>
 </template>

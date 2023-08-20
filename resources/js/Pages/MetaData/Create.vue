@@ -21,7 +21,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </main>
@@ -46,7 +45,7 @@ const toast = useToast();
 const form = useForm({
     label: "",
     content: "",
-    active: 1
+    active: 1,
 })
 
 const submit = () => {

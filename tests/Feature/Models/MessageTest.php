@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Message;
+use App\Models\MetaData;
 use Tests\TestCase;
 
 class MessageTest extends TestCase
@@ -36,5 +37,13 @@ class MessageTest extends TestCase
         ]);
 
         $this->assertCount(2, $parent->children);
+    }
+
+    public function test_meta_data() {
+        $message = Message::factory()->create();
+        $metaData = MetaData::factory()->create();
+
+        $message->meta_data()->attach($metaData->id);
+        $this->assertCount(1, $message->refresh()->meta_data);
     }
 }

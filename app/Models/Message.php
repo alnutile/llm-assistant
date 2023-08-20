@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Pgvector\Laravel\Vector;
 
@@ -42,5 +43,10 @@ class Message extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Message::class, 'parent_id');
+    }
+
+    public function meta_data(): BelongsToMany
+    {
+        return $this->belongsToMany(MetaData::class);
     }
 }

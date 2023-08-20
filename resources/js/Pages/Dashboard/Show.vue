@@ -39,7 +39,7 @@
                     </div>
                     <div class="mt-4" v-else>
                         <div v-for="message in messages.data" :key="message.id">
-                            <Card :message="message" truncate="true"></Card>
+                            <Card class="mb-2" :message="message" truncate="true"></Card>
                         </div>
                     </div>
                 </div>

@@ -8,9 +8,15 @@
     <main>
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 rounded-t">
             <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                <div class="lg:col-start-3 lg:row-end-1 rounded border-gray-200 border dark:border-gray-500 p-4">
-                    <HTwo>Start your Thread</HTwo>
+                <div class="lg:col-start-3 lg:row-end-1 rounded p-4">
+                    <div class="lg:col-start-3 lg:row-end-1 rounded border-gray-200 border dark:border-gray-500 p-4">
+                        <HTwo>Start your Thread</HTwo>
                         <Copy section="messages" copy="create_info"/>
+                    </div>
+                    <div class="mt-4">
+                        <HTwo>Attach some meta Data</HTwo>
+                        <Picker @selectedEmit="selectedEmit" :selectables="meta_data"></Picker>
+                    </div>
                 </div>
                 <div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-2">
                     <form @submit.prevent="submit">
@@ -27,7 +33,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </main>
@@ -39,6 +44,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Copy from "@/Components/Copy.vue";
 import HTwo from "@/Components/HTwo.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import Picker from "@/Pages/MetaData/Components/Picker.vue";
 import TextArea from "@/Components/TextArea.vue";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
@@ -47,8 +53,14 @@ import ActionMessage from "@/Components/ActionMessage.vue";
 
 import {useToast} from "vue-toastification";
 const toast = useToast();
+
+const props = defineProps({
+    meta_data: Array
+})
+
 const form = useForm({
-    message: ""
+    message: "",
+    meta_data: []
 })
 
 const submit = () => {
@@ -58,6 +70,10 @@ const submit = () => {
             toast.error("See validation errors if none then please contact support")
         }
     });
+}
+
+const selectedEmit = (item) => {
+    form.meta_data = item;
 }
 </script>
 

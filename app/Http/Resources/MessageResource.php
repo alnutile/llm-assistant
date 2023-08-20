@@ -18,6 +18,7 @@ class MessageResource extends JsonResource
             'id' => $this->id,
             'content' => $this->content,
             'user' => $this->user,
+            'meta_data' => MetaDataResource::collection($this->meta_data),
             'created_at' => $this->created_at->diffForHumans(),
             'created_at_formatted' => $this->created_at->diffForHumans(),
         ];
