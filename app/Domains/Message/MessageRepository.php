@@ -30,10 +30,6 @@ class MessageRepository
 
         $this->messageBuilder->setMessages($this->createPrompt());
 
-        put_fixture('messages_being_sent.json', $this->messageBuilder->getMessagesLimitTokenCount(
-            remove_token_count: true
-        ));
-
         return ChatClient::chat($this->messageBuilder->getMessagesLimitTokenCount(
             remove_token_count: true
         ));
@@ -46,6 +42,11 @@ class MessageRepository
         $prompts[] = MessageDto::from([
             'role' => 'system',
             'content' => $this->systemPrompt(),
+        ]);
+
+        $prompts[] = MessageDto::from([
+            'role' => 'user',
+            'content' => $this->parent_message->content
         ]);
 
         $messages = Message::query()

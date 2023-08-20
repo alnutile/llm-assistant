@@ -5,6 +5,11 @@
 
         <div class="flex justify-end gap-2 items-center">
             <div>{{ message.created_at}}</div>
+            <div>
+                <span>
+                    <img class="h-8 w-8 rounded-full object-cover" :src="usePage().props.profile_photo_url" alt="" />
+                </span>
+            </div>
             <SecondaryButton
                 v-if="!route().current('messages.show', {
                     message: message.id
@@ -22,6 +27,7 @@
 </template>
 
 <script setup>
+import { usePage } from "@inertiajs/vue3";
 import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
 import MetaDataLabel from "./MetaDataLabel.vue";

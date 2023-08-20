@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MessageReplyController;
 use App\Http\Controllers\MetaDataController;
 use App\Http\Controllers\SignedUrlAuth;
 use Illuminate\Foundation\Application;
@@ -52,6 +53,13 @@ Route::middleware([
                 ->name('meta_data.store');
             Route::put('/meta_data/{meta_data}/update', 'update')
                 ->name('meta_data.update');
+        }
+    );
+
+    Route::controller(MessageReplyController::class)->group(
+        function() {
+            Route::put('/message_reply/{message}/update', 'reply')
+                ->name('message_reply.reply');
         }
     );
 

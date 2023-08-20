@@ -29,6 +29,8 @@
                             <div v-for="child in message.data.children" :key="child.id" class="mt-2 mb-2">
                                 <ChildCard :message="child"/>
                             </div>
+
+                            <ReplyCard :parent="message.data"/>
                         </div>
                     </div>
                 </div>
@@ -49,6 +51,7 @@ import InputError from "@/Components/InputError.vue";
 import Card from "./Components/Card.vue";
 import ChildCard from "./Components/ChildCard.vue";
 import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
+import ReplyCard from "./Components/ReplyCard.vue";
 
 const props = defineProps({
     message: Object

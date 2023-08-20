@@ -5,10 +5,14 @@
 
         <div class="flex justify-end gap-2 items-center">
             <div>{{ message.created_at}}</div>
-            <div v-if="message.role === 'user'">You Replied</div>
+            <div v-if="message.role === 'user'">
+                <span>
+                    <img class="h-8 w-8 rounded-full object-cover" :src="usePage().props.profile_photo_url" alt="" />
+                </span>
+            </div>
             <div v-else>
                 <span>
-                    <img class="inline-block h-8 w-8 rounded-full" src="/images/robot.png" alt="" />
+                    <img class="h-8 w-8 rounded-full object-cover" src="/images/robot.png" alt="" />
                 </span>
             </div>
         </div>
@@ -18,6 +22,7 @@
 <script setup>
 import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
+import { usePage } from "@inertiajs/vue3";
 
 const props = defineProps({
     message: Object,
