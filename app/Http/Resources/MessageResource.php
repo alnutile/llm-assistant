@@ -17,8 +17,11 @@ class MessageResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
+            'content_formatted' => $this->message_formatted,
             'user' => $this->user,
+            'role' => $this->role,
             'meta_data' => MetaDataResource::collection($this->meta_data),
+            "children" => MessageResource::collection($this->children),
             'created_at' => $this->created_at->diffForHumans(),
             'created_at_formatted' => $this->created_at->diffForHumans(),
         ];

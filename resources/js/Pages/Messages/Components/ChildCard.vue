@@ -1,23 +1,15 @@
 <template>
-    <div class="dark:border-gray-600 border-gray-400 border p-4 rounded">
+    <div class="dark:border-gray-600 border-gray-400 border p-4 rounded" >
         <div class="mb-4" v-html="messageContent">
         </div>
 
         <div class="flex justify-end gap-2 items-center">
             <div>{{ message.created_at}}</div>
-            <SecondaryButton
-                v-if="!route().current('messages.show', {
-                    message: message.id
-                })"
-                :href="route('messages.show', {
-                message: message.id
-            })">view</SecondaryButton>
-        </div>
-
-        <div class="justify-start flex gap-2">
-            Meta Data:
-            <div v-for="meta in message.meta_data" :key="meta.id" class="bg-indigo-500 text-white py-0.5 px-1.5">
-                {{ meta.label }}
+            <div v-if="message.role === 'user'">You Replied</div>
+            <div v-else>
+                <span>
+                    <img class="inline-block h-8 w-8 rounded-full" src="/images/robot.png" alt="" />
+                </span>
             </div>
         </div>
     </div>

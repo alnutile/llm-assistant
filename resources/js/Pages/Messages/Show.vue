@@ -14,6 +14,18 @@
                 </div>
                 <div class="-mx-4 px-4 py-2 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-2">
                     <Card :message="message.data"/>
+
+
+                    <div class="mt-4">
+                        <div v-if="message.data.children.length === 0">
+                            Responses will show here shortly...
+                        </div>
+                        <div v-else>
+                            <div v-for="child in message.data.children" :key="child.id" class="mt-2 mb-2">
+                                <ChildCard :message="child"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,6 +42,7 @@ import TextArea from "@/Components/TextArea.vue";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import Card from "./Components/Card.vue";
+import ChildCard from "./Components/ChildCard.vue";
 
 const props = defineProps({
     message: Object

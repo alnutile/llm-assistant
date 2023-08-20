@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Jobs\MessageCreatedJob;
 use App\Models\Message;
 use App\Models\MetaData;
 use App\Models\User;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class MessageControllerTest extends TestCase
@@ -19,6 +21,7 @@ class MessageControllerTest extends TestCase
 
     public function test_store()
     {
+        Queue::fake();
         $user = User::factory()->create();
         $metaData1 = MetaData::factory()->create();
         $metaData2 = MetaData::factory()->create();
@@ -34,6 +37,7 @@ class MessageControllerTest extends TestCase
 
         $message = Message::first();
         $this->assertCount(2, $message->meta_data);
+        Queue::assertPushed(MessageCreatedJob::class);
     }
 
     public function test_show()

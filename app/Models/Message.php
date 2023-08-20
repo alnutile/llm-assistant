@@ -30,6 +30,14 @@ class Message extends Model
         'embedding' => Vector::class,
     ];
 
+    protected $appends = [
+        'message_formatted'
+    ];
+
+    public function getMessageFormattedAttribute() {
+        return str($this->content)->markdown()->toString();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

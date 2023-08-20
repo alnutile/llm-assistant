@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MessageResource;
+use App\Jobs\MessageCreatedJob;
 use App\Models\Message;
 use App\Models\MetaData;
 
@@ -34,6 +35,8 @@ class MessageController extends Controller
         $message->meta_data()->attach(
             collect($meta_data)->pluck('id')->values()
         );
+
+        MessageCreatedJob::dispatch($message);
 
         request()->session()->flash('flash.banner', 'Thread started');
 
