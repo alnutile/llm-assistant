@@ -14,8 +14,22 @@
                         <Copy section="messages" copy="create_info"/>
                     </div>
                     <div class="mt-4">
-                        <HTwo>Attach some meta Data</HTwo>
+                        <HTwo class="flex justify-center">Attach some meta Data</HTwo>
                         <Picker @selectedEmit="selectedEmit" :selectables="meta_data"></Picker>
+                    </div>
+                    <div class="mt-4">
+                        <HTwo class="flex justify-center">Tags</HTwo>
+                        <TagPicker @selectedEmit="selectedTags" :selectables="tags"></TagPicker>
+
+                        <div class="mt-4 flex justify-end">
+                            <SecondaryButton @click="toggleShowTagForm" type="button">
+                                <span v-if="!showTagForm">add tag</span>
+                                <span v-else>hide tag form</span>
+                            </SecondaryButton>
+                        </div>
+                        <div class="mt-4 flex justify-center" v-if="showTagForm">
+                            <AddTag @created="created"></AddTag>
+                        </div>
                     </div>
                 </div>
                 <div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-2">
@@ -39,6 +53,7 @@ import Copy from "@/Components/Copy.vue";
 import HTwo from "@/Components/HTwo.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import Picker from "@/Pages/MetaData/Components/Picker.vue";
+import TagPicker from "@/Components/Picker.vue";
 import TextArea from "@/Components/TextArea.vue";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
@@ -47,15 +62,30 @@ import ActionMessage from "@/Components/ActionMessage.vue";
 import ResourceForm from "./Components/ResourceForm.vue"
 
 import {useToast} from "vue-toastification";
+import AddTag from "@/Pages/Tags/Components/AddTag.vue";
+import {ref} from "vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 const toast = useToast();
 
 const props = defineProps({
-    meta_data: Array
+    meta_data: Array,
+    tags: []
 })
+
+const showTagForm = ref(false)
+
+const toggleShowTagForm = () => {
+    showTagForm.value = !showTagForm.value
+}
+
+const created = () => {
+    showTagForm.value = false
+}
 
 const form = useForm({
     content: "",
-    meta_data: []
+    meta_data: [],
+    tags: []
 })
 
 const submit = () => {
@@ -65,6 +95,10 @@ const submit = () => {
             toast.error("See validation errors if none then please contact support")
         }
     });
+}
+
+const selectedTags = (item) => {
+    form.tags = item;
 }
 
 const selectedEmit = (item) => {

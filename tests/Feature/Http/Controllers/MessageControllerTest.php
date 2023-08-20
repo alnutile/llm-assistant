@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Jobs\MessageCreatedJob;
 use App\Models\Message;
 use App\Models\MetaData;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
@@ -26,8 +27,12 @@ class MessageControllerTest extends TestCase
         $metaData1 = MetaData::factory()->create();
         $metaData2 = MetaData::factory()->create();
         $this->assertDatabaseCount('messages', 0);
+        $tag = Tag::factory()->create();
         $this->actingAs($user)->post(route('messages.store'), [
             'content' => 'Foo bar',
+            'tags' => [
+                $tag,
+            ],
             'meta_data' => [
                 $metaData1,
                 $metaData2,
@@ -37,6 +42,7 @@ class MessageControllerTest extends TestCase
 
         $message = Message::first();
         $this->assertCount(2, $message->meta_data);
+        $this->assertCount(1, $message->tags);
         Queue::assertPushed(MessageCreatedJob::class);
     }
 
@@ -65,6 +71,8 @@ class MessageControllerTest extends TestCase
             $metaData2->id,
         ]);
 
+        $tag = Tag::factory()->create();
+
         $child = Message::factory()->create([
             'parent_id' => $message->id,
         ]);
@@ -73,12 +81,16 @@ class MessageControllerTest extends TestCase
             'message' => $message->id,
         ]), [
             'content' => 'Foo bar',
+            'tags' => [
+                $tag,
+            ],
             'meta_data' => [
                 $metaData1,
             ],
         ]);
 
         $this->assertCount(1, $message->refresh()->meta_data);
+        $this->assertCount(1, $message->refresh()->tags);
         $this->assertCount(0, $message->children);
         Queue::assertPushed(MessageCreatedJob::class);
     }

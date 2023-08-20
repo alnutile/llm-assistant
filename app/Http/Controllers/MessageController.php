@@ -6,6 +6,7 @@ use App\Http\Resources\MessageResource;
 use App\Jobs\MessageCreatedJob;
 use App\Models\Message;
 use App\Models\MetaData;
+use App\Models\Tag;
 
 class MessageController extends Controller
 {
@@ -13,6 +14,7 @@ class MessageController extends Controller
     {
         return inertia('Messages/Create', [
             'meta_data' => MetaData::query()->where('user_id', auth()->user()->id)->get(),
+            'tags' => Tag::orderBy('label')->get(),
         ]);
     }
 
@@ -21,10 +23,14 @@ class MessageController extends Controller
         $validated = request()->validate([
             'content' => ['required'],
             'meta_data' => ['nullable'],
+            'tags' => ['nullable'],
         ]);
 
         $meta_data = data_get($validated, 'meta_data', []);
         unset($validated['meta_data']);
+
+        $tags = data_get($validated, 'tags', []);
+        unset($validated['tags']);
 
         $message = Message::create([
             'content' => $validated['content'],
@@ -34,6 +40,10 @@ class MessageController extends Controller
 
         $message->meta_data()->attach(
             collect($meta_data)->pluck('id')->values()
+        );
+
+        $message->tags()->attach(
+            collect($tags)->pluck('id')->values()
         );
 
         MessageCreatedJob::dispatch($message);
@@ -50,15 +60,23 @@ class MessageController extends Controller
         $validated = request()->validate([
             'content' => ['required'],
             'meta_data' => ['nullable'],
+            'tags' => ['nullable'],
         ]);
 
         $meta_data = data_get($validated, 'meta_data', []);
         unset($validated['meta_data']);
 
+        $tags = data_get($validated, 'tags', []);
+        unset($validated['tags']);
+
         $message->update($validated);
 
         $message->meta_data()->sync(
             collect($meta_data)->pluck('id')->values()
+        );
+
+        $message->tags()->sync(
+            collect($tags)->pluck('id')->values()
         );
 
         $message->children()->delete();

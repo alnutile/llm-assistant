@@ -4,6 +4,7 @@ namespace Tests\Feature\Models;
 
 use App\Models\Message;
 use App\Models\MetaData;
+use App\Models\Tag;
 use Tests\TestCase;
 
 class MessageTest extends TestCase
@@ -46,5 +47,15 @@ class MessageTest extends TestCase
 
         $message->meta_data()->attach($metaData->id);
         $this->assertCount(1, $message->refresh()->meta_data);
+    }
+
+    public function test_tags()
+    {
+        $message = Message::factory()->create();
+        $tag = Tag::factory()->create();
+
+        $message->tags()->attach($tag->id);
+        $this->assertCount(1, $message->refresh()->tags);
+        $this->assertCount(1, $tag->refresh()->messages);
     }
 }

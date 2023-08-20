@@ -5,6 +5,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MessageReplyController;
 use App\Http\Controllers\MetaDataController;
 use App\Http\Controllers\SignedUrlAuth;
+use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -60,6 +61,12 @@ Route::middleware([
         function () {
             Route::put('/message_reply/{message}/update', 'reply')
                 ->name('message_reply.reply');
+        }
+    );
+
+    Route::controller(TagController::class)->group(
+        function () {
+            Route::post('/tags', 'store')->name('tags.store');
         }
     );
 

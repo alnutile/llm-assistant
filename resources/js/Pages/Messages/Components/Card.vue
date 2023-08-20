@@ -23,6 +23,12 @@
             Meta Data:
             <MetaDataLabel v-for="meta in message.meta_data" :key="meta.id" :meta_data="meta"/>
         </div>
+
+        <div class="justify-start flex gap-2 mt-2">
+            Tags:
+            <TagLabel
+                v-for="tag in message.tags" :key="tag.id" :tag="tag"/>
+        </div>
     </div>
 </template>
 
@@ -31,11 +37,11 @@ import { usePage } from "@inertiajs/vue3";
 import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
 import MetaDataLabel from "./MetaDataLabel.vue";
+import TagLabel from "./TagLabel.vue";
 
 const props = defineProps({
     message: Object,
     truncate: {
-        type: Boolean,
         default: false
     }
 })

@@ -58,4 +58,9 @@ class Message extends Model
     {
         return $this->belongsToMany(MetaData::class);
     }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

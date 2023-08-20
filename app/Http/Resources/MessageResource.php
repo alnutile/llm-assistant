@@ -21,6 +21,7 @@ class MessageResource extends JsonResource
             'user' => $this->user,
             'role' => $this->role,
             'meta_data' => MetaDataResource::collection($this->meta_data),
+            'tags' => TagResource::collection($this->tags),
             'children' => MessageResource::collection($this->children),
             'created_at' => $this->created_at->diffForHumans(),
             'created_at_formatted' => $this->created_at->diffForHumans(),
