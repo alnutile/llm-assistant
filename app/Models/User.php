@@ -91,4 +91,9 @@ class User extends Authenticatable
             'personal_team' => true,
         ]));
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }
