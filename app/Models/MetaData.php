@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property bool $active
  * @property User $user
  */
-class MedaData extends Model
+class MetaData extends Model
 {
     use HasFactory;
 

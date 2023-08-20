@@ -13,15 +13,7 @@
                     <Copy section="messages" copy="create_info"/>
                 </div>
                 <div class="-mx-4 px-4 py-2 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-2">
-                    <div class="dark:border-gray-600 border-gray-400 border p-4 rounded">
-                        <div>
-                            {{ message.data.content }}
-                        </div>
-
-                        <div class="flex justify-end gap-2 items-center">
-                            <div>{{ message.data.created_at}}</div>
-                        </div>
-                    </div>
+                    <Card :message="message.data"/>
                 </div>
             </div>
         </div>
@@ -37,6 +29,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextArea from "@/Components/TextArea.vue";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
+import Card from "./Components/Card.vue";
 
 const props = defineProps({
     message: Object

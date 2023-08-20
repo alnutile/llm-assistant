@@ -21,6 +21,7 @@
         "@headlessui/vue": "^1.7.13",
         "@heroicons/vue": "^2.0.17",
         "daisyui": "^2.51.4",
+        "lodash": "^4.17.21",
         "vue-media-upload": "^2.1.1",
         "vue-toastification": "^2.0.0-rc.5"
     }

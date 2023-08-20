@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MetaDataController;
 use App\Http\Controllers\SignedUrlAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,21 @@ Route::middleware([
 ])->group(function () {
 
     Route::get('/dashboard', HomeController::class)->name('dashboard');
+
+    Route::controller(MetaDataController::class)->group(
+        function () {
+            Route::get('/meta_data', 'index')
+                ->name('meta_data.index');
+            Route::get('/meta_data/{meta_data}/edit', 'edit')
+                ->name('meta_data.edit');
+            Route::get('/meta_data/create', 'create')
+                ->name('meta_data.create');
+            Route::post('/meta_data/store', 'store')
+                ->name('meta_data.store');
+            Route::put('/meta_data/{meta_data}/update', 'update')
+                ->name('meta_data.update');
+        }
+    );
 
     Route::controller(MessageController::class)->group(
         function () {

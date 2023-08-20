@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,6 +20,7 @@ use App\Models\MetaData;
  * @property string $name
  * @property string $password
  * @property string $email
+ * @property Collection $meta_data
  */
 class User extends Authenticatable
 {

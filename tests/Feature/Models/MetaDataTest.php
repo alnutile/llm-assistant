@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\MedaData;
+use App\Models\MetaData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class MedaDataTest extends TestCase
+class MetaDataTest extends TestCase
 {
     /**
      * A basic feature test example.
      */
     public function test_factory() {
-        $model = MedaData::factory()->create();
+        $model = MetaData::factory()->create();
 
         $this->assertNotNull($model->user->id);
 
