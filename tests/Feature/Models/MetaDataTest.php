@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\Message;
 use App\Models\MetaData;
 use Tests\TestCase;
 
@@ -19,6 +18,4 @@ class MetaDataTest extends TestCase
 
         $this->assertNotNull($model->user->meta_data);
     }
-
-
 }

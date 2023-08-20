@@ -2,19 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Message;
 use App\Models\MetaData;
 use App\OpenAi\Dtos\Response;
-use Facades\App\OpenAi\ChatClient;
 use Facades\App\Domains\Message\MessageRepository;
-use App\Models\Message;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Facades\App\OpenAi\ChatClient;
 use Tests\TestCase;
 
 class MessageRepositoryTest extends TestCase
 {
-
-    public function test_makes_request() {
+    public function test_makes_request()
+    {
         ChatClient::shouldReceive('chat')->once();
         $message = Message::factory()->create();
         $meta_data1 = MetaData::factory()->create();
@@ -25,11 +23,10 @@ class MessageRepositoryTest extends TestCase
         ]);
 
         $messageChild = Message::factory()->count(2)->create([
-            'parent_id' => $message->id
+            'parent_id' => $message->id,
         ]);
 
         $response = MessageRepository::handle($message);
-
 
         $this->assertInstanceOf(Response::class, $response);
     }

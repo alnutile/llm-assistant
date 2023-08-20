@@ -39,7 +39,8 @@ class MessageTest extends TestCase
         $this->assertCount(2, $parent->children);
     }
 
-    public function test_meta_data() {
+    public function test_meta_data()
+    {
         $message = Message::factory()->create();
         $metaData = MetaData::factory()->create();
 

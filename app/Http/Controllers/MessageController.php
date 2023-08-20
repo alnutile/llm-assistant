@@ -11,7 +11,7 @@ class MessageController extends Controller
     public function create()
     {
         return inertia('Messages/Create', [
-            'meta_data' => MetaData::query()->where("user_id", auth()->user()->id)->get()
+            'meta_data' => MetaData::query()->where('user_id', auth()->user()->id)->get(),
         ]);
     }
 
@@ -19,7 +19,7 @@ class MessageController extends Controller
     {
         $validated = request()->validate([
             'message' => ['required'],
-            'meta_data' => ['nullable']
+            'meta_data' => ['nullable'],
         ]);
 
         $meta_data = data_get($validated, 'meta_data', []);
@@ -32,10 +32,8 @@ class MessageController extends Controller
         ]);
 
         $message->meta_data()->attach(
-            collect($meta_data)->pluck("id")->values()
+            collect($meta_data)->pluck('id')->values()
         );
-
-
 
         request()->session()->flash('flash.banner', 'Thread started');
 

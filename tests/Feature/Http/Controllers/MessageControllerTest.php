@@ -27,8 +27,8 @@ class MessageControllerTest extends TestCase
             'message' => 'Foo bar',
             'meta_data' => [
                 $metaData1,
-                $metaData2
-            ]
+                $metaData2,
+            ],
         ]);
         $this->assertDatabaseCount('messages', 1);
 
