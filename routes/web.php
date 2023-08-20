@@ -40,10 +40,10 @@ Route::middleware([
     Route::get('/dashboard', HomeController::class)->name('dashboard');
 
     Route::controller(MessageController::class)->group(
-        function() {
-            Route::get("/messages/create", "create")->name('messages.create');
-            Route::post("/messages/store", "store")->name('messages.store');
-            Route::get("/messages/{message}", "show")->name('messages.show');
+        function () {
+            Route::get('/messages/create', 'create')->name('messages.create');
+            Route::post('/messages/store', 'store')->name('messages.store');
+            Route::get('/messages/{message}', 'show')->name('messages.show');
         }
     );
 });

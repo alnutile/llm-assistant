@@ -19,7 +19,7 @@ class MessageResource extends JsonResource
             'content' => $this->content,
             'user' => $this->user,
             'created_at' => $this->created_at->diffForHumans(),
-            'created_at_formatted' => $this->created_at->diffForHumans()
+            'created_at_formatted' => $this->created_at->diffForHumans(),
         ];
     }
 }
