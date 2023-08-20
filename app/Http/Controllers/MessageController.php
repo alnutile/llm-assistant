@@ -19,7 +19,7 @@ class MessageController extends Controller
     public function store()
     {
         $validated = request()->validate([
-            'message' => ['required'],
+            'content' => ['required'],
             'meta_data' => ['nullable'],
         ]);
 
@@ -27,7 +27,7 @@ class MessageController extends Controller
         unset($validated['meta_data']);
 
         $message = Message::create([
-            'content' => $validated['message'],
+            'content' => $validated['content'],
             'role' => 'user',
             'user_id' => auth()->user()->id,
         ]);
@@ -42,6 +42,40 @@ class MessageController extends Controller
 
         return to_route('messages.show', [
             'message' => $message->id,
+        ]);
+    }
+
+    public function update(Message $message) {
+        $validated = request()->validate([
+            'content' => ['required'],
+            'meta_data' => ['nullable'],
+        ]);
+
+        $meta_data = data_get($validated, 'meta_data', []);
+        unset($validated['meta_data']);
+
+        $message->update($validated);
+
+        $message->meta_data()->sync(
+            collect($meta_data)->pluck('id')->values()
+        );
+
+        $message->children()->delete();
+
+        MessageCreatedJob::dispatch($message);
+
+        request()->session()->flash('flash.banner', 'Thread started');
+
+        return to_route('messages.show', [
+            'message' => $message->id,
+        ]);
+    }
+
+    public function edit(Message $message)
+    {
+        return inertia('Messages/Edit', [
+            'message' => new MessageResource($message),
+            'meta_data' => MetaData::query()->where('user_id', auth()->user()->id)->get(),
         ]);
     }
 

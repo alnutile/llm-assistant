@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import {nextTick, onMounted, ref} from "vue";
 import DeleteButton from "@/Components/DeleteButton.vue";
 
 const props = defineProps({
@@ -42,27 +42,31 @@ const emit = defineEmits(['selectedEmit'])
 const selectedItems = ref(new Set)
 
 onMounted(() => {
+    console.log('selected', props.selected.length)
     if(props.selected.length > 0) {
         props.selected.forEach(item => {
             toggleSelectables(item)
         })
     }
+     nextTick()
 })
 
 
 const toggleSelectables = (item) => {
-    if (selectedItems.value.has(item)) {
-        selectedItems.value.delete(item);
+    if (selectedItems.value.has(item.id)) {
+        selectedItems.value.delete(item.id);
     } else {
-        selectedItems.value.add(item);
+        selectedItems.value.add(item.id);
     }
 
-    emit("selectedEmit", Array.from(selectedItems.value))
+    const selectedObjects = Array.from(selectedItems.value).map(id => props.selectables.find(obj => obj.id === id));
+
+    emit("selectedEmit", selectedObjects)
 }
 
 
 const isInToggles = (item) => {
-    if (selectedItems.value.has(item)) {
+    if (selectedItems.value.has(item.id)) {
         return true;
     }
 

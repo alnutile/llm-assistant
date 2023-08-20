@@ -30,6 +30,10 @@ class MessageRepository
 
         $this->messageBuilder->setMessages($this->createPrompt());
 
+        put_fixture("messages_being_sent.json", $this->messageBuilder->getMessagesLimitTokenCount(
+            remove_token_count: true
+        ));
+
         return ChatClient::chat($this->messageBuilder->getMessagesLimitTokenCount(
             remove_token_count: true
         ));

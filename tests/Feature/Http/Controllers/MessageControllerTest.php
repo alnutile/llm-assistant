@@ -27,7 +27,7 @@ class MessageControllerTest extends TestCase
         $metaData2 = MetaData::factory()->create();
         $this->assertDatabaseCount('messages', 0);
         $this->actingAs($user)->post(route('messages.store'), [
-            'message' => 'Foo bar',
+            'content' => 'Foo bar',
             'meta_data' => [
                 $metaData1,
                 $metaData2,
@@ -51,5 +51,37 @@ class MessageControllerTest extends TestCase
             'message' => $message->id,
         ]))
             ->assertStatus(200);
+    }
+
+    public function test_startOver()
+    {
+        Queue::fake();
+        $user = User::factory()->create();
+        $message = Message::factory()->create();
+        $metaData1 = MetaData::factory()->create();
+        $metaData2 = MetaData::factory()->create();
+        $message->meta_data()->attach([
+            $metaData1->id,
+            $metaData2->id
+        ]);
+
+        $child = Message::factory()->create([
+            'parent_id' => $message->id
+        ]);
+
+
+
+        $this->actingAs($user)->put(route('messages.update', [
+            'message' => $message->id
+        ]), [
+            'content' => 'Foo bar',
+            'meta_data' => [
+                $metaData1,
+            ],
+        ]);
+
+        $this->assertCount(1, $message->refresh()->meta_data);
+        $this->assertCount(0, $message->children);
+        Queue::assertPushed(MessageCreatedJob::class);
     }
 }

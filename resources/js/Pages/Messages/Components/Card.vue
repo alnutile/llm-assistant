@@ -16,9 +16,7 @@
 
         <div class="justify-start flex gap-2">
             Meta Data:
-            <div v-for="meta in message.meta_data" :key="meta.id" class="bg-indigo-500 text-white py-0.5 px-1.5">
-                {{ meta.label }}
-            </div>
+            <MetaDataLabel v-for="meta in message.meta_data" :key="meta.id" :meta_data="meta"/>
         </div>
     </div>
 </template>
@@ -26,6 +24,7 @@
 <script setup>
 import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
+import MetaDataLabel from "./MetaDataLabel.vue";
 
 const props = defineProps({
     message: Object,

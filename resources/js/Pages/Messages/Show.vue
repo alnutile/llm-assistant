@@ -1,8 +1,13 @@
 <template>
 <AppLayout title="Start your thread">
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            📢 Message Thread #{{message.data.id}}
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex items-center justify-between">
+            <div>
+                📢 Message Thread #{{message.data.id}}
+            </div>
+            <SecondaryButtonLink class="z-50" :href="route('messages.edit', {
+                message: message.data.id
+            })">edit</SecondaryButtonLink>
         </h2>
     </template>
     <main>
@@ -43,6 +48,7 @@ import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import Card from "./Components/Card.vue";
 import ChildCard from "./Components/ChildCard.vue";
+import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 
 const props = defineProps({
     message: Object
