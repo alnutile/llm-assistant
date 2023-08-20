@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -72,7 +71,7 @@ class User extends Authenticatable
     public static function createUserAndTeam(string $email, string $password, bool $is_admin = false): User
     {
         return tap(User::create([
-            'name' => str($email)->before("@")->headline()->toString(),
+            'name' => str($email)->before('@')->headline()->toString(),
             'email' => $email,
             'password' => Hash::make($password),
             'is_admin' => $is_admin,
