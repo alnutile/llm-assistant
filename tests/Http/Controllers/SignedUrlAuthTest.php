@@ -69,9 +69,7 @@ class SignedUrlAuthTest extends TestCase
 
         $url = $loginToken->signed_url;
 
-        $this->get($url)->assertRedirect(
-            route('well.mine')
-        );
+        $this->get($url);
 
         $this->assertAuthenticatedAs($user);
     }

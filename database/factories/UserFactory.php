@@ -38,6 +38,15 @@ class UserFactory extends Factory
         ];
     }
 
+    public function nonAdmin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_admin' => 0,
+            ];
+        });
+    }
+
     public function isAdmin()
     {
         return $this->state(function (array $attributes) {
