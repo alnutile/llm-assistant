@@ -40,7 +40,6 @@ class ReplyMessageCreateJob implements ShouldQueue
         } catch (\Exception $e) {
             logger('Error getting results');
             logger($e->getMessage());
-            $this->fail();
         }
     }
 }
