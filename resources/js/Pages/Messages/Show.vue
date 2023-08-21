@@ -17,10 +17,35 @@
                     <HTwo>Start your Thread</HTwo>
                     <Copy section="messages" copy="show_info"/>
                 </div>
+
+                <div class="lg:col-start-3 lg:row-end-2 p-4">
+                    <div class="ap-2">
+                        <HTwo class="mb-4">Meta Data:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <MetaDataLabel v-for="meta in message.data.meta_data" :key="meta.id" :meta_data="meta"/>
+                        </div>
+                    </div>
+
+                    <div class="gap-2 mt-2">
+                        <HTwo class="mb-4">Tags:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <TagLabel
+                                v-for="tag in message.data.tags" :key="tag.id" :tag="tag"/>
+                        </div>
+                    </div>
+
+                    <div class="gap-2 mt-2">
+                       <HTwo class="mb-4">Functions:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <LlmFunctionLabel
+                                v-for="llm_function in message.data.llm_functions" :key="llm_function.id" :llm_function="llm_function"/>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="-mx-4 px-4 py-2 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-2">
-                    <Card :message="message.data"/>
-
-
+                    <Card :message="message.data" :pills="false"/>
                     <div class="mt-4">
                         <div v-if="message.data.children.length === 0">
                             Responses will show here shortly...
@@ -29,7 +54,6 @@
                             <div v-for="child in message.data.children" :key="child.id" class="mt-2 mb-2">
                                 <ChildCard :message="child"/>
                             </div>
-
                             <ReplyCard :parent="message.data"/>
                         </div>
                     </div>
@@ -52,6 +76,9 @@ import Card from "./Components/Card.vue";
 import ChildCard from "./Components/ChildCard.vue";
 import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 import ReplyCard from "./Components/ReplyCard.vue";
+import MetaDataLabel from "@/Pages/Messages/Components/MetaDataLabel.vue";
+import TagLabel from "@/Pages/Messages/Components/TagLabel.vue";
+import LlmFunctionLabel from "@/Pages/Messages/Components/LlmFunctionLabel.vue";
 
 const props = defineProps({
     message: Object
