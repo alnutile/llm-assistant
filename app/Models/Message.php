@@ -63,4 +63,9 @@ class Message extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function llm_functions(): BelongsToMany
+    {
+        return $this->belongsToMany(LlmFunction::class);
+    }
 }
