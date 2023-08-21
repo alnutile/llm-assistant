@@ -7,6 +7,8 @@ return [
     ],
     'meta_data' => [
         'create_info' => 'Here you can add data about yourself, social links, sites etc that you want to add to messages you send the LLM assistant',
-
+    ],
+    'llm_functions' => [
+        'create_info' => 'Here you can create LLM Functions that can then be used on your threads. When added to a thread the LLM will use them. To enable them in the system just add them to your app/helpers.php file',
     ],
 ];

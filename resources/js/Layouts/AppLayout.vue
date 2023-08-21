@@ -54,6 +54,9 @@ const logout = () => {
                                 <NavLink :href="route('meta_data.index')" :active="route().current('meta_data.index')">
                                     MetaData
                                 </NavLink>
+                                <NavLink :href="route('llm_functions.index')" :active="route().current('llm_functions.index')">
+                                    LLM Function
+                                </NavLink>
                             </div>
                         </div>
 
@@ -201,6 +204,9 @@ const logout = () => {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('meta_data.index')" :active="route().current('meta_data.index')">
                             MetaData
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('llm_functions.index')" :active="route().current('llm_functions.index')">
+                            LLM Functions
                         </ResponsiveNavLink>
                     </div>
 

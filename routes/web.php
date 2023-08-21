@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LlmFunctionController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MessageReplyController;
 use App\Http\Controllers\MetaDataController;
@@ -54,6 +55,21 @@ Route::middleware([
                 ->name('meta_data.store');
             Route::put('/meta_data/{meta_data}/update', 'update')
                 ->name('meta_data.update');
+        }
+    );
+
+    Route::controller(LlmFunctionController::class)->group(
+        function () {
+            Route::get('/llm_functions', 'index')
+                ->name('llm_functions.index');
+            Route::get('/llm_functions/{llm_function}/edit', 'edit')
+                ->name('llm_functions.edit');
+            Route::get('/llm_functions/create', 'create')
+                ->name('llm_functions.create');
+            Route::post('/llm_functions/store', 'store')
+                ->name('llm_functions.store');
+            Route::put('/llm_functions/{llm_function}/update', 'update')
+                ->name('llm_functions.update');
         }
     );
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string $label
- * @property string $description
+ * @property string $content
  * @property bool $active
  */
 class LlmFunction extends Model

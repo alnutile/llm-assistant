@@ -18,7 +18,7 @@ class LlmFunctionFactory extends Factory
     {
         return [
             'label' => fake()->word,
-            'description' => fake()->words(3, true),
+            'content' => fake()->words(3, true),
             'active' => fake()->boolean,
         ];
     }

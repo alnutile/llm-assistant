@@ -17,7 +17,6 @@ class LlmFunctionTest extends TestCase
         $this->assertNotNull($model->label);
     }
 
-
     public function test_rels()
     {
         $llm = LlmFunction::factory()->create();
@@ -25,4 +24,5 @@ class LlmFunctionTest extends TestCase
         $message->llm_functions()->attach($llm->id);
         $this->assertCount(1, $message->llm_functions);
         $this->assertCount(1, $message->llm_functions->first()->messages);
-    }}
+    }
+}

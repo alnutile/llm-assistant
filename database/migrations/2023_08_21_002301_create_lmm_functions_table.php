@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('llm_functions', function (Blueprint $table) {
             $table->id();
             $table->string('label');
-            $table->longText('description')->nullable();
+            $table->longText('content')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
@@ -34,5 +34,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('llm_functions');
+        Schema::dropIfExists('llm_function_message');
     }
 };
