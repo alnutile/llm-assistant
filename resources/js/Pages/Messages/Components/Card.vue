@@ -29,6 +29,12 @@
             <TagLabel
                 v-for="tag in message.tags" :key="tag.id" :tag="tag"/>
         </div>
+
+        <div class="justify-start flex gap-2 mt-2">
+            Functions:
+            <LlmFunctionLabel
+                v-for="llm_function in message.llm_functions" :key="llm_function.id" :llm_function="llm_function"/>
+        </div>
     </div>
 </template>
 
@@ -38,6 +44,7 @@ import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
 import MetaDataLabel from "./MetaDataLabel.vue";
 import TagLabel from "./TagLabel.vue";
+import LlmFunctionLabel from "./LlmFunctionLabel.vue";
 
 const props = defineProps({
     message: Object,

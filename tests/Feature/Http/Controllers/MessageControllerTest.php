@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Jobs\MessageCreatedJob;
+use App\Models\LlmFunction;
 use App\Models\Message;
 use App\Models\MetaData;
 use App\Models\Tag;
@@ -28,8 +29,12 @@ class MessageControllerTest extends TestCase
         $metaData2 = MetaData::factory()->create();
         $this->assertDatabaseCount('messages', 0);
         $tag = Tag::factory()->create();
+        $llm = LlmFunction::factory()->create();
         $this->actingAs($user)->post(route('messages.store'), [
             'content' => 'Foo bar',
+            'llm_functions' => [
+                $llm,
+            ],
             'tags' => [
                 $tag,
             ],
@@ -43,6 +48,7 @@ class MessageControllerTest extends TestCase
         $message = Message::first();
         $this->assertCount(2, $message->meta_data);
         $this->assertCount(1, $message->tags);
+        $this->assertCount(1, $message->llm_functions);
         Queue::assertPushed(MessageCreatedJob::class);
     }
 

@@ -40,6 +40,12 @@
                             <PrimaryButton>Start!</PrimaryButton>
                         </div>
                     </form>
+
+
+                    <div class="mt-4">
+                        <HTwo class="flex justify-center">Connect Functions to Message</HTwo>
+                        <LlmPicker @selectedEmit="selectedLlmFunction" :selectables="llm_functions"></LlmPicker>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,6 +60,7 @@ import HTwo from "@/Components/HTwo.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import Picker from "@/Pages/MetaData/Components/Picker.vue";
 import TagPicker from "@/Components/Picker.vue";
+import LlmPicker from "@/Components/Picker.vue";
 import TextArea from "@/Components/TextArea.vue";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
@@ -69,7 +76,8 @@ const toast = useToast();
 
 const props = defineProps({
     meta_data: Array,
-    tags: []
+    tags: [],
+    llm_functions: [],
 })
 
 const showTagForm = ref(false)
@@ -85,7 +93,8 @@ const created = () => {
 const form = useForm({
     content: "",
     meta_data: [],
-    tags: []
+    tags: [],
+    llm_functions: [],
 })
 
 const submit = () => {
@@ -95,6 +104,10 @@ const submit = () => {
             toast.error("See validation errors if none then please contact support")
         }
     });
+}
+
+const selectedLlmFunction = (item) => {
+    form.llm_functions = item;
 }
 
 const selectedTags = (item) => {

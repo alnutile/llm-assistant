@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\MessageResource;
 use App\Jobs\MessageCreatedJob;
+use App\Models\LlmFunction;
 use App\Models\Message;
 use App\Models\MetaData;
 use App\Models\Tag;
@@ -15,6 +16,7 @@ class MessageController extends Controller
         return inertia('Messages/Create', [
             'meta_data' => MetaData::query()->where('user_id', auth()->user()->id)->get(),
             'tags' => Tag::orderBy('label')->get(),
+            'llm_functions' => LlmFunction::orderBy('label')->get(),
         ]);
     }
 
@@ -24,6 +26,7 @@ class MessageController extends Controller
             'content' => ['required'],
             'meta_data' => ['nullable'],
             'tags' => ['nullable'],
+            'llm_functions' => ['nullable'],
         ]);
 
         $meta_data = data_get($validated, 'meta_data', []);
@@ -31,6 +34,9 @@ class MessageController extends Controller
 
         $tags = data_get($validated, 'tags', []);
         unset($validated['tags']);
+
+        $llm_functions = data_get($validated, 'llm_functions', []);
+        unset($validated['llm_functions']);
 
         $message = Message::create([
             'content' => $validated['content'],
@@ -40,6 +46,10 @@ class MessageController extends Controller
 
         $message->meta_data()->attach(
             collect($meta_data)->pluck('id')->values()
+        );
+
+        $message->llm_functions()->attach(
+            collect($llm_functions)->pluck('id')->values()
         );
 
         $message->tags()->attach(

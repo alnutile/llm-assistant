@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\LlmFunction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,6 +23,7 @@ class MessageResource extends JsonResource
             'role' => $this->role,
             'meta_data' => MetaDataResource::collection($this->meta_data),
             'tags' => TagResource::collection($this->tags),
+            'llm_functions' => LlmFunctionResource::collection($this->llm_functions),
             'children' => MessageResource::collection($this->children),
             'created_at' => $this->created_at->diffForHumans(),
             'created_at_formatted' => $this->created_at->diffForHumans(),

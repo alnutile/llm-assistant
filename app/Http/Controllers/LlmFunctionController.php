@@ -16,7 +16,6 @@ class LlmFunctionController extends Controller
 
     public function create()
     {
-
         return inertia('LlmFunctions/Create');
     }
 
