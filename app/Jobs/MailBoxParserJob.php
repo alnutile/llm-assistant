@@ -54,7 +54,8 @@ class MailBoxParserJob implements ShouldQueue
              */
         } catch (\Exception $e) {
             logger('Email error', [$e->getMessage()]);
-            $this->fail();
+
+            throw $e;
         }
     }
 }

@@ -40,6 +40,9 @@ class MessageCreatedJob implements ShouldQueue
         } catch (\Exception $e) {
             logger('Error getting results');
             logger($e->getMessage());
+
+
+            throw $e;
         }
     }
 }
