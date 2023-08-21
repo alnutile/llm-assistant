@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('llm_assistant:check_email')->everyMinute();
         $schedule->command('security-portal-client:sync')->environments('production')->hourly();
     }
 

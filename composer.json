@@ -29,7 +29,8 @@
         "symfony/postmark-mailer": "^6.2",
         "tightenco/ziggy": "^1.0",
         "voku/stop-words": "^2.0",
-        "wamania/php-stemmer": "^3.0"
+        "wamania/php-stemmer": "^3.0",
+        "webklex/laravel-imap": "^5.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
