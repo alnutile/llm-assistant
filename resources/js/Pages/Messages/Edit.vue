@@ -10,14 +10,20 @@
             <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <div class="lg:col-start-3 lg:row-end-1 rounded p-4">
                     <div class="lg:col-start-3 lg:row-end-1 rounded border-gray-200 border dark:border-gray-500 p-4">
-                        <HTwo>Start your Thread</HTwo>
-                        <Copy section="messages" copy="create_info"/>
+                        <HTwo>Update your Thread</HTwo>
+                        <Copy section="messages" copy="update_info"/>
                     </div>
                     <div class="mt-4">
                         <HTwo>Attach some meta Data</HTwo>
                         <Picker @selectedEmit="selectedEmit"
                                 :selected="form.meta_data"
                                 :selectables="meta_data"></Picker>
+                    </div>
+                    <div class="mt-4">
+                        <HTwo>Attach Tags</HTwo>
+                        <TagPicker @selectedEmit="selectedTagEmit"
+                                :selected="form.tags"
+                                :selectables="tags"></TagPicker>
                     </div>
                 </div>
                 <div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-2">
@@ -47,6 +53,7 @@ import Copy from "@/Components/Copy.vue";
 import HTwo from "@/Components/HTwo.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import Picker from "@/Pages/MetaData/Components/Picker.vue";
+import TagPicker from "@/Components/Picker.vue";
 import TextArea from "@/Components/TextArea.vue";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
@@ -61,12 +68,14 @@ const toast = useToast();
 
 const props = defineProps({
     meta_data: Array,
+    tags: Array,
     message: Object
 })
 
 const form = useForm({
     content: props.message.data.content,
-    meta_data: props.message.data.meta_data
+    meta_data: props.message.data.meta_data,
+    tags: props.message.data.tags
 })
 
 const submit = () => {
@@ -78,6 +87,11 @@ const submit = () => {
             toast.error("See validation errors if none then please contact support")
         }
     });
+}
+
+const selectedTagEmit = (item) => {
+    console.log(item)
+    form.tags = item;
 }
 
 const selectedEmit = (item) => {

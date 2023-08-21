@@ -104,6 +104,7 @@ class MessageController extends Controller
     {
         return inertia('Messages/Edit', [
             'message' => new MessageResource($message),
+            'tags' => Tag::orderBy('label')->get(),
             'meta_data' => MetaData::query()->where('user_id', auth()->user()->id)->get(),
         ]);
     }
