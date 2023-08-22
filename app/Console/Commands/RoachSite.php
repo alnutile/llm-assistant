@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Spiders\GetPageSpider;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use RoachPHP\ItemPipeline\Item;
 use RoachPHP\Roach;
 use RoachPHP\Spider\Configuration\Overrides;
 

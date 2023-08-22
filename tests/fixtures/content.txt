@@ -1,0 +1,5 @@
+subject: LinkedIn PHP tip
+ body:
+                URL: https://www.linkedin.com/posts/-ericlbarnes_php-activity-7091570312579846144-ScFR?utm_source=share&utm_medium=member_android
+
+                Content: The content includes various posts from LinkedIn. Highlights include Eric Barnes discussing the PHP `isset` function, Andrew Schmelyun promoting Laravel as an alternative to Next.js, and a discussion on the best e-commerce packages for Laravel. Arlon Antonius shares a story about improving efficiency through automation and data manipulation. Google for Developers announces an American Sign Language competition. Hossam Tarek advises on using the Presenter Design Pattern for data manipulation in Laravel. Kyle Simpson discusses the concept of "web2.5", advocating for a shift from cloud-first to peer-first thinking.

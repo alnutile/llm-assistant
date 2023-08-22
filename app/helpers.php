@@ -1,6 +1,34 @@
 <?php
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
+
+if (! function_exists('format_text_for_message')) {
+    function format_text_for_message(string $content): string
+    {
+
+        $width = 80;
+        $wrappedText = wordwrap($content, $width, "\n", true);
+
+        return str($wrappedText)->markdown();
+    }
+}
+
+if (! function_exists('get_fixture_v2')) {
+    function get_fixture_v2($file_name, bool $json = true)
+    {
+        $results = File::get(base_path(sprintf(
+            'tests/fixtures/%s',
+            $file_name
+        )));
+
+        if (! $json) {
+            return $results;
+        }
+
+        return json_decode($results, true);
+    }
+}
 
 if (! function_exists('test_helper')) {
     function test_helper()

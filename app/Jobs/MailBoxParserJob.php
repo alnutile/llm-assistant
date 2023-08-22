@@ -65,6 +65,8 @@ class MailBoxParserJob implements ShouldQueue
 
                 $content = $results->content;
 
+                $content = format_text_for_message($content);
+
                 $content = sprintf("
                 URL: %s\n
                 Content: %s",
