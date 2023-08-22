@@ -54,7 +54,7 @@ class MailBoxParserJob implements ShouldQueue
                 $messages = [];
                 $messages[] = [
                     'role' => 'system',
-                    'content' => 'Please TLDR the following content the user provides',
+                    'content' => 'This is HTML of a site I just got a page from can you clean it up so it is just the main content of the site for reading',
                 ];
                 $messages[] = [
                     'role' => 'user',
