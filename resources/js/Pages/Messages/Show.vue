@@ -5,9 +5,13 @@
             <div>
                 📢 Message Thread #{{message.data.id}}
             </div>
-            <SecondaryButtonLink class="z-50" :href="route('messages.edit', {
+            <div class="flex justify-end items-center gap-2 z-50">
+                <SecondaryButtonLink :href="route('messages.edit', {
                 message: message.data.id
             })">edit</SecondaryButtonLink>
+
+                <Delete :message="message.data"/>
+            </div>
         </h2>
     </template>
     <main>
@@ -79,6 +83,7 @@ import ReplyCard from "./Components/ReplyCard.vue";
 import MetaDataLabel from "@/Pages/Messages/Components/MetaDataLabel.vue";
 import TagLabel from "@/Pages/Messages/Components/TagLabel.vue";
 import LlmFunctionLabel from "@/Pages/Messages/Components/LlmFunctionLabel.vue";
+import Delete from "./Components/Delete.vue";
 
 const props = defineProps({
     message: Object

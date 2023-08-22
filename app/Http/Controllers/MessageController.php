@@ -115,4 +115,10 @@ class MessageController extends Controller
             'message' => new MessageResource($message),
         ]);
     }
+
+    public function delete(Message $message) {
+        $message->delete();
+        request()->session()->flash('flash.banner', 'Deleted Message');
+        return to_route('dashboard');
+    }
 }

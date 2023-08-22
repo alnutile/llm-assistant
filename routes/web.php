@@ -94,6 +94,8 @@ Route::middleware([
                 ->name('messages.update');
             Route::get('/messages/{message}', 'show')->name('messages.show');
             Route::get('/messages/{message}/edit', 'edit')->name('messages.edit');
+            Route::delete('/messages/{message}/delete', 'delete')
+                ->name('messages.delete');
         }
     );
 });
