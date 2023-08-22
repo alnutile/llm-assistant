@@ -13,6 +13,9 @@ It's like having a bullet journal that writes itself.
 Stay tuned for more updates on this game-changer. 
 And hey, I'm all ears for any feedback or suggestions you might have!
 
+
+![](/docs/images/intro.gif)
+
 ### Feature Ideas
 
   * Threaded topics so you can work through ideas with the LLM 
