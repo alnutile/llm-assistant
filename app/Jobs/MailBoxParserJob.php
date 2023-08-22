@@ -6,6 +6,8 @@ use App\Domains\EmailParser\MailDto;
 use App\Models\Message;
 use App\Models\Tag;
 use App\Models\User;
+use Facades\App\OpenAi\ChatClient;
+use Facades\App\Tools\GetSiteWrapper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -31,21 +33,57 @@ class MailBoxParserJob implements ShouldQueue
     {
         try {
 
-            $tag = Tag::firstOrCreate([
+            $tag1 = Tag::firstOrCreate([
                 'label' => 'email',
             ], [
                 'active' => 1,
             ]);
+
+            $tag2 = Tag::firstOrCreate([
+                'label' => 'tldr',
+            ], [
+                'active' => 1,
+            ]);
+
+            $content = $this->mailDto->body;
+
+            $hasUrl = get_url_from_body($content);
+
+            if ($hasUrl) {
+                $body = GetSiteWrapper::handle($hasUrl);
+                $messages = [];
+                $messages[] = [
+                    'role' => 'system',
+                    'content' => 'Please TLDR the following content the user provides',
+                ];
+                $messages[] = [
+                    'role' => 'user',
+                    'content' => $body,
+                ];
+
+                $results = ChatClient::chat($messages);
+
+                $content = $results->content;
+
+                $content = sprintf("
+                URL: %s\n
+                Content: %s",
+                    $hasUrl,
+                    $content
+                );
+            }
 
             $message = Message::create([
                 'role' => 'user',
                 'user_id' => User::first()->id,
                 'content' => sprintf("subject: %s \n body: %s",
                     $this->mailDto->subject,
-                    $this->mailDto->body),
+                    $content),
             ]);
 
-            $message->tags()->attach($tag->id);
+            $message->tags()->attach([
+                $tag1->id, $tag2->id,
+            ]);
 
             /**
              * If tons of text we tldr it

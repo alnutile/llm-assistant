@@ -30,7 +30,7 @@ class MessageCreatedJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            logger("Sending llm request");
+            logger('Sending llm request');
             MessageStatusEvent::dispatch($this->message);
             /** @var Response $results */
             $results = MessageRepository::handle($this->message);

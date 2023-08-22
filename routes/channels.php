@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Message;
-use App\Models\Plot;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -20,7 +19,8 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('message.{id}', function ($user, $id) {
-    logger("Private message");
+    logger('Private message');
     $message = Message::findOrFail($id);
+
     return $user->id === $message->user_id;
 });
