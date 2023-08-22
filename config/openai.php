@@ -20,4 +20,5 @@ return [
     'max_completion_size' => env('OPENAI_MAX_COMPLETION_SIZE', 8000),
     'max_question_size' => env('OPENAI_MAX_QUESTION_SIZE', 5000),
     'max_response_size' => env('OPENAI_MAX_RESPONSE_SIZE', 1000),
+    'request_timeout' => env('OPENAI_REQUEST_TIMEOUT', 120),
 ];

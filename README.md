@@ -1,109 +1,50 @@
-## Break 9 Water App
+## LLM Assistant
 
-[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F672a55d7-caee-4ce2-bed1-eba6e0c185f2%3Fdate%3D1%26commit%3D1&style=flat)](https://forge.laravel.com/servers/662538/sites/1970721)
+![](/docs/images/rocket.jpg)
+
+### About
+
+"LLMAssistant" or "LLMass.io" for now (Still working on the name 😄).
+
+This tool is like your personal assistant, helping you stay organized, market your services, and even create content. 
+Imagine a tool that collects interesting articles for you, gives you a TL;DR, and even helps you write job posting replies.
+It's powered by OpenAI, which means it can perform various functions like scheduling tasks and summarizing your day. 
+It's like having a bullet journal that writes itself.
+Stay tuned for more updates on this game-changer. 
+And hey, I'm all ears for any feedback or suggestions you might have!
+
+### Feature Ideas
+
+  * Threaded topics so you can work through ideas with the LLM 
+  * Email URL to get article for later
+  * Email any content with tags so that it will save and tag
+  * Email attachments for TLDRs and storage
+  * Scheduled Emails to send you daily summary
+  * Help you write freelance replies to gigs and connect to various APIs
+  * Build schedules and keep you on track
+  * Run functions build into the system like sending emails, get content from links and more.
+  * Integrate with image generation tools so you can easily create and iterate
+  * Integration into other systems to help you automate your day-to-day workflows
+
+### Install and Setup
+
+This is a just a normal Laravel Application. It will need Sail just for the Postgres embedding feature.
 
 
-[![CI-CD](https://github.com/Break9dev/clean-water/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Break9dev/clean-water/actions/workflows/ci-cd.yml)
+### Schedule Email box checker
 
-## CI / CD
+Just update the `.env` and make sure you have scheduling setup for every minute and send away
 
-Envoyer will be triggered from the `.github/workspace/ci-cd.yml`
+If the email has a url it will get the results
 
-## Setup
+```dotenv
+IMAP_HOST=mail.foobar.com
+IMAP_PORT=993
+IMAP_ENCRYPTION=ssl
+IMAP_VALIDATE_CERT=true
+IMAP_USERNAME=user@foo.bar
+IMAP_PASSWORD=password
+IMAP_DEFAULT_ACCOUNT=default
+IMAP_PROTOCOL=imap
 
-Geet most of this is done for greaterkaweahgsa so it would be good for you to go look at the way I did Forge and Envoyer
-
-### New Servers
-
-Forge
-    * SSL with Let's encrypt
-    * Daemon for Horizon
-    * Backups DB (already setup just make sure your server is there)
-    * Email (postmark - see notes below)
-    * Spatie files backups
-    * Admin Accounts (see notes below)
-
-Envoyer
-    * I will set this up for you (sent you invite to this project to use as a template)
-
-    * Make sure to add the secret to the github repo under ENVOYER so CI/CD can push
- 
-
-Postmark
-    * The server is setup I can share a token
-    * MAIL_FROM_ADDRESS="no-reply@break9.com"
-    * MAIL_FROM_NAME="${APP_NAME}"
-    * php artisan break:test_email will send test
-  
-
-Security Portal
-    * I can get you a token for this
- 
-
-Backups
-    * Database
-      * This used Forge just make sure the db is added to the dbs
-     * Digital Ocean Spaces for files backups
-
-- I can give you access to this
-
- Laravel Shift
-    * Let's talk about this
- 
-
-Horizon is setup
-    * Make sure the daemon is running on Forge just look at the other sites
-    * /horizon works if your user is set to `is_admin` in the db
- 
-
-Logs
-    * /log-viewer works if your user is set to `is_admin` in the db
-
-Add the Github, Forge Badge to the repo
-
-Magic Login is passwordless that is used
-
-UI Notes
-    * Stick to the Jetstream components and patterns just look in the resources/js/Components folder and Auth for tips
-
-Pusher
-	  * I will get you a key and secret when needed
-
-### Postmark
-
-Already installed set `.env`
-
-### Seed Admins
-
-You can run this again if needed
-
-Update `.env`
-
-```bash
-POSTMARK_TOKEN=I_WILL_GIVE_THI
-MAIL_MAILER=postmark
-MAIL_FROM_ADDRESS="no-reply@break9.com"
-MAIL_FROM_NAME="${APP_NAME}"
 ```
-
-```bash
-ADMIN_ONE=bobbelcher@gmail.com
-
-ADMIN_TWO=bobbelcher+101@gmail.com
-
-#Passwords just come from Magic Login
-```
-
-```bash
-php artisan db:seed --class=AdminSeeder
-```
-
-## TODO
-
-- [ ]  Move Template to not get passwords but just have magiclogin update readme here as well
-
-## ROADMAP
-
-DO Database or just local 
-
-easier to restore local at a per site level!
