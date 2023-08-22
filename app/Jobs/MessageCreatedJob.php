@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\MessageStatusEvent;
 use App\Models\Message;
 use App\OpenAi\Dtos\Response;
 use Facades\App\Domains\Message\MessageRepository;
@@ -29,6 +30,8 @@ class MessageCreatedJob implements ShouldQueue
     public function handle(): void
     {
         try {
+            logger("Sending llm request");
+            MessageStatusEvent::dispatch($this->message);
             /** @var Response $results */
             $results = MessageRepository::handle($this->message);
             Message::create([
@@ -37,10 +40,10 @@ class MessageCreatedJob implements ShouldQueue
                 'role' => 'assistant',
                 'parent_id' => $this->message->id,
             ]);
+            MessageStatusEvent::dispatch($this->message);
         } catch (\Exception $e) {
             logger('Error getting results');
             logger($e->getMessage());
-
             throw $e;
         }
     }

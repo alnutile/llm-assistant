@@ -38,7 +38,7 @@ const submit = () => {
     form.put(route("message_reply.reply", {
         message: props.parent.id
     }), {
-        preserveScroll: false
+        preserveScroll: true
     })
 }
 </script>

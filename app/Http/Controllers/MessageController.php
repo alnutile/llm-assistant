@@ -65,6 +65,17 @@ class MessageController extends Controller
         ]);
     }
 
+    public function rerunLlm(Message $message)
+    {
+        $message->children()->delete();
+
+        MessageCreatedJob::dispatch($message);
+
+        request()->session()->flash('flash.banner', 'Re-running LLM 🏃‍');
+
+        return back();
+    }
+
     public function update(Message $message)
     {
         $validated = request()->validate([

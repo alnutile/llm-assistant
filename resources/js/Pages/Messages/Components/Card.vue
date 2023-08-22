@@ -3,7 +3,7 @@
         <div class="mb-4" v-html="messageContent">
         </div>
 
-        <div class="flex justify-end gap-2 items-center">
+        <div class="flex justify-end gap-1 items-center">
             <div>{{ message.created_at}}</div>
             <div>
                 <span>
@@ -17,6 +17,7 @@
                 :href="route('messages.show', {
                 message: message.id
             })">view</SecondaryButton>
+            <Rerun :message="message.id"/>
         </div>
 
         <div class="justify-start flex gap-2" v-if="pills">
@@ -42,6 +43,7 @@
 import { usePage } from "@inertiajs/vue3";
 import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
+import Rerun from "./Rerun.vue";
 import MetaDataLabel from "./MetaDataLabel.vue";
 import TagLabel from "./TagLabel.vue";
 import LlmFunctionLabel from "./LlmFunctionLabel.vue";

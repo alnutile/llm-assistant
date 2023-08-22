@@ -90,6 +90,8 @@ Route::middleware([
         function () {
             Route::get('/messages/create', 'create')->name('messages.create');
             Route::post('/messages/store', 'store')->name('messages.store');
+            Route::post('/messages/rerun', 'rerunLlm')
+                ->name('messages.rerun');
             Route::put('/messages/{message}/update', 'update')
                 ->name('messages.update');
             Route::get('/messages/{message}', 'show')->name('messages.show');

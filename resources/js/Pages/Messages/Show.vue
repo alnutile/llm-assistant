@@ -74,7 +74,7 @@ import Copy from "@/Components/Copy.vue";
 import HTwo from "@/Components/HTwo.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextArea from "@/Components/TextArea.vue";
-import {useForm} from "@inertiajs/vue3";
+import {router} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import Card from "./Components/Card.vue";
 import ChildCard from "./Components/ChildCard.vue";
@@ -84,18 +84,23 @@ import MetaDataLabel from "@/Pages/Messages/Components/MetaDataLabel.vue";
 import TagLabel from "@/Pages/Messages/Components/TagLabel.vue";
 import LlmFunctionLabel from "@/Pages/Messages/Components/LlmFunctionLabel.vue";
 import Delete from "./Components/Delete.vue";
+import {onMounted} from "vue";
 
 const props = defineProps({
     message: Object
 })
 
-const form = useForm({
-    message: ""
+onMounted(() => {
+    Echo.private(`message.${props.message.data.id}`)
+        .listen('.status', (event) => {
+            router.reload({
+                preserveScroll: true,
+                preserveState:false
+            })
+        })
 })
 
-const submit = () => {
 
-}
 </script>
 
 <style scoped>
