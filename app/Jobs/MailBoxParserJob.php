@@ -13,6 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use SundanceSolutions\LarachainTrimText\Facades\LarachainTrimText;
 
 class MailBoxParserJob implements ShouldQueue
 {
@@ -50,7 +51,13 @@ class MailBoxParserJob implements ShouldQueue
             $hasUrl = get_url_from_body($content);
 
             if ($hasUrl) {
+
                 $body = GetSiteWrapper::handle($hasUrl);
+                if ($body > config('openai.max_question_size')) {
+                    $body = LarachainTrimText::trim($content);
+                }
+
+
                 $messages = [];
                 $messages[] = [
                     'role' => 'system',
