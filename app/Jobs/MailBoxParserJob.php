@@ -57,7 +57,6 @@ class MailBoxParserJob implements ShouldQueue
                     $body = LarachainTrimText::trim($content);
                 }
 
-
                 $messages = [];
                 $messages[] = [
                     'role' => 'system',
