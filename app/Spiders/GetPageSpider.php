@@ -42,9 +42,9 @@ class GetPageSpider extends BasicSpider
      */
     public function parse(Response $response): Generator
     {
-        $body = $response->filter('body')->innerText();
+        $body = $response->filter('body')->text();
         yield $this->item([
-            $body,
+            str($body)->stripTags()->toString(),
         ]);
     }
 }
