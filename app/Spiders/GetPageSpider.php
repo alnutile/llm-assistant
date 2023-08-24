@@ -42,7 +42,7 @@ class GetPageSpider extends BasicSpider
      */
     public function parse(Response $response): Generator
     {
-        $body = $response->filter('body')->html();
+        $body = $response->filter('body')->innerText();
         yield $this->item([
             $body,
         ]);
