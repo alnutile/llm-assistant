@@ -57,6 +57,14 @@ const logout = () => {
                                 <NavLink :href="route('llm_functions.index')" :active="route().current('llm_functions.index')">
                                     LLM Function
                                 </NavLink>
+                                <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out"
+                                   :href="route('horizon.index')">
+                                    Queue
+                                </a>
+                                <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out"
+                                   :href="route('log-viewer.index')">
+                                    Logs
+                                </a>
                             </div>
                         </div>
 
@@ -152,6 +160,16 @@ const logout = () => {
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens
+                                        </DropdownLink>
+
+                                        <DropdownLink
+                                            as="a" :href="route('horizon.index')">
+                                            Queue
+                                        </DropdownLink>
+
+                                        <DropdownLink
+                                            as="a" :href="route('log-viewer.index')">
+                                            Logs
                                         </DropdownLink>
 
                                         <div class="border-t border-gray-200 dark:border-gray-600" />
