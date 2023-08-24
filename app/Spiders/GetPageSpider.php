@@ -44,7 +44,7 @@ class GetPageSpider extends BasicSpider
     {
         $body = $response->filter('body')->text();
         yield $this->item([
-            str($body)->stripTags()->toString(),
+            $body,
         ]);
     }
 }
