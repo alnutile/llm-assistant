@@ -50,7 +50,8 @@ class MessageTest extends TestCase
         $this->assertCount(1, $message->refresh()->meta_data);
     }
 
-    public function test_get_function_names() {
+    public function test_get_function_names()
+    {
         $message = Message::factory()->create();
         $llm = LlmFunction::factory()->create();
         $message->llm_functions()->attach($llm->id);

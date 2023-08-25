@@ -7,15 +7,12 @@ use Spatie\LaravelData\Data;
 
 class TasksDto extends Data
 {
-
     /**
-     * @param TaskDto[] $tasks
+     * @param  TaskDto[]  $tasks
      */
     public function __construct(
         #[WithCast(TaskCaster::class)]
         public array $tasks = []
-    )
-    {
+    ) {
     }
-
 }

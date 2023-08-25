@@ -6,16 +6,18 @@ use App\Models\LlmFunction;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use App\OpenAi\Dtos\Response;
-use Facades\App\OpenAi\FunctionCall;
 use Facades\App\OpenAi\ChatClient as ChatClientFacade;
+use Facades\App\OpenAi\FunctionCall;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class ChatClient
 {
     public ?Message $messageModel = null;
 
-    public function setMessage(Message $message) : self {
+    public function setMessage(Message $message): self
+    {
         $this->messageModel = $message;
+
         return $this;
     }
 
@@ -47,57 +49,56 @@ class ChatClient
 
         $response = OpenAI::chat()->create($request);
 
-        if(data_get($response, 'choices.0.finish_reason') === 'function_call') {
+        if (data_get($response, 'choices.0.finish_reason') === 'function_call') {
             $name = data_get($response, 'choices.0.message.function_call.name');
             $arguments = data_get($response, 'choices.0.message.function_call.arguments');
             $dto = FunctionCallDto::from([
-               'arguments' => $arguments,
-               'message' => $this->messageModel
+                'arguments' => $arguments,
+                'message' => $this->messageModel,
             ]);
 
-            logger("Making function call then will reiterate", [
-                $arguments
+            logger('Making function call then will reiterate', [
+                $arguments,
             ]);
 
             FunctionCall::handle($name, $dto);
 
             $messages[] = [
-                'role' => "assistant",
-                'content' => sprintf("As an assistant I ran the function %s for you with these parameters %s",
-                $name,
-                json_encode($dto->arguments)
-                )
+                'role' => 'assistant',
+                'content' => sprintf('As an assistant I ran the function %s for you with these parameters %s',
+                    $name,
+                    json_encode($dto->arguments)
+                ),
             ];
 
-            ChatClientFacade::chat($messages);
-
-        } else {
-
-            return Response::from(
-                [
-                    'content' => data_get($response, 'choices.0.message.content'),
-                    'role' => data_get($response, 'choices.0.message.role'),
-                    /** @phpstan-ignore-next-line */
-                    'token_count' => $response->usage->totalTokens,
-                    'finish_reason' => data_get($response, 'choices.0.finish_reason'),
-                ]
-            );
-        }
+                return ChatClientFacade::chat($messages);
+            } else {
+                return Response::from(
+                    [
+                        'content' => data_get($response, 'choices.0.message.content'),
+                        'role' => data_get($response, 'choices.0.message.role'),
+                        'token_count' => $response->usage->totalTokens,
+                        'finish_reason' => data_get($response, 'choices.0.finish_reason'),
+                    ]
+                );
+            }
     }
 
-    protected function hasFunctions() : bool {
-        return $this->messageModel && !empty($this->messageModel->llm_functions);
+    protected function hasFunctions(): bool
+    {
+        return $this->messageModel && ! empty($this->messageModel->llm_functions);
     }
 
     protected function getFunctions(): array
     {
         $llm_functions = [];
+        /** @var LlmFunction $llm_functionModel */
         foreach ($this->messageModel->llm_functions as $llm_functionModel) {
-                $llm_functions[] = [
-                    'name' => $llm_functionModel->label,
-                    'description' => $llm_functionModel->description,
-                    'parameters' => $llm_functionModel->parameters,
-                ];
+            $llm_functions[] = [
+                'name' => $llm_functionModel->label,
+                'description' => $llm_functionModel->description,
+                'parameters' => $llm_functionModel->parameters,
+            ];
         }
 
         return $llm_functions;

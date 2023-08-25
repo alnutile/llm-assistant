@@ -76,8 +76,8 @@ class Message extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function getFunctionNamesAttribute() : array {
-        return $this->llm_functions->pluck("label")->toArray();
+    public function getFunctionNamesAttribute(): array
+    {
+        return $this->llm_functions->pluck('label')->toArray();
     }
-
 }

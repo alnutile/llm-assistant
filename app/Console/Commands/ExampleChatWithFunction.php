@@ -42,7 +42,7 @@ class ExampleChatWithFunction extends Command
 
         $this->info('Sending request');
 
-        $results = ChatClient::setMessage($message)->chat($messages, ['llm_functions_scheduling']);
+        $results = ChatClient::setMessage($message)->chat($messages);
 
         $this->info($results->content);
     }

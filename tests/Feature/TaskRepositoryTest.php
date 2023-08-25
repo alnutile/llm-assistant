@@ -3,12 +3,10 @@
 namespace Tests\Feature;
 
 use App\Domains\Scheduling\Dtos\TasksDto;
-use Facades\App\Domains\Scheduling\TaskRepository;
 use App\Models\LlmFunction;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Facades\App\Domains\Scheduling\TaskRepository;
 use Tests\TestCase;
 
 class TaskRepositoryTest extends TestCase
@@ -24,7 +22,6 @@ class TaskRepositoryTest extends TestCase
         $call = get_fixture('functions_response_with_function_call.json');
 
         $call = data_get($call, 'choices.0.message.function_call.arguments');
-        $call = json_decode($call, true);
         $dto = FunctionCallDto::from([
             'arguments' => $call,
             'message' => $message,
