@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string $label
- * @property string $content
+ * @property string $description
+ * @property array $parameters
  * @property bool $active
  */
 class LlmFunction extends Model
@@ -16,6 +17,10 @@ class LlmFunction extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'parameters' => 'array'
+    ];
 
     public function messages(): BelongsToMany
     {

@@ -39,7 +39,7 @@ class QuickChatCommand extends Command
 
         $this->info('Sending request');
 
-        $results = ChatClient::chat($messages, true);
+        $results = ChatClient::chat($messages, []);
 
         $this->info($results->content);
     }

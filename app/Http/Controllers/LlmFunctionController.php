@@ -30,7 +30,8 @@ class LlmFunctionController extends Controller
     {
         $validated = request()->validate([
             'label' => ['required'],
-            'content' => ['required'],
+            'description' => ['required'],
+            'parameters' => ['required'],
         ]);
 
         LlmFunction::create($validated);
@@ -44,7 +45,8 @@ class LlmFunctionController extends Controller
     {
         $validated = request()->validate([
             'label' => ['required'],
-            'content' => ['required'],
+            'description' => ['required'],
+            'parameters' => ['required'],
         ]);
 
         $llmFunction->update($validated);

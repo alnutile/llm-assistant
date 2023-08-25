@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "month": {
+            "type": "number",
+            "description": "Month of event starting with 0 if less than 10"
+        },
+        "day": {
+            "type": "number",
+            "description": "Day of event starting with 0 if less than 10"
+        },
+        "year": {
+            "type": "number",
+            "description": "Format YYYY"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description of the Event"
+        }
+    },
+    "required": ["day", "month", "year", "description"]
+}

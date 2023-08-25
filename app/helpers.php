@@ -3,6 +3,24 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 
+if (! function_exists('llm_functions_scheduling')) {
+    function llm_functions_scheduling(
+        int $month,
+        int $day,
+        int $year,
+        string $description
+    ): string {
+        logger('Message coming in ', [
+            'day' => $day,
+            'mont' => $month,
+            'year' => $year,
+            '$description' => $description,
+        ]);
+
+        return 'Coming Soon...';
+    }
+}
+
 if (! function_exists('format_text_for_message')) {
     function format_text_for_message(string $content): string
     {

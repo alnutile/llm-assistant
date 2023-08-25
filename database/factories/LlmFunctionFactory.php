@@ -18,8 +18,20 @@ class LlmFunctionFactory extends Factory
     {
         return [
             'label' => fake()->word,
-            'content' => fake()->words(3, true),
+            'description' => fake()->sentences(3, true),
+            'parameters' => get_fixture('function_parameters.json'),
             'active' => fake()->boolean,
         ];
+    }
+
+    public function scheduleFunction()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'label' => "llm_functions_scheduling",
+                'description' => "Passing Month-Day-Year and Description the function will make a scheduled task",
+                'parameters' => get_fixture('function_parameters.json')
+            ];
+        });
     }
 }

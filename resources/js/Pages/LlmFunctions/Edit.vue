@@ -46,7 +46,8 @@ const props = defineProps({
 
 const form = useForm({
     label: props.llm_function.data.label,
-    content: props.llm_function.data.content,
+    parameters: props.llm_function.data.parameters,
+    description: props.llm_function.data.description,
     active: props.llm_function.data.active
 })
 

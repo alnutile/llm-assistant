@@ -7,29 +7,17 @@
         </TextInput>
         <div>make sure this is the name of the function in the app/helpers.php file</div>
     </div>
+    <div>
+        <HTwo>Description</HTwo>
+        <TextArea class="w-full"
+                   placeholder="Some info for the LLM about the function and for the user"
+                    v-model="modelValue.description">
+        </TextArea>
+        <div>This will help the user and llm understand the function</div>
+    </div>
     <div class="w-full">
-        <HTwo class="mb-2">Content</HTwo>
-        <TextArea v-model="modelValue.content" rows="25"
-                  placeholder="'functions' => [
-        [
-            'name' => 'get_current_weather',
-            'description' => 'Get the current weather in a given location',
-            'parameters' => [
-                'type' => 'object',
-                'properties' => [
-                    'location' => [
-                        'type' => 'string',
-                        'description' => 'The city and state, e.g. San Francisco, CA',
-                    ],
-                    'unit' => [
-                        'type' => 'string',
-                        'enum' => ['celsius', 'fahrenheit']
-                    ],
-                ],
-                'required' => ['location'],
-            ],
-        ]
-    ]"
+        <HTwo class="mb-2">Parameters</HTwo>
+        <TextArea v-model="modelValue.parameters" rows="25"
                   class="w-full"/>
         <InputError :message="modelValue.errors.content"></InputError>
     </div>

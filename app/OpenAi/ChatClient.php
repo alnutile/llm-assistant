@@ -2,12 +2,13 @@
 
 namespace App\OpenAi;
 
+use App\Models\LlmFunction;
 use App\OpenAi\Dtos\Response;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class ChatClient
 {
-    public function chat(array $message, bool $include_function = false): Response
+    public function chat(array $message, array $included_function = []): Response
     {
         if (config('openai.mock') && ! app()->environment('testing')) {
             logger('Mocking');
@@ -23,8 +24,8 @@ class ChatClient
             'temperature' => (int) config('openai.temperature'),
         ];
 
-        if ($include_function) {
-            $request['functions'] = $this->getFunctions();
+        if (!empty($included_function)) {
+            $request['functions'] = $this->getFunctions($included_function);
         }
 
         $response = OpenAI::chat()->create($request);
@@ -40,8 +41,17 @@ class ChatClient
 
     }
 
-    protected function getFunctions(): array
+    protected function getFunctions(array $included_function): array
     {
+//        $llm_functions = [];
+//        foreach ($included_function as $llm_function) {
+//            $llm_functionModel = LlmFunction::where("label", "LIKE", $llm_function)->first();
+//
+//            if($llm_function) {
+//                $llm_functions[] = $llm_functionModel->content;
+//            }
+//        }
+
 
         return [
             [

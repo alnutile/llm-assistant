@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class LlmFunctionTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_factory()
     {
         $model = LlmFunction::factory()->create();
@@ -24,5 +22,10 @@ class LlmFunctionTest extends TestCase
         $message->llm_functions()->attach($llm->id);
         $this->assertCount(1, $message->llm_functions);
         $this->assertCount(1, $message->llm_functions->first()->messages);
+    }
+
+    public function test_creates_scheduler() {
+        $llm = LlmFunction::factory()->scheduleFunction()->create();
+        $this->assertNotNull($llm->parameters);
     }
 }

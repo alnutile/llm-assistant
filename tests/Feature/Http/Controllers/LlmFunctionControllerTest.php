@@ -29,7 +29,8 @@ class LlmFunctionControllerTest extends TestCase
             route('llm_functions.store'),
             [
                 'label' => 'Foobar',
-                'content' => 'Foobar',
+                'description' => 'Foobar',
+                'parameters' => ['foo' => 'bar'],
             ]
         )->assertStatus(302);
         $this->assertDatabaseCount('llm_functions', 1);
@@ -47,11 +48,12 @@ class LlmFunctionControllerTest extends TestCase
             ]),
             [
                 'label' => 'Foobar',
-                'content' => 'Foobar',
+                'description' => 'Foobar',
+                'parameters' => ['foo' => 'bar'],
             ]
         )->assertStatus(302);
         $this->assertDatabaseCount('llm_functions', 1);
         $this->assertEquals('Foobar', $model->refresh()->label);
-        $this->assertEquals('Foobar', $model->refresh()->content);
+        $this->assertEquals(['foo' => 'bar'], $model->refresh()->parameters);
     }
 }

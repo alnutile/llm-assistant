@@ -43,27 +43,30 @@ import TextInput from "@/Components/TextInput.vue";
 import ResourceForm from "./Components/ResourceForm.vue";
 const toast = useToast();
 const form = useForm({
-    label: "",
-    content: "'functions' => [\n" +
-        "        [\n" +
-        "            'name' => 'get_current_weather',\n" +
-        "            'description' => 'Get the current weather in a given location',\n" +
-        "            'parameters' => [\n" +
-        "                'type' => 'object',\n" +
-        "                'properties' => [\n" +
-        "                    'location' => [\n" +
-        "                        'type' => 'string',\n" +
-        "                        'description' => 'The city and state, e.g. San Francisco, CA',\n" +
-        "                    ],\n" +
-        "                    'unit' => [\n" +
-        "                        'type' => 'string',\n" +
-        "                        'enum' => ['celsius', 'fahrenheit']\n" +
-        "                    ],\n" +
-        "                ],\n" +
-        "                'required' => ['location'],\n" +
-        "            ],\n" +
-        "        ]\n" +
-        "    ",
+    label: "llm_function_name",
+    description: "This is required to help the user and LLM understand the function",
+    parameters: '{\n' +
+        '        "type": "object",\n' +
+        '        "properties": {\n' +
+        '        "month": {\n' +
+        '            "type": "number",\n' +
+        '            "description": "Month of event starting with 0 if less than 10"\n' +
+        '        },\n' +
+        '        "day": {\n' +
+        '            "type": "number",\n' +
+        '            "description": "Day of event starting with 0 if less than 10"\n' +
+        '        },\n' +
+        '        "year": {\n' +
+        '            "type": "number",\n' +
+        '            "description": "Format YYYY"\n' +
+        '        },\n' +
+        '        "description": {\n' +
+        '            "type": "string",\n' +
+        '            "description": "Description of the Event"\n' +
+        '        }\n' +
+        '    },\n' +
+        '    "required": ["day", "month", "year", "description"]\n' +
+        '}',
     active: 1,
 })
 
