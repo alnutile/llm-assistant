@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use Facades\App\Domains\Scheduling\TaskRepository;
 use App\Models\LlmFunction;
+use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\OpenAi\FunctionCall;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,6 +16,8 @@ class FunctionCallTest extends TestCase
 
     public function test_calls_for_scheduling()
     {
+        TaskRepository::shouldReceive('handle')->once();
+        $message = Message::factory()->create();
         $llm = LlmFunction::factory()->scheduleFunction()->create();
         $call = get_fixture('functions_response_with_function_call.json');
 
@@ -21,7 +25,8 @@ class FunctionCallTest extends TestCase
         $call = json_decode($call, true);
         $dto = FunctionCallDto::from([
             'arguments' => $call,
+            'message' => $message
         ]);
-        $results = FunctionCall::handle('llm_functions_scheduling', $dto);
+        FunctionCall::handle('llm_functions_scheduling', $dto);
     }
 }

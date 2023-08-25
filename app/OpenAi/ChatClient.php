@@ -3,13 +3,16 @@
 namespace App\OpenAi;
 
 use App\Models\LlmFunction;
+use App\Models\Message;
 use App\OpenAi\Dtos\Response;
 use OpenAI\Contracts\ResponseContract;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class ChatClient
 {
-    public function chat(array $message, array $included_function = []): Response
+    public Message $messageModel;
+
+    public function chat(array $message, array $included_function = [], ?Message $messageModel = null): Response
     {
         if (config('openai.mock') && ! app()->environment('testing')) {
             logger('Mocking');
@@ -19,7 +22,8 @@ class ChatClient
             return Response::from($data);
         }
 
-        if (! empty($included_function)) {
+        if (! empty($included_function) && $messageModel) {
+            $this->messageModel = $messageModel;
             $model = config('openai.chat_model_with_function');
         } else {
             $model = config('openai.chat_model');

@@ -1,15 +1,19 @@
 <?php
 
+use Facades\App\Domains\Scheduling\TaskRepository;
+use App\OpenAi\Dtos\FunctionCallDto;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 
 if (! function_exists('llm_functions_scheduling')) {
     function llm_functions_scheduling(
-        array $tasks
-    ): string {
-        logger('Message coming in ', $tasks);
+        FunctionCallDto $functionCallDto
+    ): void {
 
-        return 'Coming Soon...';
+        logger('Message coming in ', $functionCallDto->toArray());
+
+        TaskRepository::handle($functionCallDto->arguments, $functionCallDto->message);
+
     }
 }
 
