@@ -5,17 +5,9 @@ use Illuminate\Support\Facades\File;
 
 if (! function_exists('llm_functions_scheduling')) {
     function llm_functions_scheduling(
-        int $month,
-        int $day,
-        int $year,
-        string $description
+        array $tasks
     ): string {
-        logger('Message coming in ', [
-            'day' => $day,
-            'mont' => $month,
-            'year' => $year,
-            '$description' => $description,
-        ]);
+        logger('Message coming in ', $tasks);
 
         return 'Coming Soon...';
     }

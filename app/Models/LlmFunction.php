@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * @property string $label
  * @property string $description
+ * @property string $parameters_formatted
  * @property array $parameters
  * @property bool $active
  */
@@ -21,6 +22,14 @@ class LlmFunction extends Model
     protected $casts = [
         'parameters' => 'array'
     ];
+
+    protected $appends = [
+        'parameters_formatted'
+    ];
+
+    public function getParametersFormattedAttribute() : string {
+        return json_encode($this->parameters, JSON_PRETTY_PRINT);
+    }
 
     public function messages(): BelongsToMany
     {

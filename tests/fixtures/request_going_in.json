@@ -1,0 +1,36 @@
+{
+    "model": "gpt-3.5-turbo-0613",
+    "messages": [
+        {
+            "role": "system",
+            "content": "Only use the functions you have been provided with if needed to help the user with this question. As a helpful assistant please assist the user in marketing and staying on track for this question\/idea"
+        },
+        {
+            "role": "user",
+            "content": "I need help marketing an idea about an LLM Assistant. To start I just need you to make a schedule of a few days in this next week to make sure I do some tasks to stay on top of it.\n        Can you suggest some tasks like 'Post to LinkedIn to Market the idea', 'Code and Planning time', 'YouTube video due' so I end up with a plan that will help me market it and build it\n        "
+        }
+    ],
+    "temperature": 0,
+    "functions": [
+        {
+            "name": "llm_functions_scheduling",
+            "description": "If the user needs help scheduling this will help create tasks in their personal calendar.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "tasks": {
+                        "type": "array",
+                        "description": "Each task to schedule can be placed in a list like the following tasks: [{date: string, description: string}] The format of data should be 0000-00-00",
+                        "items": {
+                            "date": "string",
+                            "description": "string"
+                        }
+                    }
+                },
+                "required": [
+                    "tasks"
+                ]
+            }
+        }
+    ]
+}

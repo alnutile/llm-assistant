@@ -68,4 +68,9 @@ class Message extends Model
     {
         return $this->belongsToMany(LlmFunction::class);
     }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
 }
