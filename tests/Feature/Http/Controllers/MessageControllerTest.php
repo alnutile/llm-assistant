@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\OpenAi\Dtos\Response;
+use Facades\App\Domains\Message\MessageRepository;
 use App\Jobs\MessageCreatedJob;
 use App\Models\LlmFunction;
 use App\Models\Message;
 use App\Models\MetaData;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
@@ -50,6 +53,23 @@ class MessageControllerTest extends TestCase
         $this->assertCount(1, $message->tags);
         $this->assertCount(1, $message->llm_functions);
         Queue::assertPushed(MessageCreatedJob::class);
+    }
+
+
+    public function test_rerun() {
+        Event::fake();
+        $dto = Response::from([
+            'content' => "Foobar",
+        ]);
+        MessageRepository::shouldReceive('handle')->once()->andReturn($dto);
+        $user = User::factory()->create();
+        $message = Message::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($user)->post(route('messages.rerun', [
+            'message' => $message->id,
+        ]));
     }
 
     public function test_show()

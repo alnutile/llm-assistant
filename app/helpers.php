@@ -1,7 +1,8 @@
 <?php
 
-use Facades\App\Domains\Scheduling\TaskRepository;
+use App\Domains\Scheduling\Dtos\TasksDto;
 use App\OpenAi\Dtos\FunctionCallDto;
+use Facades\App\Domains\Scheduling\TaskRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 
@@ -12,8 +13,8 @@ if (! function_exists('llm_functions_scheduling')) {
 
         logger('Message coming in ', $functionCallDto->toArray());
 
-        TaskRepository::handle($functionCallDto->arguments, $functionCallDto->message);
-
+        TaskRepository::handle(TasksDto::from($functionCallDto->arguments),
+            $functionCallDto->message);
     }
 }
 

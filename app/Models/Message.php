@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -19,6 +20,7 @@ use Pgvector\Laravel\Vector;
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \App\Models\User $user
  * @property-read \App\Models\Message $parent
+ * @property-read Collection $llm_functions
  */
 class Message extends Model
 {
@@ -73,4 +75,9 @@ class Message extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function getFunctionNamesAttribute() : array {
+        return $this->llm_functions->pluck("label")->toArray();
+    }
+
 }

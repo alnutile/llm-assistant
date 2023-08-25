@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\LlmFunction;
+use App\Models\Message;
 use App\OpenAi\Dtos\Response;
 use Facades\App\OpenAi\ChatClient;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -14,9 +15,13 @@ class ChatClientTest extends TestCase
     public function test_sends_functions()
     {
         $data = get_fixture('chat_message_response.json');
+        $data2 = get_fixture('chat_message_response.json');
         OpenAI::fake([
             CreateResponse::fake([
                 $data,
+            ]),
+            CreateResponse::fake([
+                $data2,
             ]),
         ]);
 
@@ -31,8 +36,14 @@ class ChatClientTest extends TestCase
             ],
         ];
 
-        LlmFunction::factory()->scheduleFunction()->create();
-        $results = ChatClient::chat($message, ['llm_functions_scheduling']);
+        $messageModel = Message::factory()->create();
+
+        $llmFunction = LlmFunction::factory()->scheduleFunction()->create();
+
+        $messageModel->llm_functions()->attach($llmFunction->id);
+
+        $results = ChatClient::setMessage($messageModel)
+            ->chat($message);
         $this->assertInstanceOf(Response::class, $results);
         $this->assertNotNull($results->content);
         $this->assertStringContainsString('Hello',

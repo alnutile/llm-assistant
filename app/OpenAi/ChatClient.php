@@ -4,15 +4,22 @@ namespace App\OpenAi;
 
 use App\Models\LlmFunction;
 use App\Models\Message;
+use App\OpenAi\Dtos\FunctionCallDto;
 use App\OpenAi\Dtos\Response;
-use OpenAI\Contracts\ResponseContract;
+use Facades\App\OpenAi\FunctionCall;
+use Facades\App\OpenAi\ChatClient as ChatClientFacade;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class ChatClient
 {
-    public Message $messageModel;
+    public ?Message $messageModel = null;
 
-    public function chat(array $message, array $included_function = [], ?Message $messageModel = null): Response
+    public function setMessage(Message $message) : self {
+        $this->messageModel = $message;
+        return $this;
+    }
+
+    public function chat(array $messages): Response
     {
         if (config('openai.mock') && ! app()->environment('testing')) {
             logger('Mocking');
@@ -22,8 +29,7 @@ class ChatClient
             return Response::from($data);
         }
 
-        if (! empty($included_function) && $messageModel) {
-            $this->messageModel = $messageModel;
+        if ($this->hasFunctions()) {
             $model = config('openai.chat_model_with_function');
         } else {
             $model = config('openai.chat_model');
@@ -31,48 +37,67 @@ class ChatClient
 
         $request = [
             'model' => $model,
-            'messages' => $message,
+            'messages' => $messages,
             'temperature' => (int) config('openai.temperature'),
         ];
 
-        if (! empty($included_function)) {
-            $request['functions'] = $this->getFunctions($included_function);
+        if ($this->hasFunctions()) {
+            $request['functions'] = $this->getFunctions();
         }
 
-        put_fixture('request_going_in.json', $request);
-
-        /** @var ResponseContract $response */
         $response = OpenAI::chat()->create($request);
 
-        put_fixture('functions_response.json', $response->toArray());
-        logger('Message complete');
+        if(data_get($response, 'choices.0.finish_reason') === 'function_call') {
+            $name = data_get($response, 'choices.0.message.function_call.name');
+            $arguments = data_get($response, 'choices.0.message.function_call.arguments');
+            $dto = FunctionCallDto::from([
+               'arguments' => $arguments,
+               'message' => $this->messageModel
+            ]);
 
-        return Response::from(
-            [
-                'content' => data_get($response, 'choices.0.message.content'),
-                'role' => data_get($response, 'choices.0.message.role'),
-                /** @phpstan-ignore-next-line */
-                'token_count' => $response->usage->totalTokens,
-                'finish_reason' => data_get($response, 'choices.0.finish_reason'),
-            ]
-        );
+            logger("Making function call then will reiterate", [
+                $arguments
+            ]);
 
+            FunctionCall::handle($name, $dto);
+
+            $messages[] = [
+                'role' => "assistant",
+                'content' => sprintf("As an assistant I ran the function %s for you with these parameters %s",
+                $name,
+                json_encode($dto->arguments)
+                )
+            ];
+
+            ChatClientFacade::chat($messages);
+
+        } else {
+
+            return Response::from(
+                [
+                    'content' => data_get($response, 'choices.0.message.content'),
+                    'role' => data_get($response, 'choices.0.message.role'),
+                    /** @phpstan-ignore-next-line */
+                    'token_count' => $response->usage->totalTokens,
+                    'finish_reason' => data_get($response, 'choices.0.finish_reason'),
+                ]
+            );
+        }
     }
 
-    protected function getFunctions(array $included_function): array
+    protected function hasFunctions() : bool {
+        return $this->messageModel && !empty($this->messageModel->llm_functions);
+    }
+
+    protected function getFunctions(): array
     {
         $llm_functions = [];
-        foreach ($included_function as $llm_function) {
-            /** @var LlmFunction $llm_functionModel */
-            $llm_functionModel = LlmFunction::where('label', 'LIKE', $llm_function)->first();
-
-            if ($llm_functionModel != null) {
+        foreach ($this->messageModel->llm_functions as $llm_functionModel) {
                 $llm_functions[] = [
                     'name' => $llm_functionModel->label,
                     'description' => $llm_functionModel->description,
                     'parameters' => $llm_functionModel->parameters,
                 ];
-            }
         }
 
         return $llm_functions;

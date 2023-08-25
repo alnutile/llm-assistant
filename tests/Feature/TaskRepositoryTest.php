@@ -2,30 +2,34 @@
 
 namespace Tests\Feature;
 
+use App\Domains\Scheduling\Dtos\TasksDto;
+use Facades\App\Domains\Scheduling\TaskRepository;
 use App\Models\LlmFunction;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
-use Facades\App\Domains\Scheduling\TaskRepository;
-use Facades\App\OpenAi\FunctionCall;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class FunctionCallTest extends TestCase
+class TaskRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
-
-    public function test_calls_for_scheduling()
+    /**
+     * A basic feature test example.
+     */
+    public function test_makes_tasks(): void
     {
-        TaskRepository::shouldReceive('handle')->once();
+        $this->assertDatabaseCount('tasks', 0);
         $message = Message::factory()->create();
         $llm = LlmFunction::factory()->scheduleFunction()->create();
         $call = get_fixture('functions_response_with_function_call.json');
 
         $call = data_get($call, 'choices.0.message.function_call.arguments');
+        $call = json_decode($call, true);
         $dto = FunctionCallDto::from([
             'arguments' => $call,
             'message' => $message,
         ]);
-        FunctionCall::handle('llm_functions_scheduling', $dto);
+        TaskRepository::handle(TasksDto::from($dto->arguments), $dto->message);
+        $this->assertDatabaseCount('tasks', 3);
     }
 }

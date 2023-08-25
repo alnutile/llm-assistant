@@ -26,6 +26,7 @@ class MessageResource extends JsonResource
             'children' => MessageResource::collection($this->children),
             'created_at' => $this->created_at->diffForHumans(),
             'created_at_formatted' => $this->created_at->diffForHumans(),
+            'tasks' => TaskResource::collection($this->tasks),
         ];
     }
 }

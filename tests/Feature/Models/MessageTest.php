@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Models;
 
+use App\Models\LlmFunction;
 use App\Models\Message;
 use App\Models\MetaData;
 use App\Models\Tag;
@@ -47,6 +48,16 @@ class MessageTest extends TestCase
 
         $message->meta_data()->attach($metaData->id);
         $this->assertCount(1, $message->refresh()->meta_data);
+    }
+
+    public function test_get_function_names() {
+        $message = Message::factory()->create();
+        $llm = LlmFunction::factory()->create();
+        $message->llm_functions()->attach($llm->id);
+
+        $functions = $message->refresh()->function_names;
+        $this->assertCount(1, $functions);
+        $this->assertEquals($llm->label, $functions[0]);
     }
 
     public function test_tags()

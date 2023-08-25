@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FunctionCall
 {
-    public function handle(string $function_name, FunctionCallDto $callDto)
+    public function handle(string $function_name, FunctionCallDto $callDto) : void
     {
         try {
             $function = LlmFunction::where('label', $function_name)->firstOrfail();

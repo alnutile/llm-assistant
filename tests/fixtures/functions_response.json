@@ -1,25 +1,21 @@
 {
-    "id": "chatcmpl-7rSH8qTX5Tei2AWsk7CfBrCH0wOfa",
+    "id": "chatcmpl-123",
     "object": "chat.completion",
-    "created": 1692974430,
-    "model": "gpt-3.5-turbo-0613",
+    "created": 1677652288,
+    "model": "gpt-3.5-turbo",
     "choices": [
         {
             "index": 0,
             "message": {
                 "role": "assistant",
-                "content": null,
-                "function_call": {
-                    "name": "llm_functions_scheduling",
-                    "arguments": "{\n  \"tasks\": [\n    {\"date\": \"2022-01-10\", \"description\": \"Post to LinkedIn to Market the idea\"},\n    {\"date\": \"2022-01-11\", \"description\": \"Code and Planning time\"},\n    {\"date\": \"2022-01-12\", \"description\": \"YouTube video due\"}\n  ]\n}"
-                }
+                "content": "\n\nHello there, this is a fake chat response."
             },
-            "finish_reason": "function_call"
+            "finish_reason": "stop"
         }
     ],
     "usage": {
-        "prompt_tokens": 225,
-        "completion_tokens": 83,
-        "total_tokens": 308
+        "prompt_tokens": 9,
+        "completion_tokens": 12,
+        "total_tokens": 21
     }
 }

@@ -17,7 +17,7 @@
                 :href="route('messages.show', {
                 message: message.id
             })">view</SecondaryButton>
-            <Rerun :message="message.id"/>
+            <Rerun :message="message"/>
         </div>
 
         <div class="justify-start flex gap-2" v-if="pills">

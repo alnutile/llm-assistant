@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property bool $complete
  * @property Message $message
+ * @property string $description
  * @property int $message_id
  * @property Carbon|null $due
  * @property Carbon|null $deleted_at

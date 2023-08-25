@@ -74,7 +74,9 @@ class MessageRepository
     {
         if (! empty($this->parent_message->meta_data)) {
             $content =
-                'Acting as the users assistant and using the following meta data included in the question please answer their question:';
+                sprintf('Acting as the users assistant and using the following meta data included in the question please answer their question,
+                Current Date is %s
+                Only use the functions you have been provided with if needed to help the user with this question:', now()->format("YYYY-d-m h:m"));
             $content = str($content);
             foreach ($this->parent_message->meta_data as $meta_data) {
                 $content = $content->append(sprintf('%s: %s', $meta_data->label, $meta_data->content));

@@ -24,6 +24,13 @@
 
                 <div class="lg:col-start-3 lg:row-end-2 p-4">
                     <div class="ap-2">
+                        <HTwo class="mb-4">Tasks:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <TaskList :tasks="message.data.tasks"/>
+                        </div>
+                    </div>
+
+                    <div class="ap-2">
                         <HTwo class="mb-4">Meta Data:</HTwo>
                         <div class="flex justify-center gap-2">
                             <MetaDataLabel v-for="meta in message.data.meta_data" :key="meta.id" :meta_data="meta"/>
@@ -85,6 +92,7 @@ import TagLabel from "@/Pages/Messages/Components/TagLabel.vue";
 import LlmFunctionLabel from "@/Pages/Messages/Components/LlmFunctionLabel.vue";
 import Delete from "./Components/Delete.vue";
 import {onMounted} from "vue";
+import TaskList from "./Components/TaskList.vue";
 
 const props = defineProps({
     message: Object
