@@ -28,9 +28,9 @@ class LlmFunctionFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'label' => "llm_functions_scheduling",
-                'description' => "Passing Month-Day-Year and Description the function will make a scheduled task",
-                'parameters' => get_fixture('function_parameters.json')
+                'label' => 'llm_functions_scheduling',
+                'description' => 'Passing Month-Day-Year and Description the function will make a scheduled task',
+                'parameters' => get_fixture('function_parameters.json'),
             ];
         });
     }

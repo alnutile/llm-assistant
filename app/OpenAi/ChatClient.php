@@ -19,10 +19,9 @@ class ChatClient
             return Response::from($data);
         }
 
-
-        if(!empty($included_function)) {
+        if (! empty($included_function)) {
             $model = config('openai.chat_model_with_function');
-        } else{
+        } else {
             $model = config('openai.chat_model');
         }
 
@@ -32,17 +31,17 @@ class ChatClient
             'temperature' => (int) config('openai.temperature'),
         ];
 
-        if (!empty($included_function)) {
+        if (! empty($included_function)) {
             $request['functions'] = $this->getFunctions($included_function);
         }
 
-        put_fixture("request_going_in.json", $request);
+        put_fixture('request_going_in.json', $request);
 
         /** @var ResponseContract $response */
         $response = OpenAI::chat()->create($request);
 
-        put_fixture("functions_response.json", $response->toArray());
-        logger("Message complete");
+        put_fixture('functions_response.json', $response->toArray());
+        logger('Message complete');
 
         return Response::from(
             [
@@ -60,9 +59,9 @@ class ChatClient
         $llm_functions = [];
         foreach ($included_function as $llm_function) {
             /** @var LlmFunction $llm_functionModel */
-            $llm_functionModel = LlmFunction::where("label", "LIKE", $llm_function)->first();
+            $llm_functionModel = LlmFunction::where('label', 'LIKE', $llm_function)->first();
 
-            if($llm_functionModel) {
+            if ($llm_functionModel) {
                 $llm_functions[] = [
                     'name' => $llm_functionModel->label,
                     'description' => $llm_functionModel->description,
@@ -70,7 +69,6 @@ class ChatClient
                 ];
             }
         }
-
 
         return $llm_functions;
     }

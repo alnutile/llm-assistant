@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('llm_functions', function (Blueprint $table) {
             $table->dropColumn('content');
             $table->json('parameters')->nullable();
-            $table->longText("description")->nullable();
+            $table->longText('description')->nullable();
         });
     }
 

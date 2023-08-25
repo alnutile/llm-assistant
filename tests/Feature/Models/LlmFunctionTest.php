@@ -4,7 +4,6 @@ namespace Tests\Feature\Models;
 
 use App\Models\LlmFunction;
 use App\Models\Message;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LlmFunctionTest extends TestCase
@@ -24,7 +23,8 @@ class LlmFunctionTest extends TestCase
         $this->assertCount(1, $message->llm_functions->first()->messages);
     }
 
-    public function test_creates_scheduler() {
+    public function test_creates_scheduler()
+    {
         $llm = LlmFunction::factory()->scheduleFunction()->create();
         $this->assertNotNull($llm->parameters);
     }

@@ -21,7 +21,7 @@ class TaskFactory extends Factory
             'complete' => fake()->boolean,
             'description' => fake()->sentences(3, true),
             'message_id' => Message::factory(),
-            'due' => now()->addDays(2)
+            'due' => now()->addDays(2),
         ];
     }
 }

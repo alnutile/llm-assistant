@@ -20,14 +20,15 @@ class LlmFunction extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'parameters' => 'array'
+        'parameters' => 'array',
     ];
 
     protected $appends = [
-        'parameters_formatted'
+        'parameters_formatted',
     ];
 
-    public function getParametersFormattedAttribute() : string {
+    public function getParametersFormattedAttribute(): string
+    {
         return json_encode($this->parameters, JSON_PRETTY_PRINT);
     }
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property boolean $complete
+ * @property bool $complete
  * @property Message $message
  * @property int $message_id
  * @property Carbon|null $due
@@ -22,7 +22,7 @@ class Task extends Model
 
     protected $guarded = [];
 
-    protected $casts = ['due' => "date" ];
+    protected $casts = ['due' => 'date'];
 
     public function message(): BelongsTo
     {

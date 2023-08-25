@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->boolean("complete")->default(0);
+            $table->boolean('complete')->default(0);
             $table->foreignIdFor(Message::class);
-            $table->longText("description");
-            $table->date("due")->nullable();
+            $table->longText('description');
+            $table->date('due')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
