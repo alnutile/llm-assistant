@@ -47,6 +47,7 @@ class ChatClient
             [
                 'content' => data_get($response, 'choices.0.message.content'),
                 'role' => data_get($response, 'choices.0.message.role'),
+                /** @phpstan-ignore-next-line */
                 'token_count' => $response->usage->totalTokens,
                 'finish_reason' => data_get($response, 'choices.0.finish_reason'),
             ]
@@ -61,7 +62,7 @@ class ChatClient
             /** @var LlmFunction $llm_functionModel */
             $llm_functionModel = LlmFunction::where('label', 'LIKE', $llm_function)->first();
 
-            if ($llm_functionModel) {
+            if ($llm_functionModel != null) {
                 $llm_functions[] = [
                     'name' => $llm_functionModel->label,
                     'description' => $llm_functionModel->description,
