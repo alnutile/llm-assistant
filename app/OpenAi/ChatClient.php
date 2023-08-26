@@ -71,17 +71,17 @@ class ChatClient
                 ),
             ];
 
-                return ChatClientFacade::chat($messages);
-            } else {
-                return Response::from(
-                    [
-                        'content' => data_get($response, 'choices.0.message.content'),
-                        'role' => data_get($response, 'choices.0.message.role'),
-                        'token_count' => $response->usage->totalTokens,
-                        'finish_reason' => data_get($response, 'choices.0.finish_reason'),
-                    ]
-                );
-            }
+            return ChatClientFacade::chat($messages);
+        } else {
+            return Response::from(
+                [
+                    'content' => data_get($response, 'choices.0.message.content'),
+                    'role' => data_get($response, 'choices.0.message.role'),
+                    'token_count' => $response->usage->totalTokens,
+                    'finish_reason' => data_get($response, 'choices.0.finish_reason'),
+                ]
+            );
+        }
     }
 
     protected function hasFunctions(): bool
