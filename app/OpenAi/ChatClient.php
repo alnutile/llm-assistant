@@ -44,7 +44,10 @@ class ChatClient
         ];
 
         if ($this->hasFunctions()) {
-            $request['functions'] = $this->getFunctions();
+            $function = $this->getFunctions();
+            if (! empty($function)) {
+                $request['functions'] = $function;
+            }
         }
 
         $response = OpenAI::chat()->create($request);
