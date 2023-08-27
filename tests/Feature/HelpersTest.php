@@ -23,6 +23,21 @@ EOD;
 
     }
 
+    public function test_get_body_again()
+    {
+        $text = <<<'EOD'
+subject: forxer/laravel-gravatar: Easy Gravatar integration in a Laravel project. body: URL: https://github.com/forxer/laravel-gravatar
+EOD;
+
+        $results = get_url_from_body($text);
+
+        $this->assertEquals(
+            'https://github.com/forxer/laravel-gravatar',
+            $results
+        );
+
+    }
+
     public function test_two_urls()
     {
         $text = <<<'EOD'

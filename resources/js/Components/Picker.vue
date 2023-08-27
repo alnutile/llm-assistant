@@ -12,7 +12,8 @@
                 <h3 class="font-semibold text-sm">
                     {{ item.label }}
                 </h3>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                <svg xmlns="http://www.w3.org/2000/svg" fil
+                     l="none" viewBox="0 0 24 24"
                      stroke-width="1.5"
                      stroke="currentColor"
                      :class="isInToggles(item) ? 'text-gray-100' : 'text-gray-300'"

@@ -12,6 +12,40 @@ use Tests\TestCase;
 
 class MailBoxParserJobTest extends TestCase
 {
+
+
+    public function test_larger_message()
+    {
+        $dto = Response::from([
+            'content' => 'reduced content',
+        ]);
+
+
+        ChatClient::shouldReceive('chat')
+            ->once()
+            ->andReturn($dto);
+
+        $text = get_fixture_v2("larger_text.txt", false);
+        GetSiteWrapper::shouldReceive('handle')
+            ->once()
+            ->andReturn($text);
+
+        User::factory()->create();
+
+        $dto = MailDto::from([
+            'to' => 'info@llmassistant.io',
+            'from' => 'foo@var.com',
+            'subject' => 'This is it',
+            'body' => 'https://foo.com',
+        ]);
+
+        $this->assertDatabaseCount('messages', 0);
+        $job = new MailBoxParserJob($dto);
+        $job->handle();
+        $this->assertDatabaseCount('messages', 1);
+
+    }
+
     public function test_makes_message()
     {
         $dto = Response::from([

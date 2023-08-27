@@ -48,38 +48,7 @@ class MailBoxParserJob implements ShouldQueue
 
             $content = $this->mailDto->body;
 
-            $hasUrl = get_url_from_body($content);
-
-            if ($hasUrl) {
-
-                $body = GetSiteWrapper::handle($hasUrl);
-                if ($body > config('openai.max_question_size')) {
-                    $body = LarachainTrimText::trim($content);
-                }
-
-                $messages = [];
-                $messages[] = [
-                    'role' => 'system',
-                    'content' => 'This is HTML of a site I just got a page from can you clean it up so it is just the main content of the site for reading',
-                ];
-                $messages[] = [
-                    'role' => 'user',
-                    'content' => $body,
-                ];
-
-                $results = ChatClient::chat($messages);
-
-                $content = $results->content;
-
-                $content = format_text_for_message($content);
-
-                $content = sprintf("
-                URL: %s\n
-                Content: %s",
-                    $hasUrl,
-                    $content
-                );
-            }
+            $content = $this->seeIfHasUrl($content);
 
             $message = Message::create([
                 'role' => 'user',
@@ -103,5 +72,44 @@ class MailBoxParserJob implements ShouldQueue
 
             throw $e;
         }
+    }
+
+    private function seeIfHasUrl(?string $content):?string
+    {
+        $hasUrl = get_url_from_body($content);
+
+        if ($hasUrl) {
+
+            $body = GetSiteWrapper::handle($hasUrl);
+            if ($body > config('openai.max_question_size')) {
+                $content = LarachainTrimText::trim($body);
+            } else {
+                $content = $body;
+            }
+
+            $messages = [];
+            $messages[] = [
+                'role' => 'system',
+                'content' => 'This is HTML of a site I just got a page from can you clean it up so it is just the main content of the site for reading',
+            ];
+            $messages[] = [
+                'role' => 'user',
+                'content' => $content,
+            ];
+
+            $results = ChatClient::chat($messages);
+
+            $content = $results->content;
+
+            $content = format_text_for_message($content);
+
+            $content = sprintf("
+                URL: %s\n
+                Content: %s",
+                $hasUrl,
+                $content
+            );
+        }
+        return $content;
     }
 }
