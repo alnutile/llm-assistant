@@ -74,7 +74,7 @@ class MailBoxParserJob implements ShouldQueue
         }
     }
 
-    private function seeIfHasUrl(?string $content):?string
+    private function seeIfHasUrl(?string $content): ?string
     {
         $hasUrl = get_url_from_body($content);
 
@@ -110,6 +110,7 @@ class MailBoxParserJob implements ShouldQueue
                 $content
             );
         }
+
         return $content;
     }
 }

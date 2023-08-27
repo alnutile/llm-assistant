@@ -12,20 +12,17 @@ use Tests\TestCase;
 
 class MailBoxParserJobTest extends TestCase
 {
-
-
     public function test_larger_message()
     {
         $dto = Response::from([
             'content' => 'reduced content',
         ]);
 
-
         ChatClient::shouldReceive('chat')
             ->once()
             ->andReturn($dto);
 
-        $text = get_fixture_v2("larger_text.txt", false);
+        $text = get_fixture_v2('larger_text.txt', false);
         GetSiteWrapper::shouldReceive('handle')
             ->once()
             ->andReturn($text);
