@@ -7,14 +7,11 @@ use App\Models\LlmFunction;
 use App\Models\Message;
 use App\Models\Tag;
 use App\Models\User;
-use Facades\App\OpenAi\ChatClient;
-use Facades\App\Tools\GetSiteWrapper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use SundanceSolutions\LarachainTrimText\Facades\LarachainTrimText;
 
 class MailBoxParserJob implements ShouldQueue
 {
@@ -60,7 +57,7 @@ class MailBoxParserJob implements ShouldQueue
              * @TODO strip signatures
              * This will pick up signature :(
              */
-            if($url = get_url_from_body($content)) {
+            if ($url = get_url_from_body($content)) {
                 $content = str($content)->prepend("get content from the url {$url} using the included function")->toString();
             }
 
@@ -77,7 +74,7 @@ class MailBoxParserJob implements ShouldQueue
             ]);
 
             $message->llm_functions()->attach([
-                $function->id
+                $function->id,
             ]);
 
             MessageCreatedJob::dispatch($message);
@@ -88,6 +85,4 @@ class MailBoxParserJob implements ShouldQueue
             throw $e;
         }
     }
-
-
 }

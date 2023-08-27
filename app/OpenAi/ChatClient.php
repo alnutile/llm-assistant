@@ -9,7 +9,6 @@ use App\OpenAi\Dtos\Response;
 use Facades\App\OpenAi\ChatClient as ChatClientFacade;
 use Facades\App\OpenAi\FunctionCall;
 use OpenAI\Laravel\Facades\OpenAI;
-use SundanceSolutions\LarachainTrimText\Facades\LarachainTrimText;
 
 class ChatClient
 {
@@ -38,7 +37,7 @@ class ChatClient
             $model = config('openai.chat_model');
         }
 
-        logger("Model being used", ['model' => $model]);
+        logger('Model being used', ['model' => $model]);
 
         $request = [
             'model' => $model,
@@ -54,7 +53,6 @@ class ChatClient
         }
 
         $response = OpenAI::chat()->create($request);
-
 
         if (data_get($response, 'choices.0.finish_reason') === 'function_call') {
             $name = data_get($response, 'choices.0.message.function_call.name');

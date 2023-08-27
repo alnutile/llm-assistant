@@ -6,9 +6,6 @@ use App\Domains\EmailParser\MailDto;
 use App\Jobs\MailBoxParserJob;
 use App\Jobs\MessageCreatedJob;
 use App\Models\User;
-use App\OpenAi\Dtos\Response;
-use Facades\App\OpenAi\ChatClient;
-use Facades\App\Tools\GetSiteWrapper;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
@@ -32,7 +29,4 @@ class MailBoxParserJobTest extends TestCase
         $this->assertDatabaseCount('messages', 1);
         Queue::assertPushed(MessageCreatedJob::class);
     }
-
-
-
 }

@@ -32,7 +32,7 @@ class LlmFunctionControllerTest extends TestCase
                 'parameters' => ['foo' => 'bar'],
             ]
         )->assertStatus(302);
-        $this->assertTrue(LlmFunction::whereLabel("Foobar")->exists());
+        $this->assertTrue(LlmFunction::whereLabel('Foobar')->exists());
     }
 
     public function test_update(): void

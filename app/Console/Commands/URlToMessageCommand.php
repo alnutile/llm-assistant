@@ -28,13 +28,13 @@ class URlToMessageCommand extends Command
     public function handle()
     {
         $url = $this->argument('url');
-        $this->info("Getting content for url " . $url . " check logs");
+        $this->info('Getting content for url '.$url.' check logs');
         $dto = MailDto::from([
-            'subject' => "Get content for the url",
-            'body' => " This is the url to get copy for " . $url
+            'subject' => 'Get content for the url',
+            'body' => ' This is the url to get copy for '.$url,
         ]);
         $job = new MailBoxParserJob($dto);
         $job->handle();
-        $this->info("Check the queue!");
+        $this->info('Check the queue!');
     }
 }

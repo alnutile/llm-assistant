@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MessageIndexResource;
-use App\Http\Resources\MessageResource;
 use App\Http\Resources\TagResource;
 use App\Models\Message;
 use App\Models\Tag;

@@ -34,6 +34,11 @@ class LlmFunction extends Model
 
     public function getParametersDecodedAttribute(): array
     {
+        if (is_array($this->parameters)) {
+            return $this->parameters;
+        }
+
+        /** @phpstan-ignore-next-line */
         return (array) json_decode($this->parameters, true);
     }
 
