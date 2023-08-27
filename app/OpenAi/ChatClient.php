@@ -9,6 +9,7 @@ use App\OpenAi\Dtos\Response;
 use Facades\App\OpenAi\ChatClient as ChatClientFacade;
 use Facades\App\OpenAi\FunctionCall;
 use OpenAI\Laravel\Facades\OpenAI;
+use SundanceSolutions\LarachainTrimText\Facades\LarachainTrimText;
 
 class ChatClient
 {
@@ -21,7 +22,7 @@ class ChatClient
         return $this;
     }
 
-    public function chat(array $messages): Response
+    public function chat(array $messages, bool $run_functions = true): Response
     {
         if (config('openai.mock') && ! app()->environment('testing')) {
             logger('Mocking');
@@ -31,11 +32,13 @@ class ChatClient
             return Response::from($data);
         }
 
-        if ($this->hasFunctions()) {
+        if ($this->hasFunctions() && $run_functions) {
             $model = config('openai.chat_model_with_function');
         } else {
             $model = config('openai.chat_model');
         }
+
+        logger("Model being used", ['model' => $model]);
 
         $request = [
             'model' => $model,
@@ -43,7 +46,7 @@ class ChatClient
             'temperature' => (int) config('openai.temperature'),
         ];
 
-        if ($this->hasFunctions()) {
+        if ($this->hasFunctions() && $run_functions) {
             $function = $this->getFunctions();
             if (! empty($function)) {
                 $request['functions'] = $function;
@@ -51,6 +54,7 @@ class ChatClient
         }
 
         $response = OpenAI::chat()->create($request);
+
 
         if (data_get($response, 'choices.0.finish_reason') === 'function_call') {
             $name = data_get($response, 'choices.0.message.function_call.name');
@@ -74,7 +78,7 @@ class ChatClient
                 ),
             ];
 
-            return ChatClientFacade::chat($messages);
+            return ChatClientFacade::chat($messages, false);
         } else {
             return Response::from(
                 [
@@ -97,10 +101,11 @@ class ChatClient
         $llm_functions = [];
         /** @var LlmFunction $llm_functionModel */
         foreach ($this->messageModel->llm_functions as $llm_functionModel) {
+
             $llm_functions[] = [
                 'name' => $llm_functionModel->label,
                 'description' => $llm_functionModel->description,
-                'parameters' => $llm_functionModel->parameters,
+                'parameters' => $llm_functionModel->parameters_decoded,
             ];
         }
 

@@ -4,6 +4,7 @@ namespace App\Domains\EmailParser;
 
 use App\Jobs\MailBoxParserJob;
 use Webklex\IMAP\Facades\Client as ClientFacade;
+use Webklex\PHPIMAP\Message;
 
 class Client
 {
@@ -21,6 +22,7 @@ class Client
                 $messages->count(),
             ]);
 
+            /** @var Message $message */
             foreach ($messages as $message) {
                 logger('Getting Message');
 

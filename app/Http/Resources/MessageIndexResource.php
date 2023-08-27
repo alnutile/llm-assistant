@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
-class MessageResource extends JsonResource
+class MessageIndexResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,8 @@ class MessageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'content' => $this->content,
-            'content_formatted' => $this->message_formatted,
-            'content_truncated' => str($this->message_formatted)->limit(200)->toString(),
+            'content' => str($this->content)->limit(350),
+            'content_formatted' => str($this->message_formatted)->limit(350),
             'user' => $this->user,
             'role' => $this->role,
             'meta_data' => MetaDataResource::collection($this->meta_data),

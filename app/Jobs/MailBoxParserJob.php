@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Domains\EmailParser\MailDto;
+use App\Models\LlmFunction;
 use App\Models\Message;
 use App\Models\Tag;
 use App\Models\User;
@@ -46,9 +47,22 @@ class MailBoxParserJob implements ShouldQueue
                 'active' => 1,
             ]);
 
+            /**
+             * @TODO
+             * The emails can have triggers like #tldr or #get_content
+             * Since this is my most common use case I will just assume this
+             */
+            $function = LlmFunction::whereLabel('get_content_from_url')->first();
+
             $content = $this->mailDto->body;
 
-            $content = $this->seeIfHasUrl($content);
+            /**
+             * @TODO strip signatures
+             * This will pick up signature :(
+             */
+            if($url = get_url_from_body($content)) {
+                $content = str($content)->prepend("get content from the url {$url} using the included function")->toString();
+            }
 
             $message = Message::create([
                 'role' => 'user',
@@ -62,11 +76,12 @@ class MailBoxParserJob implements ShouldQueue
                 $tag1->id, $tag2->id,
             ]);
 
-            /**
-             * If tons of text we tldr it
-             * If a url we go get it then tldr it
-             * can make that a function?
-             */
+            $message->llm_functions()->attach([
+                $function->id
+            ]);
+
+            MessageCreatedJob::dispatch($message);
+
         } catch (\Exception $e) {
             logger('Email error', [$e->getMessage()]);
 
@@ -74,43 +89,5 @@ class MailBoxParserJob implements ShouldQueue
         }
     }
 
-    private function seeIfHasUrl(?string $content): ?string
-    {
-        $hasUrl = get_url_from_body($content);
 
-        if ($hasUrl) {
-
-            $body = GetSiteWrapper::handle($hasUrl);
-            if ($body > config('openai.max_question_size')) {
-                $content = LarachainTrimText::trim($body);
-            } else {
-                $content = $body;
-            }
-
-            $messages = [];
-            $messages[] = [
-                'role' => 'system',
-                'content' => 'This is HTML of a site I just got a page from can you clean it up so it is just the main content of the site for reading',
-            ];
-            $messages[] = [
-                'role' => 'user',
-                'content' => $content,
-            ];
-
-            $results = ChatClient::chat($messages);
-
-            $content = $results->content;
-
-            $content = format_text_for_message($content);
-
-            $content = sprintf("
-                URL: %s\n
-                Content: %s",
-                $hasUrl,
-                $content
-            );
-        }
-
-        return $content;
-    }
 }

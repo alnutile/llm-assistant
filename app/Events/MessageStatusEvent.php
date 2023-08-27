@@ -40,4 +40,17 @@ class MessageStatusEvent implements ShouldBroadcast
     {
         return 'status';
     }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array<string, mixed>
+     */
+    public function broadcastWith(): array
+    {
+        return [
+            'id' => $this->message->id,
+            'user_id' => $this->message->user_id,
+        ];
+    }
 }

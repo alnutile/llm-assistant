@@ -2,6 +2,7 @@
 
 namespace App\Tools;
 
+use Facades\App\Domains\Scraping\RapidScrapeClient;
 use App\Spiders\GetPageSpider;
 use Illuminate\Support\Arr;
 use RoachPHP\ItemPipeline\Item;
@@ -13,18 +14,6 @@ class GetSiteWrapper
     public function handle(string $url): string|null
     {
 
-        /** @var Item[] $items */
-        $items = Roach::collectSpider(
-            GetPageSpider::class,
-            new Overrides(startUrls: [$url])
-        );
-
-        $item = Arr::first($items);
-
-        if ($item) {
-            return $item->get(0);
-        }
-
-        return null;
+        return RapidScrapeClient::handle($url);
     }
 }

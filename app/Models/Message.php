@@ -38,7 +38,7 @@ class Message extends Model
 
     public function getMessageFormattedAttribute()
     {
-        return str($this->content)->markdown()->toString();
+        return str($this->content)->toString();
     }
 
     public function user()

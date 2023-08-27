@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MessageIndexResource;
 use App\Http\Resources\MessageResource;
 use App\Http\Resources\TagResource;
 use App\Models\Message;
@@ -21,7 +22,7 @@ class HomeController extends Controller
         return inertia('Dashboard/Show', [
             'filters' => $filters,
             'tags' => TagResource::collection(Tag::get()),
-            'messages' => MessageResource::collection(Message::query()
+            'messages' => MessageIndexResource::collection(Message::query()
                 ->when($tags, function (Builder $query) use ($tags) {
                     return $query->whereHas('tags', function (Builder $query) use ($tags) {
                         return $query->whereIn('tags.id', $tags);

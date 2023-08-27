@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "url": {
+            "type": "string",
+            "description": "This is the URL that the user wants the system to get"
+        }
+    },
+    "required": ["url"]
+}

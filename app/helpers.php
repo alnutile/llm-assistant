@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Message;
+use Facades\App\Domains\LlmFunctions\GetContentFromUrl\GetContentFromUrl;
 use App\Domains\Scheduling\Dtos\TasksDto;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\Scheduling\TaskRepository;
@@ -15,6 +17,16 @@ if (! function_exists('llm_functions_scheduling')) {
 
         TaskRepository::handle(TasksDto::from($functionCallDto->arguments),
             $functionCallDto->message);
+    }
+}
+
+
+if (! function_exists('get_content_from_url')) {
+    function get_content_from_url(
+        FunctionCallDto $functionCallDto
+    ): Message
+    {
+        return GetContentFromUrl::handle($functionCallDto);
     }
 }
 
@@ -63,6 +75,8 @@ if (! function_exists('get_url_from_body')) {
         return null;
     }
 }
+
+
 
 if (! function_exists('get_current_weather')) {
     function get_current_weather($location, $unit = 'fahrenheit'): string

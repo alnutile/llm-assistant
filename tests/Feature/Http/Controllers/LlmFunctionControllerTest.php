@@ -24,7 +24,6 @@ class LlmFunctionControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->assertDatabaseCount('llm_functions', 0);
         $this->actingAs($user)->post(
             route('llm_functions.store'),
             [
@@ -33,7 +32,7 @@ class LlmFunctionControllerTest extends TestCase
                 'parameters' => ['foo' => 'bar'],
             ]
         )->assertStatus(302);
-        $this->assertDatabaseCount('llm_functions', 1);
+        $this->assertTrue(LlmFunction::whereLabel("Foobar")->exists());
     }
 
     public function test_update(): void
@@ -41,7 +40,6 @@ class LlmFunctionControllerTest extends TestCase
         $user = User::factory()->create();
 
         $model = LlmFunction::factory()->create();
-        $this->assertDatabaseCount('llm_functions', 1);
         $this->actingAs($user)->put(
             route('llm_functions.update', [
                 'llm_function' => $model->id,
@@ -52,7 +50,6 @@ class LlmFunctionControllerTest extends TestCase
                 'parameters' => ['foo' => 'bar'],
             ]
         )->assertStatus(302);
-        $this->assertDatabaseCount('llm_functions', 1);
         $this->assertEquals('Foobar', $model->refresh()->label);
         $this->assertEquals(['foo' => 'bar'], $model->refresh()->parameters);
     }

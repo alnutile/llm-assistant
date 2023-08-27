@@ -32,6 +32,11 @@ class LlmFunction extends Model
         return json_encode($this->parameters, JSON_PRETTY_PRINT);
     }
 
+    public function getParametersDecodedAttribute(): array
+    {
+        return (array) json_decode($this->parameters, true);
+    }
+
     public function messages(): BelongsToMany
     {
         return $this->belongsToMany(Message::class);
