@@ -24,16 +24,16 @@ class MessageRepository
         $this->messageBuilder = $messageBuilder;
     }
 
-    public function handle(Message $message): Response
+    public function handle(Message $message): ?Response
     {
         $this->parent_message = $message;
 
         $this->messageBuilder->setMessages($this->createPrompt());
 
         return ChatClient::setMessage($message)
-            ->chat($this->messageBuilder->getMessagesLimitTokenCount(
+            ->chat(messages: $this->messageBuilder->getMessagesLimitTokenCount(
                 remove_token_count: true
-            ));
+            ), run_functions: $message->run_functions);
     }
 
     protected function createPrompt(): MessagesDto

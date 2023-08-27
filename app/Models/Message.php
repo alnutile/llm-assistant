@@ -13,6 +13,7 @@ use Pgvector\Laravel\Vector;
  * @property int $id
  * @property string $role
  * @property int $parent_id
+ * @property boolean $run_functions
  * @property int $user_id
  * @property string $content
  * @property array $embedding

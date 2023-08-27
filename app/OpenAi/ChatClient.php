@@ -21,8 +21,9 @@ class ChatClient
         return $this;
     }
 
-    public function chat(array $messages, bool $run_functions = true): Response
+    public function chat(array $messages, bool $run_functions = true): ?Response
     {
+
         if (config('openai.mock') && ! app()->environment('testing')) {
             logger('Mocking');
             sleep(2);
@@ -68,15 +69,7 @@ class ChatClient
 
             FunctionCall::handle($name, $dto);
 
-            $messages[] = [
-                'role' => 'assistant',
-                'content' => sprintf('As an assistant I ran the function %s for you with these parameters %s',
-                    $name,
-                    json_encode($dto->arguments)
-                ),
-            ];
-
-            return ChatClientFacade::chat($messages, false);
+            return null;
         } else {
             return Response::from(
                 [

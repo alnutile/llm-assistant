@@ -14,7 +14,13 @@ class MessageRepositoryTest extends TestCase
     public function test_makes_request()
     {
 
-        ChatClient::shouldReceive('setMessage->chat')->once();
+        $response = Response::from([
+            'content' => "Foo"
+        ]);
+        ChatClient::shouldReceive('setMessage->chat')->once()->andReturn(
+            $response
+        );
+
         $message = Message::factory()->create([
             'role' => 'user']);
         $meta_data1 = MetaData::factory()->create();

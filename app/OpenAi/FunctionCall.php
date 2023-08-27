@@ -13,7 +13,6 @@ class FunctionCall
         try {
             $function = LlmFunction::where('label', $function_name)->firstOrfail();
             $results = $function_name($callDto);
-
         } catch (ModelNotFoundException $exception) {
             logger('The function does not exist '.$function_name);
         }

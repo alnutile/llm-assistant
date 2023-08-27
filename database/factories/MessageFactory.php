@@ -25,6 +25,7 @@ class MessageFactory extends Factory
             'content' => fake()->sentence(4, true),
             'user_id' => User::factory(),
             'parent_id' => null,
+            'run_functions' => true
         ];
     }
 
