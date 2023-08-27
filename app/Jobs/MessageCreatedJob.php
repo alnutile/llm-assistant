@@ -34,7 +34,7 @@ class MessageCreatedJob implements ShouldQueue
             MessageStatusEvent::dispatch($this->message);
             /** @var Response $results */
             $results = MessageRepository::handle($this->message);
-            if($results != null) {
+            if ($results != null) {
                 Message::create([
                     'user_id' => $this->message->user_id,
                     'content' => $results->content,

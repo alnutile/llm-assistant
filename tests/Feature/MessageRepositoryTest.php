@@ -15,7 +15,7 @@ class MessageRepositoryTest extends TestCase
     {
 
         $response = Response::from([
-            'content' => "Foo"
+            'content' => 'Foo',
         ]);
         ChatClient::shouldReceive('setMessage->chat')->once()->andReturn(
             $response

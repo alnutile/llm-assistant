@@ -6,7 +6,6 @@ use App\Domains\Scheduling\Dtos\TasksDto;
 use App\Jobs\MessageCreatedJob;
 use App\Models\Message;
 use App\Models\Task;
-use App\OpenAi\ChatClient;
 use Carbon\Carbon;
 
 class TaskRepository
@@ -22,7 +21,7 @@ class TaskRepository
                     'message_id' => $message->id,
                 ]);
 
-                $summary[] = $task->description . ' on ' . $task->date;
+                $summary[] = $task->description.' on '.$task->date;
             }
         }
 
@@ -31,8 +30,8 @@ class TaskRepository
         $summary = sprintf("The following tasks have been created %s\n\n", $summary);
 
         $message->content = str($message->content)->prepend($summary);
-//        $message->run_functions = false;//prevent a loop
+        //        $message->run_functions = false;//prevent a loop
         $message->updateQuietly();
-//        MessageCreatedJob::dispatchSync($message);
+        //        MessageCreatedJob::dispatchSync($message);
     }
 }

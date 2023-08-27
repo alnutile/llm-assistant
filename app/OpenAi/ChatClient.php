@@ -6,7 +6,6 @@ use App\Models\LlmFunction;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use App\OpenAi\Dtos\Response;
-use Facades\App\OpenAi\ChatClient as ChatClientFacade;
 use Facades\App\OpenAi\FunctionCall;
 use OpenAI\Laravel\Facades\OpenAI;
 
