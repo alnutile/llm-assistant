@@ -51,6 +51,9 @@ class MessageBuilder
             ->map(function ($item) {
                 if (data_get($item, 'function') === null) {
                     unset($item['function']);
+                } elseif (data_get($item, 'function') !== null && data_get($item, 'content') === null) {
+                    $item['content'] = $item['function'];
+                    unset($item['function']);
                 }
 
                 return $item;
