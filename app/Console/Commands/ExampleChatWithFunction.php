@@ -33,7 +33,7 @@ class ExampleChatWithFunction extends Command
         $user = User::first();
         auth()->login($user);
         $question = $this->argument('url');
-        $question = "Get content for following url " . $question;
+        $question = 'Get content for following url '.$question;
         $messages = [];
         $messages[] = [
             'role' => 'system',
@@ -46,7 +46,7 @@ class ExampleChatWithFunction extends Command
         $message = Message::create([
             'role' => RoleTypeEnum::User,
             'content' => $question,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
         $function = LlmFunction::label('get_content_from_url')->firstOrFail();
         $message->llm_functions()->attach([$function->id]);
@@ -56,7 +56,7 @@ class ExampleChatWithFunction extends Command
         $results = ChatClient::setMessage($message)
             ->chat($messages);
 
-        $this->info("Message ID: " . $message->id);
+        $this->info('Message ID: '.$message->id);
         $this->info($results->content);
     }
 }

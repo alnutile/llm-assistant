@@ -64,10 +64,10 @@ class ChatClient
             $arguments = data_get($response, 'choices.0.message.function_call.arguments');
             $dto = FunctionCallDto::from(
                 [
-                'arguments' => $arguments,
-                'function_name' => $name,
-                'message' => $this->messageModel,
-            ]);
+                    'arguments' => $arguments,
+                    'function_name' => $name,
+                    'message' => $this->messageModel,
+                ]);
 
             logger('Making function call then will reiterate', [
                 $arguments,

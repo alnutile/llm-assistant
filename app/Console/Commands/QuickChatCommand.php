@@ -7,7 +7,6 @@ use App\Models\Message;
 use App\Models\User;
 use Facades\App\OpenAi\ChatClient;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Auth;
 
 class QuickChatCommand extends Command
 {
@@ -43,11 +42,10 @@ class QuickChatCommand extends Command
             'content' => $question,
         ];
 
-
         $message = Message::create([
             'role' => RoleTypeEnum::User,
             'content' => $question,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         $this->info('Sending request');
