@@ -8,6 +8,11 @@ class RapidScrapeClient
 {
     public function handle(string $url): string
     {
+
+        if(config('services.rapid.mock')) {
+            return "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper";
+        }
+
         $token = config('services.rapid.api');
         if (! $token) {
             throw new \Exception('Missing token');

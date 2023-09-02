@@ -50,7 +50,7 @@ class MessageRepository
 
         $messages = Message::query()
             ->where('parent_id', $this->parent_message->id)->latest()
-            ->limit(3)
+            ->limit(5)
             ->get();
 
         /** @var Message $message */

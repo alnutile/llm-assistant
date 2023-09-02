@@ -33,6 +33,7 @@ return [
 
     'rapid' => [
         'api' => env('RAPID_API_TOKEN'),
+        'mock' => env('RAPID_MOCK', false),
     ],
 
 ];

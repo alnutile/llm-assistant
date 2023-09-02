@@ -1,5 +1,6 @@
 <?php
 
+use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\LlmFunctions\GetContentFromUrl\GetContentFromUrl;
@@ -15,6 +16,14 @@ if (! function_exists('llm_functions_scheduling')) {
         logger('Message coming in ', $functionCallDto->toArray());
 
         return TaskRepository::handle($functionCallDto);
+    }
+}
+
+if (! function_exists('content_to_voice')) {
+    function content_to_voice(
+        FunctionCallDto $functionCallDto
+    ): Message {
+        return ContentToVoice::handle($functionCallDto);
     }
 }
 

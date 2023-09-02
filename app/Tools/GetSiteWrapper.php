@@ -9,6 +9,7 @@ class GetSiteWrapper
     public function handle(string $url): string|null
     {
 
+
         return RapidScrapeClient::handle($url);
     }
 }
