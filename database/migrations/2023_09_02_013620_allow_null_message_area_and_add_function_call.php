@@ -15,6 +15,7 @@ return new class extends Migration
             $table->dropColumn('run_functions');
             $table->longText('content')->nullable()->change();
             $table->json('function_call')->nullable();
+            $table->string('name')->nullable();
         });
     }
 

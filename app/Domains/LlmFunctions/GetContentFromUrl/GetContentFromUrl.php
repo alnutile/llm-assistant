@@ -2,11 +2,13 @@
 
 namespace App\Domains\LlmFunctions\GetContentFromUrl;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
+use App\Domains\LlmFunctions\LlmFunctionContract;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Tools\GetSiteWrapper;
 
-class GetContentFromUrl
+class GetContentFromUrl extends LlmFunctionContract
 {
     public function handle(FunctionCallDto $functionCallDto): Message
     {
@@ -21,21 +23,15 @@ class GetContentFromUrl
 
         $body = GetSiteWrapper::handle($url);
 
-        $content = sprintf("can you add a TLDR to the top of the following content:
-            ###
-            \n
-            \n
-            \n
-                    URL: %s\n
-                    Content: %s",
-            $url,
-            $body
+        return Message::create(
+            [
+                'parent_id' => $functionCallDto->message->id,
+                'role' => RoleTypeEnum::Function,
+                'user_id' => $functionCallDto->message->user_id,
+                'content' => $body,
+                'name' => $functionCallDto->function_name,
+            ]
         );
-
-        $functionCallDto->message->content = $content;
-        $functionCallDto->message->updateQuietly();
-
-        return $functionCallDto->message->refresh();
 
     }
 }

@@ -2,16 +2,20 @@
 
 namespace App\Domains\Scheduling;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
+use App\Domains\LlmFunctions\LlmFunctionContract;
 use App\Domains\Scheduling\Dtos\TasksDto;
-use App\Jobs\MessageCreatedJob;
 use App\Models\Message;
 use App\Models\Task;
+use App\OpenAi\Dtos\FunctionCallDto;
 use Carbon\Carbon;
 
-class TaskRepository
+class TaskRepository extends LlmFunctionContract
 {
-    public function handle(TasksDto $tasksDto, Message $message): void
+    public function handle(FunctionCallDto $functionCallDto): Message
     {
+        $tasksDto = TasksDto::from($functionCallDto->arguments);
+        $message = $functionCallDto->message;
         $summary = [];
         foreach ($tasksDto->tasks as $task) {
             if (! Task::where('description', $task->description)->where('message_id', $message->id)->exists()) {
@@ -29,9 +33,14 @@ class TaskRepository
 
         $summary = sprintf("The following tasks have been created %s\n\n", $summary);
 
-        $message->content = str($message->content)->prepend($summary);
-        //        $message->run_functions = false;//prevent a loop
-        $message->updateQuietly();
-        //        MessageCreatedJob::dispatchSync($message);
+        return Message::create(
+            [
+                'parent_id' => $functionCallDto->message->id,
+                'role' => RoleTypeEnum::Function,
+                'user_id' => $functionCallDto->message->user_id,
+                'content' => $summary,
+                'name' => $functionCallDto->function_name,
+            ]
+        );
     }
 }

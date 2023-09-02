@@ -2,10 +2,10 @@
 
 namespace App\OpenAi;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Models\LlmFunction;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
-use App\OpenAi\Dtos\Response;
 use Facades\App\OpenAi\FunctionCall;
 use OpenAI\Laravel\Facades\OpenAI;
 
@@ -20,7 +20,7 @@ class ChatClient
         return $this;
     }
 
-    public function chat(array $messages, bool $run_functions = true): ?Response
+    public function chat(array $messages, bool $run_functions = true): Message
     {
 
         if (config('openai.mock') && ! app()->environment('testing')) {
@@ -28,7 +28,12 @@ class ChatClient
             sleep(2);
             $data = get_fixture('example_response.json');
 
-            return Response::from($data);
+            return Message::create([
+                'user_id' => $this->messageModel->user_id,
+                'content' => data_get($data, 'content'),
+                'role' => data_get($data, 'role'),
+                'parent_id' => $this->messageModel->id,
+            ]);
         }
 
         if ($this->hasFunctions() && $run_functions) {
@@ -59,6 +64,7 @@ class ChatClient
             $arguments = data_get($response, 'choices.0.message.function_call.arguments');
             $dto = FunctionCallDto::from([
                 'arguments' => $arguments,
+                'name' => $name,
                 'message' => $this->messageModel,
             ]);
 
@@ -66,18 +72,25 @@ class ChatClient
                 $arguments,
             ]);
 
-            FunctionCall::handle($name, $dto);
+            Message::create([
+                'parent_id' => $this->messageModel->id,
+                'role' => RoleTypeEnum::Assistant,
+                'content' => null,
+                'function_call' => \App\Domains\LlmFunctions\Dto\FunctionCallDto::from([
+                    'name' => $name,
+                    'content' => $arguments,
+                ]),
+            ]);
 
-            return null;
+            return FunctionCall::handle($name, $dto);
+
         } else {
-            return Response::from(
-                [
-                    'content' => data_get($response, 'choices.0.message.content'),
-                    'role' => data_get($response, 'choices.0.message.role'),
-                    'token_count' => $response->usage->totalTokens,
-                    'finish_reason' => data_get($response, 'choices.0.finish_reason'),
-                ]
-            );
+            return Message::create([
+                'user_id' => $this->messageModel->user_id,
+                'content' => data_get($response, 'choices.0.message.content'),
+                'role' => data_get($response, 'choices.0.message.role'),
+                'parent_id' => $this->messageModel->id,
+            ]);
         }
     }
 

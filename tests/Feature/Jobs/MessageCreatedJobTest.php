@@ -21,19 +21,15 @@ class MessageCreatedJobTest extends TestCase
             'token_count' => 100,
             'finish_reason' => 'stop',
         ]);
+        $message = Message::factory()->create();
 
         MessageRepository::shouldReceive('handle')
             ->once()
-            ->andReturn($dto);
-
-        $message = Message::factory()->create();
+            ->andReturn($message);
 
         $this->assertDatabaseCount('messages', 1);
         $job = new MessageCreatedJob($message);
         $job->handle();
-        $this->assertDatabaseCount('messages', 2);
-        $child = $message->children->first();
-        $this->assertEquals('foobar', $child->content);
         Event::assertDispatched(MessageStatusEvent::class);
     }
 }

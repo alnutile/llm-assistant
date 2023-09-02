@@ -18,6 +18,7 @@ use Pgvector\Laravel\Vector;
  * @property int $parent_id
  * @property int $user_id
  * @property string $content
+ * @property string|null $name
  * @property array $embedding
  * @property FunctionCallDto|null $function_call
  * @property \Illuminate\Support\Carbon $created_at

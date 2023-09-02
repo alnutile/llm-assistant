@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Models\Message;
 use App\Models\User;
 use App\OpenAi\Dtos\FunctionCallDto;
@@ -25,13 +26,16 @@ class GetContentFromUrlTest extends TestCase
 
         $dto = FunctionCallDto::from([
             'message' => $message,
+            'function_name' => 'some_function_name',
             'arguments' => json_encode([
                 'url' => 'https://foo.bar',
             ]),
         ]);
 
-        GetContentFromUrl::handle($dto);
+        /** @var Message $message */
+        $message = GetContentFromUrl::handle($dto);
 
-        $this->assertStringContainsString('navigation', $message->refresh()->content);
+        $this->assertEquals(RoleTypeEnum::Function, $message->role);
+        $this->assertEquals('some_function_name', $message->name);
     }
 }

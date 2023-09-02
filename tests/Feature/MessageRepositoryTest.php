@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Models\Message;
 use App\Models\MetaData;
-use App\OpenAi\Dtos\Response;
 use Facades\App\Domains\Message\MessageRepository;
 use Facades\App\OpenAi\ChatClient;
 use Tests\TestCase;
@@ -14,15 +14,12 @@ class MessageRepositoryTest extends TestCase
     public function test_makes_request()
     {
 
-        $response = Response::from([
-            'content' => 'Foo',
-        ]);
+        $message = Message::factory()->create([
+            'role' => RoleTypeEnum::User]);
         ChatClient::shouldReceive('setMessage->chat')->once()->andReturn(
-            $response
+            $message
         );
 
-        $message = Message::factory()->create([
-            'role' => 'user']);
         $meta_data1 = MetaData::factory()->create();
         $meta_data2 = MetaData::factory()->create();
         $message->meta_data()->attach([
@@ -36,6 +33,6 @@ class MessageRepositoryTest extends TestCase
 
         $response = MessageRepository::handle($message);
 
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(Message::class, $response);
     }
 }

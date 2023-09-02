@@ -26,6 +26,7 @@ class MessageFactory extends Factory
             'role' => RoleTypeEnum::User,
             'content' => fake()->sentence(4, true),
             'user_id' => User::factory(),
+            'name' => 'get_current_weather',
             'parent_id' => null,
             'function_call' => FunctionCallDto::from([
                 'name' => 'some_function',

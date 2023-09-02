@@ -5,7 +5,6 @@ namespace App\Domains\Message;
 use App\Models\Message;
 use App\OpenAi\Dtos\MessageDto;
 use App\OpenAi\Dtos\MessagesDto;
-use App\OpenAi\Dtos\Response;
 use App\OpenAi\MessageBuilder;
 use Facades\App\OpenAi\ChatClient;
 
@@ -24,7 +23,7 @@ class MessageRepository
         $this->messageBuilder = $messageBuilder;
     }
 
-    public function handle(Message $message): ?Response
+    public function handle(Message $message): Message
     {
         $this->parent_message = $message;
 

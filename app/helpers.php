@@ -1,6 +1,5 @@
 <?php
 
-use App\Domains\Scheduling\Dtos\TasksDto;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\LlmFunctions\GetContentFromUrl\GetContentFromUrl;
@@ -11,12 +10,11 @@ use Illuminate\Support\Facades\File;
 if (! function_exists('llm_functions_scheduling')) {
     function llm_functions_scheduling(
         FunctionCallDto $functionCallDto
-    ): void {
+    ): message {
 
         logger('Message coming in ', $functionCallDto->toArray());
 
-        TaskRepository::handle(TasksDto::from($functionCallDto->arguments),
-            $functionCallDto->message);
+        return TaskRepository::handle($functionCallDto);
     }
 }
 

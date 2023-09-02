@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\LlmFunction;
 use App\Models\Message;
-use App\OpenAi\Dtos\Response;
 use Facades\App\OpenAi\ChatClient;
 use OpenAI\Laravel\Facades\OpenAI;
 use OpenAI\Responses\Chat\CreateResponse;
@@ -44,7 +43,7 @@ class ChatClientTest extends TestCase
 
         $results = ChatClient::setMessage($messageModel)
             ->chat($message);
-        $this->assertInstanceOf(Response::class, $results);
+        $this->assertInstanceOf(Message::class, $results);
         $this->assertNotNull($results->content);
         $this->assertStringContainsString('Hello',
             $results->content);
@@ -65,7 +64,7 @@ class ChatClientTest extends TestCase
             ]),
         ]);
 
-        $message = [
+        $messages = [
             [
                 'role' => 'system',
                 'content' => 'Foobar',
@@ -75,8 +74,9 @@ class ChatClientTest extends TestCase
                 'content' => 'Foobar',
             ],
         ];
-        $results = ChatClient::chat($message);
-        $this->assertInstanceOf(Response::class, $results);
+        $message = Message::factory()->create();
+        $results = ChatClient::setMessage($message)->chat($messages);
+        $this->assertInstanceOf(Message::class, $results);
         $this->assertNotNull($results->content);
         $this->assertStringContainsString('Hello',
             $results->content);

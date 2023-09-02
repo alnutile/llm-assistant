@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Domains\Scheduling\Dtos\TasksDto;
 use App\Models\LlmFunction;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
@@ -23,10 +22,11 @@ class TaskRepositoryTest extends TestCase
 
         $call = data_get($call, 'choices.0.message.function_call.arguments');
         $dto = FunctionCallDto::from([
+            'function_name' => 'llm_functions_scheduling',
             'arguments' => $call,
             'message' => $message,
         ]);
-        TaskRepository::handle(TasksDto::from($dto->arguments), $dto->message);
+        $message = TaskRepository::handle($dto);
         $this->assertDatabaseCount('tasks', 3);
     }
 }
