@@ -30,7 +30,7 @@ class HomeController extends Controller
                 ->whereNull('parent_id')
                 ->where('user_id', auth()->user()->id)
                 ->latest()
-                ->get()),
+                ->paginate(10)),
         ]);
     }
 }
