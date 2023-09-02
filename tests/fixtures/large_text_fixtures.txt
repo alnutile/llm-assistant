@@ -1,0 +1,42 @@
+Behind any project there has to be processes in place to build a culture of good coding habits for developers and to help enforce these goals. Without such a foundation in place the product will never result into a long term sustainable solution. Below are some items I would like to highlight that I believe can help make a solid application and grow a solid team.
+Training and an Introduction to Our Coding Culture
+
+The first two points are not easily automated. Training is key to a successful application. Developers cannot just jump in and deliver features they first must have time to learn what is expected of them when it comes to the day to day team and culture they are becoming a part of.
+
+For one, they need time to read the teams documentation so they get a sense of what is expected of them. For example, they are expected to push code often to their branch to have other developers on their teams to review it instead of the more common assumption of pushing days and days of work all at once and hoping it goes to staging moments after that.
+
+Then they need a few days, at least, to shadow or pair with another developer. This helps to learn a lot about the “culture” of our process. They get to see how seasoned developers take on a task, set up their work environment, and more. This helps them to build confidence in knowing what the rythym of their day to day should look like.
+GitHub and the Pull Request Workflow
+
+All developers, new and seasoned, have to have their code reviewed before it can be merged into the master branch. This process helps the new developer to grow in understanding that can only come from doing. But even seasoned developers learn from this and more importantly have a second set of eyes to catch any issues.
+
+    When you actually sit down to write some code, you learn things that you didn’t get from thinking about them in modeling terms…there is a feedback process there that you can only really get at from executing some things and seeing what works — Martin Fowl
+
+This is a daily process and we strive to review small batches of code not waiting till the feature is “ready”.
+
+Yes, this slows down the process of getting code to staging but it speeds up the long term development, stability and flexibility of any application by making sure the foundation is solid and all of the adjoining features fit well together.
+Learning how to Quote Features
+
+    We code in the context of our ability to quote a task — me
+
+This one means a lot to me and without this skill, all these other goals come under the undue pressure of time.
+
+There are numerous skills we introduce to help with this task. One of them is keeping in mind that anything quoted is not just a new feature but it is part of a bigger application, and it always takes time to fit that into place.
+
+Lastly, there is the concept of “done done” and all the aspects of what that means. A feature has to have tests in place, architectural reference documents, etc. All these things have to be part of the quote.
+Travis CI and Test Coverage
+
+    First, starting with a test means that we have to describe what we want to achieve before we consider how. — Growing Object Oriented Software
+
+Another key aspect of our workflow is tests come first. We do not do TDD (Test Drive Development) per se, but we do testing that guides our code. It does not happen after the code and TravisCI will fail the build if the coverage drops below 70%.
+
+We are also not aiming for 100% coverage. We are aiming for enough that we can move forward with confidence with what we are coding but also change with confidence when the business needs change.
+Travis CI and our built-in Quality Checker
+
+Our Travis build system uses an Open-Source tool called PhpMetrics for measuring the “quality” of the code. Of course, the definition of quality code can easily be debated but in this case, we need to unify around something so we can make apps that are consistent for many reasons.
+
+For one, developers from other teams or support can come in and have confidence that the code base is not full of hard to read functions, huge classes or other patterns that make the application harder to support, update or scale.
+
+We focus on just four of the many metrics and by using data from a number of our previous applications, we found a median that keeps out of the way for the most part. And when it does block a build there are docs to help understand the issue and tidy up the code to pass these metrics.
+
+The ones we focus on are, you can learn more at their site which I link in the bottom of this:
