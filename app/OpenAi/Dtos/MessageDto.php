@@ -8,7 +8,8 @@ class MessageDto extends \Spatie\LaravelData\Data
 {
     public function __construct(
         public RoleTypeEnum|string $role,
-        public string $content
+        public ?string $content,
+        public ?string $function
     ) {
     }
 }

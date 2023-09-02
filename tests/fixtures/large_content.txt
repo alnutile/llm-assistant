@@ -1,0 +1,37 @@
+Part One of Two
+
+In this segment, I will demonstrate the simplicity of crafting a chat-based UI with LaraChain. In part two, I’ll walk you through the code to explain how everything happens within Laravel.
+Why LaraChain?
+
+LaraChain is an open-source endeavor that drew inspiration from LangChain. As a Laravel Developer, I initially worried that this framework might render Laravel obsolete — a somewhat exaggerated fear, admittedly. However, I soon discovered that many of the appealing features of LangChain, such as chaining processes and running background processes, are actions I frequently perform in Laravel.
+
+Python does indeed have plenty of integration tools that make it phenomenal for data handling and machine learning, but PHP can also accomplish a great deal. Furthermore, when PHP is lacking, it can be supplemented with Python through the Process library or a lambda-like function.
+How to Make a CSV File Searchable
+
+Assuming you’ve already set up the server (you can find the instructions in the documentation), you can begin by creating a project.
+Add A Project
+
+Once the project is added, you’ll be directed to the project dashboard, where you can assemble the “parts” needed for this chain.
+Add a Source
+
+Firstly, select a “Source”. Since we’re using a file source, choose the “File Upload Source” option at the bottom left.
+
+After you’ve selected a source and hit the Play button (ideally, this process should start automatically, but remember that this is a work in progress and an open-source project — feel free to contribute).
+The next step is to “Transform” the data.
+
+These transformations are small, pluggable steps that prepare your data for the Large Language Model (LLM) we’ll be utilizing later.
+
+For this example, we’ll add the “CsvTransformer”, since that matches our data type, followed by the “Vectorize Your Data” step. The latter is crucial for most sources, as it allows our Vector database to search the data.
+
+Once you’ve completed these steps, your setup should look something like this:
+
+The press Play which will run the Transformers in the order that you sorted them. (you can drag and drop them as needed)
+
+    Thanks to Laravel and Horizon, you can always monitor the status of the Transformations in Horizon.
+
+After the CSV Transformation has converted the downloaded CSV file into rows in the “documents_chunks” table and the Embed Transformer has created a vector embed of the data using OpenAI, your data will be ready for searching. However, we need an Outbound mechanism to access the data and produce results.
+Making the Outbound Chain
+
+Now the Outbound interface, composed of chained “Response Types”. Throughout this workflow, chaining is essential because operations must run in a specific order. (naming is hard 🤔).
+
+The final link will be the “Response Type Chat UI”, where we interact with an LLM (in our case, the OpenAI Chat API).

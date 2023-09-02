@@ -19,6 +19,7 @@ class MessagesDto extends \Spatie\LaravelData\Data
             $messagesDto[] = MessageDto::from([
                 'role' => data_get($message, 'role'),
                 'content' => data_get($message, 'content'),
+                'function' => data_get($message, 'function'),
             ]);
         }
 

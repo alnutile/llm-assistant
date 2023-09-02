@@ -37,6 +37,33 @@ class MessageFactory extends Factory
         ];
     }
 
+    public function functionMessage()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => RoleTypeEnum::Assistant,
+                'content' => null,
+                'function_call' => FunctionCallDto::from([
+                    'name' => 'some_function',
+                    'content' => [
+                        'foo' => 'bar',
+                    ],
+                ]),
+            ];
+        });
+    }
+
+    public function functionResponse()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => RoleTypeEnum::Function,
+                'name' => 'get_current_weather',
+                'content' => "Sunny an 85"
+            ];
+        });
+    }
+
     public function suspended()
     {
         return $this->state(function (array $attributes) {

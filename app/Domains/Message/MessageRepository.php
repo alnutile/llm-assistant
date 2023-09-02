@@ -2,6 +2,7 @@
 
 namespace App\Domains\Message;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Models\Message;
 use App\OpenAi\Dtos\MessageDto;
 use App\OpenAi\Dtos\MessagesDto;
@@ -52,11 +53,29 @@ class MessageRepository
             ->limit(3)
             ->get();
 
+        /** @var Message $message */
         foreach ($messages as $message) {
-            $prompts[] = MessageDto::from([
-                'role' => $message->role,
-                'content' => $message->content,
-            ]);
+            /**
+             * @see https://openai.com/blog/function-calling-and-other-api-updates
+             */
+            if ($message->role === RoleTypeEnum::Function) {
+                $prompts[] = MessageDto::from([
+                    'role' => $message->role->value,
+                    'name' => $message->name,
+                    'content' => $message->content,
+                ]);
+            } elseif ($this->callWasResultOfFunctionCall($message)) {
+                $prompts[] = MessageDto::from([
+                    'role' => RoleTypeEnum::Assistant,
+                    'function' => $message->function_call->toJson(),
+                    'content' => null,
+                ]);
+            } else {
+                $prompts[] = MessageDto::from([
+                    'role' => $message->role->value,
+                    'content' => $message->content,
+                ]);
+            }
         }
 
         return MessagesDto::from([
@@ -84,5 +103,10 @@ class MessageRepository
         }
 
         return 'Acting as the users assistant please answer their question';
+    }
+
+    protected function callWasResultOfFunctionCall(\Illuminate\Database\Eloquent\Builder|Message $message): bool
+    {
+        return $message->role === RoleTypeEnum::Assistant && $message->content === null && $message->function_call !== null;
     }
 }

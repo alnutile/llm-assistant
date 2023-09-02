@@ -28,6 +28,7 @@ class FunctionCall
             return $function_name($callDto);
         } catch (ModelNotFoundException $exception) {
             logger('The function does not exist '.$function_name);
+
             return $callDto->message;
         }
     }

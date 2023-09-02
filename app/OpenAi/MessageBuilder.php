@@ -48,6 +48,13 @@ class MessageBuilder
                     return $max_token >= 0;
                 })
             ->reverse()
+            ->map(function ($item) {
+                if (data_get($item, 'function') === null) {
+                    unset($item['function']);
+                }
+
+                return $item;
+            })
             ->values();
 
         if ($remove_token_count) {
@@ -69,7 +76,8 @@ class MessageBuilder
     public function getMessagesWithCount(): array
     {
         return collect($this->messages)->map(function ($item) {
-            $item['token_count'] = Tiktoken::count($item['content']);
+            $content = $this->getContentOrFunctionFromItem($item);
+            $item['token_count'] = Tiktoken::count($content);
 
             return $item;
         })->toArray();
@@ -80,7 +88,8 @@ class MessageBuilder
         $this->messages = collect($messages->messages)->transform(function ($item) {
             $item = $item->toArray();
             if (! data_get($item, 'token_count')) {
-                $item['token_count'] = Tiktoken::count($item['content']);
+                $content = $this->getContentOrFunctionFromItem($item);
+                $item['token_count'] = Tiktoken::count($content);
             }
             $this->current_count = $item['token_count'] + $this->current_count;
 
@@ -152,7 +161,8 @@ class MessageBuilder
     {
 
         $message = $message->toArray();
-        $message['token_count'] = Tiktoken::count($message['content']);
+        $content = $this->getContentOrFunctionFromItem($message);
+        $message['token_count'] = Tiktoken::count($content);
         $this->current_count = $message['token_count'] + $this->current_count;
         $this->messages[] = $message;
     }
@@ -200,5 +210,14 @@ class MessageBuilder
         }
 
         return $content;
+    }
+
+    protected function getContentOrFunctionFromItem(array $item): string
+    {
+        if (data_get($item, 'content') !== null) {
+            return data_get($item, 'content');
+        }
+
+        return data_get($item, 'function', 'no content');
     }
 }
