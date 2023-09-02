@@ -42,6 +42,10 @@ class LlmFunction extends Model
         return (array) json_decode($this->parameters, true);
     }
 
+    public function scopeLabel($query, string $label) {
+        return $query->where("label", "LIKE", $label);
+    }
+
     public function messages(): BelongsToMany
     {
         return $this->belongsToMany(Message::class);

@@ -62,9 +62,10 @@ class ChatClient
         if (data_get($response, 'choices.0.finish_reason') === 'function_call') {
             $name = data_get($response, 'choices.0.message.function_call.name');
             $arguments = data_get($response, 'choices.0.message.function_call.arguments');
-            $dto = FunctionCallDto::from([
+            $dto = FunctionCallDto::from(
+                [
                 'arguments' => $arguments,
-                'name' => $name,
+                'function_name' => $name,
                 'message' => $this->messageModel,
             ]);
 
@@ -75,10 +76,11 @@ class ChatClient
             Message::create([
                 'parent_id' => $this->messageModel->id,
                 'role' => RoleTypeEnum::Assistant,
+                'user_id' => $this->messageModel->user_id,
                 'content' => null,
                 'function_call' => \App\Domains\LlmFunctions\Dto\FunctionCallDto::from([
                     'name' => $name,
-                    'content' => $arguments,
+                    'content' => json_decode($arguments, true),
                 ]),
             ]);
 

@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
+use App\Models\LlmFunction;
 use App\Models\Message;
+use App\Models\User;
 use Facades\App\OpenAi\ChatClient;
 use Illuminate\Console\Command;
 
@@ -13,7 +16,7 @@ class ExampleChatWithFunction extends Command
      *
      * @var string
      */
-    protected $signature = 'llmassistant:example_chat_with_functions {message}';
+    protected $signature = 'llmassistant:get_content_from_url {url}';
 
     /**
      * The console command description.
@@ -27,23 +30,33 @@ class ExampleChatWithFunction extends Command
      */
     public function handle()
     {
+        $user = User::first();
+        auth()->login($user);
+        $question = $this->argument('url');
+        $question = "Get content for following url " . $question;
         $messages = [];
-
         $messages[] = [
             'role' => 'system',
-            'content' => 'Only use the functions you have been provided with if needed to help the user with this question. As a helpful assistant please assist the user in marketing and staying on track for this question/idea',
+            'content' => 'As a helfpul assitant please answer the question',
         ];
-
-        $message = Message::find($this->argument('message'));
         $messages[] = [
             'role' => 'user',
-            'content' => $message->content,
+            'content' => $question,
         ];
+        $message = Message::create([
+            'role' => RoleTypeEnum::User,
+            'content' => $question,
+            'user_id' => $user->id
+        ]);
+        $function = LlmFunction::label('get_content_from_url')->firstOrFail();
+        $message->llm_functions()->attach([$function->id]);
 
         $this->info('Sending request');
 
-        $results = ChatClient::setMessage($message)->chat($messages);
+        $results = ChatClient::setMessage($message)
+            ->chat($messages);
 
+        $this->info("Message ID: " . $message->id);
         $this->info($results->content);
     }
 }

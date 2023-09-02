@@ -2,8 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
+use App\Models\Message;
+use App\Models\User;
 use Facades\App\OpenAi\ChatClient;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 
 class QuickChatCommand extends Command
 {
@@ -26,6 +30,8 @@ class QuickChatCommand extends Command
      */
     public function handle()
     {
+        $user = User::first();
+        auth()->login($user);
         $question = $this->argument('question');
         $messages = [];
         $messages[] = [
@@ -37,9 +43,16 @@ class QuickChatCommand extends Command
             'content' => $question,
         ];
 
+
+        $message = Message::create([
+            'role' => RoleTypeEnum::User,
+            'content' => $question,
+            'user_id' => $user->id
+        ]);
+
         $this->info('Sending request');
 
-        $results = ChatClient::chat($messages);
+        $results = ChatClient::setMessage($message)->chat($messages);
 
         $this->info($results->content);
     }
