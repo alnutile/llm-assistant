@@ -1,8 +1,8 @@
 <?php
 
-use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
+use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use Facades\App\Domains\LlmFunctions\GetContentFromUrl\GetContentFromUrl;
 use Facades\App\Domains\Scheduling\TaskRepository;
 use Illuminate\Support\Arr;

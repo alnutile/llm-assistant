@@ -21,15 +21,15 @@ class MessageDto extends \Spatie\LaravelData\Data
             'content' => $this->content,
         ];
 
-        if($this->role instanceof RoleTypeEnum) {
+        if ($this->role instanceof RoleTypeEnum) {
             $results['role'] = $this->role->value;
         }
 
-        if($this->function) {
+        if ($this->function) {
             $results['function'] = $this->function;
         }
 
-        if($this->name) {
+        if ($this->name) {
             $results['name'] = $this->name;
         }
 

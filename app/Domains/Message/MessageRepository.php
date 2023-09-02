@@ -30,7 +30,7 @@ class MessageRepository
 
         $prompts = $this->createPrompt();
 
-        put_fixture("prompts_used.json", $prompts);
+        put_fixture('prompts_used.json', $prompts);
 
         $this->messageBuilder->setMessages($prompts);
 
@@ -52,7 +52,7 @@ class MessageRepository
             'content' => $this->parent_message->content,
         ]);
 
-        logger("Latest id " . $this->parent_message->id);
+        logger('Latest id '.$this->parent_message->id);
 
         $messages = Message::query()
             ->where('parent_id', $this->parent_message->id)->latest()
@@ -68,7 +68,7 @@ class MessageRepository
                 $prompts[] = MessageDto::from([
                     'role' => $message->role->value,
                     'content' => $message->content,
-                    "name" => $message->name
+                    'name' => $message->name,
                 ]);
             } elseif ($this->callWasResultOfFunctionCall($message)) {
                 $prompts[] = MessageDto::from([
@@ -83,7 +83,7 @@ class MessageRepository
             }
         }
 
-        put_fixture("prompts_before.json", $prompts);
+        put_fixture('prompts_before.json', $prompts);
 
         return MessagesDto::from([
             'messages' => $prompts,

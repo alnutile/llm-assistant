@@ -27,9 +27,9 @@ class ContentToVoiceCommand extends Command
     public function handle()
     {
         $text = $this->argument('text');
-        $this->info("Going to convert " . $text);
-        $this->info("Keep an eye on the logs");
+        $this->info('Going to convert '.$text);
+        $this->info('Keep an eye on the logs');
         $results = ContentToVoiceClient::handle($text);
-        $this->info("Url: " . $results);
+        $this->info('Url: '.$results);
     }
 }

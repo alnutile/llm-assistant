@@ -3,22 +3,20 @@
 namespace Tests\Feature;
 
 use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
-use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use App\Models\Message;
 use App\Models\User;
 use App\OpenAi\Dtos\FunctionCallDto;
+use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoiceClient;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ContentToVoiceTest extends TestCase
 {
-
-    public function test_gets_content() {
-        ContentToVoiceClient::shouldReceive("handle")
+    public function test_gets_content()
+    {
+        ContentToVoiceClient::shouldReceive('handle')
             ->once()
-            ->andReturn("Some url");
+            ->andReturn('Some url');
 
         User::factory()->create();
 

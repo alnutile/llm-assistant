@@ -39,22 +39,22 @@ class MessageBuilderTest extends TestCase
                 [
                     'role' => 'system',
                     'content' => 'This is a podcast transcript about X, Y, and Z.',
-                    'token_count' => 13
+                    'token_count' => 13,
                 ],
                 [
                     'role' => 'user',
                     'content' => 'Can you summarize this podcast transcript?',
-                    'token_count' => 7
+                    'token_count' => 7,
                 ],
                 [
                     'role' => 'assistant',
                     'content' => '[insert summary from Play 1]',
-                    'token_count' => 8
+                    'token_count' => 8,
                 ],
                 [
                     'role' => 'user',
                     'content' => 'Can you pull out some key talking points from this summary?',
-                    'token_count' => 12
+                    'token_count' => 12,
                 ],
             ],
             $messageBuilder->getMessages()
@@ -73,12 +73,12 @@ class MessageBuilderTest extends TestCase
                 [
                     'role' => 'system',
                     'content' => 'This is a podcast transcript about X, Y, and Z.',
-                    'token_count' => 13
+                    'token_count' => 13,
                 ],
                 [
                     'role' => 'user',
                     'content' => 'Can you summarize this podcast transcript?',
-                    'token_count' => 7
+                    'token_count' => 7,
                 ],
             ],
             $messageBuilder->getMessagesWithCount()
@@ -121,32 +121,32 @@ class MessageBuilderTest extends TestCase
                 [
                     'role' => 'system',
                     'content' => 'This is a podcast transcript about X, Y, and Z.',
-                    'token_count' => 13
+                    'token_count' => 13,
                 ],
                 [
                     'role' => 'user',
                     'content' => 'Can you summarize this podcast transcript?',
-                    'token_count' => 7
+                    'token_count' => 7,
                 ],
                 [
                     'role' => 'assistant',
                     'content' => '[insert summary from Play 1]',
-                    'token_count' => 8
+                    'token_count' => 8,
                 ],
                 [
                     'role' => 'user',
                     'content' => 'Can you pull out some key talking points from this summary?',
-                    'token_count' => 12
+                    'token_count' => 12,
                 ],
                 [
                     'role' => 'assistant',
                     'content' => '[insert key talking points from Play 2]',
-                    'token_count' => 10
+                    'token_count' => 10,
                 ],
                 [
                     'role' => 'user',
                     'content' => 'Can you convert these talking points into a paragraph suitable for a LinkedIn post?',
-                    'token_count' => 15
+                    'token_count' => 15,
                 ],
             ],
             $messageBuilder->getMessages()

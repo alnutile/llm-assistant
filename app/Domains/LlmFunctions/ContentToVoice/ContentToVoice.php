@@ -3,13 +3,12 @@
 namespace App\Domains\LlmFunctions\ContentToVoice;
 
 use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
-use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoiceClient;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
+use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoiceClient;
 
 class ContentToVoice extends \App\Domains\LlmFunctions\LlmFunctionContract
 {
-
     public function handle(FunctionCallDto $functionCallDto): Message
     {
         $content = data_get($functionCallDto->arguments, 'content', null);

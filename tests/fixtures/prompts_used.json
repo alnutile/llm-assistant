@@ -2,39 +2,39 @@
     "messages": [
         {
             "role": "system",
-            "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-02-09 04:09\n                Only use the functions you have been provided with if needed to help the user with this question:occaecati: facere et assumendaut: dicta nihil eveniet### End Meta Data ### \n\n\n",
+            "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-02-09 04:09\n                Only use the functions you have been provided with if needed to help the user with this question:### End Meta Data ### \n\n\n",
             "function": null,
             "name": null
         },
         {
             "role": "user",
-            "content": "Deserunt occaecati minima aliquam.",
-            "function": null,
-            "name": null
-        },
-        {
-            "role": "assistant",
-            "content": "{\"name\":\"some_function\",\"content\":{\"foo\":\"bar\"}}",
+            "content": "Get the content from this url then convert it to audio https:\/\/medium.com\/@alnutile\/suggestions-around-building-a-good-development-team-in-parallel-to-building-a-good-product-6dcc50b0a551",
             "function": null,
             "name": null
         },
         {
             "role": "function",
-            "content": "Sunny an 85",
+            "content": "https:\/\/s3.eu-central-1.amazonaws.com\/tts-download\/a2b35e97700182981159fb2fb4ea4d7e.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZ3CYNLHHVKA7D7Z4%2F20230902%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20230902T160312Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=279544453f5bceee04424f41e8bdd75bb8aded830651b4cc8c66412b477e8a71",
             "function": null,
-            "name": "get_current_weather"
+            "name": "content_to_voice"
         },
         {
-            "role": "user",
-            "content": "Reiciendis nihil rem ex aspernatur omnis.",
+            "role": "assistant",
+            "content": "{\"name\":\"content_to_voice\",\"content\":{\"content\":\"Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper\"}}",
             "function": null,
             "name": null
         },
         {
-            "role": "user",
-            "content": "Nisi ex voluptatem distinctio.",
+            "role": "assistant",
+            "content": "{\"name\":\"get_content_from_url\",\"content\":{\"url\":\"https:\\\/\\\/medium.com\\\/@alnutile\\\/suggestions-around-building-a-good-development-team-in-parallel-to-building-a-good-product-6dcc50b0a551\"}}",
             "function": null,
             "name": null
+        },
+        {
+            "role": "function",
+            "content": "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper",
+            "function": null,
+            "name": "get_content_from_url"
         }
     ]
 }

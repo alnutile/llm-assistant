@@ -35,9 +35,9 @@ class MessageCreatedJob implements ShouldQueue
             /** @var Message $message */
             $message = MessageRepository::handle($this->message);
 
-            logger("Message role and function", [
-               'role' => $message->role->name,
-               'function' => $message->function_call
+            logger('Message role and function', [
+                'role' => $message->role->name,
+                'function' => $message->function_call,
             ]);
 
             /**
@@ -45,7 +45,7 @@ class MessageCreatedJob implements ShouldQueue
              * Do a follow up since it was a function
              * so we can get
              */
-            if($message->role === RoleTypeEnum::Function) {
+            if ($message->role === RoleTypeEnum::Function) {
                 MessageCreatedJob::dispatch($this->message);
             }
             MessageStatusEvent::dispatch($this->message);
