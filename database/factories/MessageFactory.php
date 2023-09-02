@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Domains\LlmFunctions\Dto\FunctionCallDto;
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,11 +23,16 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'role' => 'user', //user, agent
+            'role' => RoleTypeEnum::User,
             'content' => fake()->sentence(4, true),
             'user_id' => User::factory(),
             'parent_id' => null,
-            'run_functions' => true,
+            'function_call' => FunctionCallDto::from([
+                'name' => "some_function",
+                "content" => [
+                    'foo' => "bar"
+                ]
+            ]),
         ];
     }
 

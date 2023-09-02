@@ -2,21 +2,24 @@
 
 namespace App\Models;
 
+use App\Domains\LlmFunctions\Dto\FunctionCallDto;
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Pgvector\Laravel\Vector;
 
 /**
  * @property int $id
- * @property string $role
+ * @property RoleTypeEnum $role
  * @property int $parent_id
- * @property bool $run_functions
  * @property int $user_id
  * @property string $content
  * @property array $embedding
+ * @property FunctionCallDto|null $function_call
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \App\Models\User $user
@@ -31,6 +34,8 @@ class Message extends Model
 
     protected $casts = [
         'embedding' => Vector::class,
+        'function_call' => FunctionCallDto::class,
+        'role' => RoleTypeEnum::class,
     ];
 
     protected $appends = [
@@ -42,7 +47,7 @@ class Message extends Model
         return str($this->content)->toString();
     }
 
-    public function user()
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }

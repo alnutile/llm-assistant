@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Models;
 
+use App\Domains\LlmFunctions\Dto\FunctionCallDto;
+use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Models\Message;
 use App\Models\MetaData;
 use App\Models\Tag;
@@ -11,9 +13,12 @@ class MessageTest extends TestCase
 {
     public function test_message_factory()
     {
+        /** @var Message $model */
         $model = Message::factory()->withEmbedData()->create();
         $this->assertNotNull($model->user->id);
         $this->assertNotNull($model->embedding);
+        $this->assertInstanceOf(FunctionCallDto::class, $model->function_call);
+        $this->assertInstanceOf(RoleTypeEnum::class, $model->role);
         $this->assertNotNull($model->user->messages->first()->id);
     }
 
