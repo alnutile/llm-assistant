@@ -22,19 +22,25 @@
 
         <div class="justify-start flex gap-2 hidden sm:block" v-if="pills">
             Meta Data:
-            <MetaDataLabel v-for="meta in message.meta_data" :key="meta.id" :meta_data="meta"/>
+            <div class="justify-start flex gap-2">
+                <MetaDataLabel v-for="meta in message.meta_data" :key="meta.id" :meta_data="meta"/>
+            </div>
         </div>
 
         <div class="justify-start flex gap-2 mt-2 hidden sm:block" v-if="pills">
             Tags:
-            <TagLabel
-                v-for="tag in message.tags" :key="tag.id" :tag="tag"/>
+            <div class="justify-start flex gap-2">
+                <TagLabel
+                    v-for="tag in message.tags" :key="tag.id" :tag="tag"/>
+            </div>
         </div>
 
         <div class="justify-start flex gap-2 mt-2 hidden sm:block" v-if="pills">
             Functions:
-            <LlmFunctionLabel
-                v-for="llm_function in message.llm_functions" :key="llm_function.id" :llm_function="llm_function"/>
+            <div class="justify-start flex gap-2">
+                <LlmFunctionLabel
+                    v-for="llm_function in message.llm_functions" :key="llm_function.id" :llm_function="llm_function"/>
+            </div>
         </div>
     </div>
 </template>
