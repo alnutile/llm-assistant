@@ -59,7 +59,7 @@ class MessageFactory extends Factory
             return [
                 'role' => RoleTypeEnum::Function,
                 'name' => 'get_current_weather',
-                'content' => "Sunny an 85"
+                'content' => 'Sunny an 85',
             ];
         });
     }
