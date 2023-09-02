@@ -1,6 +1,6 @@
 <template>
     <div class="dark:border-gray-600 border-gray-400 border p-4 rounded" >
-        <div class="mb-4" v-html="messageContent">
+        <div class="mb-4 prose prose-lg" v-html="message.content_formatted">
         </div>
 
         <div class="flex justify-end gap-2 items-center">
