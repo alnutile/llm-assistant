@@ -47,7 +47,7 @@ class Message extends Model
         return str($this->content)->toString();
     }
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

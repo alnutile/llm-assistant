@@ -102,7 +102,7 @@ class User extends Authenticatable
         return $this->hasMany(MetaData::class);
     }
 
-    public function messages() : HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
     }

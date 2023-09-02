@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->dropColumn("run_functions");
-            $table->longText("content")->nullable()->change();
-            $table->json("function_call")->nullable();
+            $table->dropColumn('run_functions');
+            $table->longText('content')->nullable()->change();
+            $table->json('function_call')->nullable();
         });
     }
 

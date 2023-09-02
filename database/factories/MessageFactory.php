@@ -28,10 +28,10 @@ class MessageFactory extends Factory
             'user_id' => User::factory(),
             'parent_id' => null,
             'function_call' => FunctionCallDto::from([
-                'name' => "some_function",
-                "content" => [
-                    'foo' => "bar"
-                ]
+                'name' => 'some_function',
+                'content' => [
+                    'foo' => 'bar',
+                ],
             ]),
         ];
     }

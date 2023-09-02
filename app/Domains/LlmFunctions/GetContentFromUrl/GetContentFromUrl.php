@@ -33,7 +33,6 @@ class GetContentFromUrl
         );
 
         $functionCallDto->message->content = $content;
-        $functionCallDto->message->run_functions = false; //just to prevent loops etc
         $functionCallDto->message->updateQuietly();
 
         return $functionCallDto->message->refresh();

@@ -2,11 +2,10 @@
 
 namespace App\Domains\LlmFunctions\Dto;
 
-enum RoleTypeEnum : string
+enum RoleTypeEnum: string
 {
-
-    case User = "user";
-    case Function = "function";
-    case System = "system";
-    Case Assistant = "assistant";
+    case User = 'user';
+    case Function = 'function';
+    case System = 'system';
+    case Assistant = 'assistant';
 }

@@ -31,9 +31,7 @@ class MessageRepository
         $this->messageBuilder->setMessages($this->createPrompt());
 
         return ChatClient::setMessage($message)
-            ->chat(messages: $this->messageBuilder->getMessagesLimitTokenCount(
-                remove_token_count: true
-            ), run_functions: $message->run_functions);
+            ->chat(messages: $this->messageBuilder->getMessagesLimitTokenCount(remove_token_count: true));
     }
 
     protected function createPrompt(): MessagesDto
