@@ -22,7 +22,7 @@
                     <Copy section="messages" copy="show_info"/>
                 </div>
 
-                <div class="lg:col-start-3 lg:row-end-2 p-4">
+                <div class="lg:col-start-3 lg:row-end-2 p-4 hidden sm:block">
                     <div class="ap-2">
                         <HTwo class="mb-4">Tasks:</HTwo>
                         <div class="flex justify-center gap-2">
@@ -66,6 +66,39 @@
                                 <ChildCard :message="child"/>
                             </div>
                             <ReplyCard :parent="message.data"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="lg:col-start-3 lg:row-end-2 p-4 sm:hidden">
+                    <div class="ap-2" v-if="message.data.tasks.length > 0">
+                        <HTwo class="mb-4">Tasks:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <TaskList :tasks="message.data.tasks"/>
+                        </div>
+                    </div>
+
+                    <div class="ap-2">
+                        <HTwo class="mb-4">Meta Data:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <MetaDataLabel v-for="meta in message.data.meta_data" :key="meta.id" :meta_data="meta"/>
+                        </div>
+                    </div>
+
+                    <div class="gap-2 mt-2">
+                        <HTwo class="mb-4">Tags:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <TagLabel
+                                v-for="tag in message.data.tags" :key="tag.id" :tag="tag"/>
+                        </div>
+                    </div>
+
+                    <div class="gap-2 mt-2" v-if="message.data.tasks.length > 0">
+                        <HTwo class="mb-4">Functions:</HTwo>
+                        <div class="flex justify-center gap-2">
+                            <LlmFunctionLabel
+                                v-for="llm_function in message.data.llm_functions" :key="llm_function.id" :llm_function="llm_function"/>
                         </div>
                     </div>
                 </div>

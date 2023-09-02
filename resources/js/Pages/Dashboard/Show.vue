@@ -11,6 +11,10 @@
         <main>
 
         <div class="mx-auto max-w-7xl px-4 py8 sm:px-6 lg:px-8 rounded-t">
+            <div class="sm:hidden">
+                <Picker :selectables="tags.data" :selected="filters.tags" @selectedEmit="tagSelected"></Picker>
+            </div>
+
             <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <!-- Schedule -->
                 <div class="lg:col-start-3 lg:row-end-1">
@@ -45,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="lg:col-start-3">
+                <div class="lg:col-start-3 hidden sm:block">
                     <Tags :tags="tags.data"></Tags>
                     <Picker :selectables="tags.data" :selected="filters.tags" @selectedEmit="tagSelected"></Picker>
                 </div>

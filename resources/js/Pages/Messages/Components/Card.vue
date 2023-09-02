@@ -20,18 +20,18 @@
             <Rerun :message="message"/>
         </div>
 
-        <div class="justify-start flex gap-2" v-if="pills">
+        <div class="justify-start flex gap-2 hidden sm:block" v-if="pills">
             Meta Data:
             <MetaDataLabel v-for="meta in message.meta_data" :key="meta.id" :meta_data="meta"/>
         </div>
 
-        <div class="justify-start flex gap-2 mt-2" v-if="pills">
+        <div class="justify-start flex gap-2 mt-2 hidden sm:block" v-if="pills">
             Tags:
             <TagLabel
                 v-for="tag in message.tags" :key="tag.id" :tag="tag"/>
         </div>
 
-        <div class="justify-start flex gap-2 mt-2" v-if="pills">
+        <div class="justify-start flex gap-2 mt-2 hidden sm:block" v-if="pills">
             Functions:
             <LlmFunctionLabel
                 v-for="llm_function in message.llm_functions" :key="llm_function.id" :llm_function="llm_function"/>
