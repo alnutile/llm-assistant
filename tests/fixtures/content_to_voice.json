@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "content": {
+            "type": "string",
+            "description": "This is the content to convert to an audio file"
+        }
+    },
+    "required": ["content"]
+}
