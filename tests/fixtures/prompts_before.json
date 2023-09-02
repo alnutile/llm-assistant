@@ -1,0 +1,38 @@
+[
+    {
+        "role": "system",
+        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-02-09 04:09\n                Only use the functions you have been provided with if needed to help the user with this question:occaecati: facere et assumendaut: dicta nihil eveniet### End Meta Data ### \n\n\n",
+        "function": null,
+        "name": null
+    },
+    {
+        "role": "user",
+        "content": "Deserunt occaecati minima aliquam.",
+        "function": null,
+        "name": null
+    },
+    {
+        "role": "assistant",
+        "content": "{\"name\":\"some_function\",\"content\":{\"foo\":\"bar\"}}",
+        "function": null,
+        "name": null
+    },
+    {
+        "role": "function",
+        "content": "Sunny an 85",
+        "function": null,
+        "name": "get_current_weather"
+    },
+    {
+        "role": "user",
+        "content": "Reiciendis nihil rem ex aspernatur omnis.",
+        "function": null,
+        "name": null
+    },
+    {
+        "role": "user",
+        "content": "Nisi ex voluptatem distinctio.",
+        "function": null,
+        "name": null
+    }
+]

@@ -28,7 +28,11 @@ class MessageRepository
     {
         $this->parent_message = $message;
 
-        $this->messageBuilder->setMessages($this->createPrompt());
+        $prompts = $this->createPrompt();
+
+        put_fixture("prompts_used.json", $prompts);
+
+        $this->messageBuilder->setMessages($prompts);
 
         return ChatClient::setMessage($message)
             ->chat(messages: $this->messageBuilder->getMessagesLimitTokenCount(remove_token_count: true));
@@ -48,6 +52,8 @@ class MessageRepository
             'content' => $this->parent_message->content,
         ]);
 
+        logger("Latest id " . $this->parent_message->id);
+
         $messages = Message::query()
             ->where('parent_id', $this->parent_message->id)->latest()
             ->limit(5)
@@ -61,14 +67,13 @@ class MessageRepository
             if ($message->role === RoleTypeEnum::Function) {
                 $prompts[] = MessageDto::from([
                     'role' => $message->role->value,
-                    'name' => $message->name,
                     'content' => $message->content,
+                    "name" => $message->name
                 ]);
             } elseif ($this->callWasResultOfFunctionCall($message)) {
                 $prompts[] = MessageDto::from([
                     'role' => RoleTypeEnum::Assistant,
-                    'function' => $message->function_call->toJson(),
-                    'content' => null,
+                    'content' => $message->function_call->toJson(),
                 ]);
             } else {
                 $prompts[] = MessageDto::from([
@@ -77,6 +82,8 @@ class MessageRepository
                 ]);
             }
         }
+
+        put_fixture("prompts_before.json", $prompts);
 
         return MessagesDto::from([
             'messages' => $prompts,
