@@ -47,7 +47,7 @@ class ChatClient
         $request = [
             'model' => $model,
             'messages' => $messages,
-            'temperature' => (int) config('openai.temperature'),
+            'temperature' => config('openai.temperature'),
         ];
 
         if ($this->hasFunctions() && $run_functions) {

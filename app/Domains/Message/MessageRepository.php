@@ -30,8 +30,6 @@ class MessageRepository
 
         $prompts = $this->createPrompt();
 
-        put_fixture('prompts_used.json', $prompts);
-
         $this->messageBuilder->setMessages($prompts);
 
         return ChatClient::setMessage($message)

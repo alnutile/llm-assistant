@@ -1,5 +1,6 @@
 <?php
 
+use Facades\App\Domains\LlmFunctions\TextToImage\TextToImage;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
@@ -18,6 +19,15 @@ if (! function_exists('llm_functions_scheduling')) {
         return TaskRepository::handle($functionCallDto);
     }
 }
+
+if (! function_exists('text_to_image')) {
+    function text_to_image(
+        FunctionCallDto $functionCallDto
+    ): Message {
+        return TextToImage::handle($functionCallDto);
+    }
+}
+
 
 if (! function_exists('content_to_voice')) {
     function content_to_voice(

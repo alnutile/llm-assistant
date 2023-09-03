@@ -2,27 +2,33 @@
     "messages": [
         {
             "role": "system",
-            "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-02-09 04:09\n                Only use the functions you have been provided with if needed to help the user with this question:### End Meta Data ### \n\n\n",
+            "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-02-09 07:09\n                Only use the functions you have been provided with if needed to help the user with this question:### End Meta Data ### \n\n\n",
             "function": null,
             "name": null
         },
         {
             "role": "user",
-            "content": "Get the content from this url then convert it to audio https:\/\/medium.com\/@alnutile\/suggestions-around-building-a-good-development-team-in-parallel-to-building-a-good-product-6dcc50b0a551",
+            "content": "Get the content from this url then convert it to audio https:\/\/medium.com\/@alnutile\/suggestions-around-building-a-good-development-team-in-parallel-to-building-a-good-product-6dcc50b0a551\n\nand then make an image from the text \"House by the river\"",
             "function": null,
             "name": null
         },
         {
             "role": "function",
-            "content": "https:\/\/s3.eu-central-1.amazonaws.com\/tts-download\/a2b35e97700182981159fb2fb4ea4d7e.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZ3CYNLHHVKA7D7Z4%2F20230902%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20230902T160312Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=279544453f5bceee04424f41e8bdd75bb8aded830651b4cc8c66412b477e8a71",
+            "content": "https:\/\/oaidalleapiprodscus.blob.core.windows.net\/private\/org-ClL1biAi0m1pC2J2IV5C22TQ\/user-i08oJb4T3Lhnsh2yJsoErWJ4\/img-ijTeJHl4EUETLSCjFTNc0LXs.png?st=2023-09-02T18%3A27%3A27Z&se=2023-09-02T20%3A27%3A27Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image\/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-09-02T06%3A08%3A47Z&ske=2023-09-03T06%3A08%3A47Z&sks=b&skv=2021-08-06&sig=PP7VaTSuIxHzQXi%2B1EA3pDXPHpnRRvucmrWGBN4sc9I%3D",
             "function": null,
-            "name": "content_to_voice"
+            "name": "text_to_image"
         },
         {
             "role": "assistant",
-            "content": "{\"name\":\"content_to_voice\",\"content\":{\"content\":\"Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper\"}}",
+            "content": "{\"name\":\"text_to_image\",\"content\":{\"text_for_image\":\"House by the river\"}}",
             "function": null,
             "name": null
+        },
+        {
+            "role": "function",
+            "content": "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper",
+            "function": null,
+            "name": "get_content_from_url"
         },
         {
             "role": "assistant",
@@ -32,9 +38,9 @@
         },
         {
             "role": "function",
-            "content": "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper",
+            "content": "https:\/\/s3.eu-central-1.amazonaws.com\/tts-download\/44e644bc33580c66bd33751beb941c54.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAZ3CYNLHHVKA7D7Z4%2F20230902%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20230902T185524Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=f196f78591584911a09543f775ad581918d5e6bbb55d49e94e051f98a7f82aaf",
             "function": null,
-            "name": "get_content_from_url"
+            "name": "content_to_voice"
         }
     ]
 }
