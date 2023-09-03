@@ -22,7 +22,7 @@ class GetContentFromUrl extends LlmFunctionContract
         }
 
         if (config('services.rapid.mock') && ! app()->environment('testing')) {
-            $body = "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper";
+            $body = 'Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper';
         } else {
             $body = GetSiteWrapper::handle($url);
         }

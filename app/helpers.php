@@ -1,10 +1,10 @@
 <?php
 
-use Facades\App\Domains\LlmFunctions\TextToImage\TextToImage;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use Facades\App\Domains\LlmFunctions\GetContentFromUrl\GetContentFromUrl;
+use Facades\App\Domains\LlmFunctions\TextToImage\TextToImage;
 use Facades\App\Domains\Scheduling\TaskRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
@@ -27,7 +27,6 @@ if (! function_exists('text_to_image')) {
         return TextToImage::handle($functionCallDto);
     }
 }
-
 
 if (! function_exists('content_to_voice')) {
     function content_to_voice(

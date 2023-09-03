@@ -17,9 +17,8 @@
 
             <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <!-- Schedule -->
-                <div class="lg:col-start-3 lg:row-end-1">
+                <div class="lg:col-start-3 lg:row-end-1 hidden">
                     <Calendar/>
-
                 </div>
 
                 <!-- Messages -->
@@ -53,6 +52,9 @@
                 </div>
             </div>
         </div>
+            <div>
+                <SimplePaginate :meta="messages.meta" :links="messages.links"/>
+            </div>
     </main>
     </AppLayout>
 </template>
@@ -63,35 +65,19 @@ import Card from "@/Pages/Messages/Components/Card.vue"
 import Tags from "@/Pages/Tags/Components/Tags.vue"
 import { router } from "@inertiajs/vue3";
 import Picker from "@/Components/Picker.vue";
+import { Link } from "@inertiajs/vue3";
+import { ref } from 'vue'
+import Calendar from "./Components/Calendar.vue";
+import SimplePaginate from "@/Components/SimplePaginate.vue";
+import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
+import { CheckCircleIcon } from '@heroicons/vue/24/solid'
+import Activities from "./Components/Activities.vue";
+
 const props = defineProps({
     messages: Object,
     tags: Object,
     filters: Object
 })
-import { Link } from "@inertiajs/vue3";
-
-import { ref } from 'vue'
-
-import {
-    Bars3Icon,
-    CalendarDaysIcon,
-    CreditCardIcon,
-    EllipsisVerticalIcon,
-    FaceFrownIcon,
-    FaceSmileIcon,
-    PlusIcon,
-    FireIcon,
-    HandThumbUpIcon,
-    HeartIcon,
-    PaperClipIcon,
-    UserCircleIcon,
-    XMarkIcon as XMarkIconMini,
-} from '@heroicons/vue/20/solid'
-import { BellIcon, XMarkIcon as XMarkIconOutline } from '@heroicons/vue/24/outline'
-import { CheckCircleIcon } from '@heroicons/vue/24/solid'
-import Calendar from "./Components/Calendar.vue";
-import Activities from "./Components/Activities.vue";
-import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 
 const tagSelected = (items) => {
     const tags = items.map(item => item.id);
