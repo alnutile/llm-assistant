@@ -1,6 +1,6 @@
 <template>
     <button @click="copyToClipboard(content)"
-            class="py-1 px-2 bg-red-600 rounded-lg hover:bg-red-500 text-sm
+            class="py-1 px-2 bg-pink-500 hover:bg-pink-600 text-sm
             font-semibold
             text-white">
         Copy
