@@ -3,6 +3,8 @@
         <div class="mb-4 prose prose-lg" v-html="message.content_formatted">
         </div>
 
+
+
         <div class="flex justify-end gap-2 items-center">
             <div>{{ message.created_at}}</div>
             <div v-if="message.role === 'user'">
@@ -15,6 +17,7 @@
                     <img class="h-8 w-8 rounded-full object-cover" src="/images/robot.png" alt="" />
                 </span>
             </div>
+            <Clipboard v-if="message.role !== 'user'" :content="message.content"></Clipboard>
         </div>
     </div>
 </template>
@@ -23,6 +26,7 @@
 import SecondaryButton from "@/Components/SecondaryButtonLink.vue";
 import {computed} from "vue";
 import { usePage } from "@inertiajs/vue3";
+import Clipboard from "@/Components/Clipboard.vue";
 
 const props = defineProps({
     message: Object,
