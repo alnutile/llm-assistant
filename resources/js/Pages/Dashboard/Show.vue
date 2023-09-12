@@ -47,6 +47,16 @@
                 </div>
 
                 <div class="lg:col-start-3 hidden sm:block">
+                    <div class="flex justify-start items-center mt-4 mb-2">
+                        <input
+                            autofocus
+                            v-model="form.search"
+                            type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs rounded-none" />
+                        <button
+                            @click="submit"
+                            class="btn-sm ">search</button>
+                    </div>
+
                     <Tags :tags="tags.data"></Tags>
                     <Picker :selectables="tags.data" :selected="filters.tags" @selectedEmit="tagSelected"></Picker>
                 </div>
@@ -63,7 +73,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Card from "@/Pages/Messages/Components/Card.vue"
 import Tags from "@/Pages/Tags/Components/Tags.vue"
-import { router } from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 import Picker from "@/Components/Picker.vue";
 import { Link } from "@inertiajs/vue3";
 import { ref } from 'vue'
@@ -78,6 +88,16 @@ const props = defineProps({
     tags: Object,
     filters: Object
 })
+
+const form = useForm({
+    search: props.filters.search
+})
+
+const submit = () => {
+    form.get(route("dashboard"), {
+        preserveScroll: true
+    })
+}
 
 const tagSelected = (items) => {
     const tags = items.map(item => item.id);
