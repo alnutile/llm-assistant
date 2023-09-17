@@ -1,26 +1,38 @@
 [
     {
         "role": "system",
-        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-17-09 08:09\n                Only use the functions you have been provided with if needed to help the user with this question:### End Meta Data ### \n\n\n",
+        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-17-09 09:09\n                Only use the functions you have been provided with if needed to help the user with this question:modi: cum quisquam rerumest: qui iste et### End Meta Data ### \n\n\n",
         "function": null,
         "name": null
     },
     {
         "role": "user",
-        "content": "subject: Article \n body: get content from the url https:\/\/github.com\/abbasudo\/laravel-purity using the included functionhttps:\/\/github.com\/abbasudo\/laravel-purity",
+        "content": "Similique dignissimos odit veniam sit.",
         "function": null,
         "name": null
     },
     {
         "role": "assistant",
-        "content": "{\"name\":\"get_content_from_url\",\"content\":{\"url\":\"https:\\\/\\\/github.com\\\/abbasudo\\\/laravel-purity\"}}",
+        "content": "{\"name\":\"some_function\",\"content\":{\"foo\":\"bar\"}}",
         "function": null,
         "name": null
     },
     {
         "role": "function",
-        "content": "Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away - Antoine de Saint-Exuper",
+        "content": "Sunny an 85",
         "function": null,
-        "name": "get_content_from_url"
+        "name": "get_current_weather"
+    },
+    {
+        "role": "user",
+        "content": "Ut temporibus et et excepturi.",
+        "function": null,
+        "name": null
+    },
+    {
+        "role": "user",
+        "content": "Ut dolorum rerum aut officiis.",
+        "function": null,
+        "name": null
     }
 ]

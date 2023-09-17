@@ -20,13 +20,6 @@ class MessageReplyController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        /**
-         * @NOTE we always start with the parent
-         */
-        if ($message->parent_id) {
-            $message = $message->parent;
-        }
-
         ReplyMessageCreateJob::dispatch($message);
 
         request()->session()->flash('flash.banner', 'Reply Sent to LLM 🤖');

@@ -8,6 +8,7 @@ use App\OpenAi\Dtos\MessageDto;
 use App\OpenAi\Dtos\MessagesDto;
 use App\OpenAi\MessageBuilder;
 use Facades\App\OpenAi\ChatClient;
+use Illuminate\Database\Eloquent\Collection;
 
 class MessageRepository
 {
@@ -50,38 +51,13 @@ class MessageRepository
             'content' => $this->parent_message->content,
         ]);
 
-        logger('Latest id '.$this->parent_message->id);
-
         $messages = Message::query()
-            ->where('parent_id', $this->parent_message->id)->latest()
+            ->where('parent_id', $this->parent_message->id)
+            ->oldest()
             ->limit(5)
             ->get();
 
-        /** @var Message $message */
-        foreach ($messages as $message) {
-            /**
-             * @see https://openai.com/blog/function-calling-and-other-api-updates
-             */
-            if ($message->role === RoleTypeEnum::Function) {
-                $prompts[] = MessageDto::from([
-                    'role' => $message->role->value,
-                    'content' => $message->content,
-                    'name' => $message->name,
-                ]);
-            } elseif ($this->callWasResultOfFunctionCall($message)) {
-                $prompts[] = MessageDto::from([
-                    'role' => RoleTypeEnum::Assistant,
-                    'content' => $message->function_call->toJson(),
-                ]);
-            } else {
-                $prompts[] = MessageDto::from([
-                    'role' => $message->role->value,
-                    'content' => $message->content,
-                ]);
-            }
-        }
-
-        put_fixture('prompts_before.json', $prompts);
+        $prompts = $this->iterateToMakePrompts($prompts, $messages);
 
         return MessagesDto::from([
             'messages' => $prompts,
@@ -108,6 +84,34 @@ class MessageRepository
         }
 
         return 'Acting as the users assistant please answer their question';
+    }
+
+    protected function iterateToMakePrompts(array $prompts, Collection $messages) : array {
+        /** @var Message $message */
+        foreach ($messages as $message) {
+            /**
+             * @see https://openai.com/blog/function-calling-and-other-api-updates
+             */
+            if ($message->role === RoleTypeEnum::Function) {
+                $prompts[] = MessageDto::from([
+                    'role' => $message->role->value,
+                    'content' => $message->content,
+                    'name' => $message->name,
+                ]);
+            } elseif ($this->callWasResultOfFunctionCall($message)) {
+                $prompts[] = MessageDto::from([
+                    'role' => RoleTypeEnum::Assistant,
+                    'content' => $message->function_call->toJson(),
+                ]);
+            } else {
+                $prompts[] = MessageDto::from([
+                    'role' => $message->role->value,
+                    'content' => $message->content,
+                ]);
+            }
+        }
+
+        return $prompts;
     }
 
     protected function callWasResultOfFunctionCall(\Illuminate\Database\Eloquent\Builder|Message $message): bool

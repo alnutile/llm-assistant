@@ -38,7 +38,10 @@ const submit = () => {
     form.put(route("message_reply.reply", {
         message: props.parent.id
     }), {
-        preserveScroll: true
+        preserveScroll: true,
+        onSuccess: params => {
+            form.reset()
+        }
     })
 }
 </script>
