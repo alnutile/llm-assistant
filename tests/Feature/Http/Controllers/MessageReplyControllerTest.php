@@ -24,5 +24,6 @@ class MessageReplyControllerTest extends TestCase
             'content' => 'Foo bar',
         ]);
         Queue::assertPushed(ReplyMessageCreateJob::class);
+
     }
 }

@@ -13,14 +13,14 @@ class MessageReplyController extends Controller
             'content' => ['required'],
         ]);
 
-        Message::create([
+        $child = Message::create([
             'content' => $validated['content'],
             'role' => 'user',
             'parent_id' => $message->id,
             'user_id' => auth()->user()->id,
         ]);
 
-        ReplyMessageCreateJob::dispatch($message);
+        ReplyMessageCreateJob::dispatch($child);
 
         request()->session()->flash('flash.banner', 'Reply Sent to LLM 🤖');
 
