@@ -30,7 +30,7 @@ class ReplyMessageCreateJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            MessageStatusEvent::dispatch($this->message);
+            MessageStatusEvent::dispatch($this->message->parent_id);
             /** @var Response $results */
             $results = MessageReplyRepository::handle($this->message);
             Message::create([
@@ -39,7 +39,7 @@ class ReplyMessageCreateJob implements ShouldQueue
                 'role' => 'assistant',
                 'parent_id' => $this->message->parent_id,
             ]);
-            MessageStatusEvent::dispatch($this->message);
+            MessageStatusEvent::dispatch($this->message->parent_id);
         } catch (\Exception $e) {
             logger('Error getting results');
             logger($e->getMessage());
