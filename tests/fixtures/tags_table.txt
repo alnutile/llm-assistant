@@ -1,0 +1,5 @@
+SQL query extracting info to answer the user's question.
+SQL should be written using this database schema:
+Table: tags
+Columns: id, label, active, created_at, updated_at
+The query should be returned in plain text, not in JSON.

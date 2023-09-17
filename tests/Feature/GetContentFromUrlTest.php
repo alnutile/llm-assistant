@@ -38,4 +38,6 @@ class GetContentFromUrlTest extends TestCase
         $this->assertEquals(RoleTypeEnum::Function, $message->role);
         $this->assertEquals('some_function_name', $message->name);
     }
+
+
 }

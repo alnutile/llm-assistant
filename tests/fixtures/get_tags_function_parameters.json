@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "query": {
+            "type": "string",
+            "description": "PostgresSQL query tags from the database that might then apply to the users content.\nPostgresSQL should be written using this database schema:\nTable: tags\nColumns: id, label, active, created_at, updated_at\nThe query should be returned in plain text, not in JSON"
+        }
+    },
+    "required": ["table_name", "query"]
+}

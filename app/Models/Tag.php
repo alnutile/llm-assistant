@@ -16,6 +16,10 @@ class Tag extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'active' => "boolean"
+    ];
+
     public function messages(): BelongsToMany
     {
         return $this->belongsToMany(Message::class);

@@ -1,38 +1,26 @@
 [
     {
         "role": "system",
-        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-12-09 01:09\n                Only use the functions you have been provided with if needed to help the user with this question:dolor: consequatur non incidunttempora: rerum dolor molestiae### End Meta Data ### \n\n\n",
+        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-17-09 12:09\n                Only use the functions you have been provided with if needed to help the user with this question:### End Meta Data ### \n\n\n",
         "function": null,
         "name": null
     },
     {
         "role": "user",
-        "content": "Debitis debitis dolorum ut.",
+        "content": "First ONLY using the existing tags in the system give me 1-3 tags that might apply for this article and why they might apply showing me the Tag ID as well so I know it is in the system.\nThen consider 1-2 other tags that might apply to this article and why since you are making these tags up I will not need an ID just the tag you suggest and the reason. Some type of tag that may come in use later so feel free to suggest no extra tags.\n\n###START_CONTENT\nThe package \"laravel-purity\" is an elegant and efficient filtering and sorting package for Laravel. It is designed to simplify complex data filtering and sorting logic for eloquent queries. By adding the \"filter()\" method to your Eloquent query, you can easily add the ability for frontend users to apply filters based on URL query string parameters.\n\nSome features of \"laravel-purity\" include:\n\n- Developer-friendly and front-end developer-friendly\n- Frontend developers can use filtering and sorting of the APIs by using the popular JavaScript qs package\n- Inspired by strapi's filter and sort functionality\n\nTo use \"laravel-purity\", you can follow these steps:\n\n1. Install the package using Composer:\n   ```\n   composer require abbasudo\/laravel-purity\n   ```\n\n2. Get the configuration file (configs\/purity.php) to customize the package's behavior:\n   ```\n   php artisan vendor:publish --tag=purity\n   ```\n\n3. Add the `Filterable` trait to your model to get filter functionalities:\n   ```php\n   use Abbasudo\\Purity\\Traits\\Filterable;\n\n   class Post extends Model\n   {\n       use Filterable;\n       \/\/ ...\n   }\n   ```\n\n4. Add the `filter()` method to your model's Eloquent query in the controller:\n   ```php\n   use App\\Models\\Post;\n\n   class PostController extends Controller\n   {\n       public function index()\n       {\n           return Post::filter()->get();\n       }\n   }\n   ```\n\nYou can also add the `Sortable` trait to your model to get sort functionalities. The package allows you to restrict filters in different ways, such as passing filters as an array to the `filter()` function, declaring filters in the model, or specifying filters in the configuration file.\n\nThe package also provides examples of how to use the filters and sorting in JavaScript with the qs package.\n\nFor more information and advanced usage of \"laravel-purity\", you can visit the GitHub repository: [abbasudo\/laravel-purity](https:\/\/github.com\/abbasudo\/laravel-purity).\n###END_CONTENT",
         "function": null,
         "name": null
     },
     {
         "role": "assistant",
-        "content": "{\"name\":\"some_function\",\"content\":{\"foo\":\"bar\"}}",
+        "content": "{\"name\":\"get_existing_tags\",\"content\":{\"query\":\"SELECT * FROM tags WHERE active = true\"}}",
         "function": null,
         "name": null
     },
     {
         "role": "function",
-        "content": "Sunny an 85",
+        "content": "Results of the query of tags table SELECT * FROM tags WHERE active = true id: 1, label: email, active: 1, created_at: 2023-08-21 04:13:29, updated_at: 2023-08-21 04:13:29\nid: 2, label: test1, active: 1, created_at: 2023-08-22 00:12:51, updated_at: 2023-08-22 00:12:51\nid: 4, label: Laravel, active: 1, created_at: 2023-09-17 12:35:21, updated_at: 2023-09-17 12:35:21\nid: 6, label: OpenAi, active: 1, created_at: 2023-09-17 12:35:28, updated_at: 2023-09-17 12:35:28\nid: 3, label: Packages, active: 1, created_at: 2023-08-22 00:12:54, updated_at: 2023-08-22 00:12:54\nid: 7, label: Tips, active: 1, created_at: 2023-09-17 12:36:27, updated_at: 2023-09-17 12:36:27",
         "function": null,
-        "name": "get_current_weather"
-    },
-    {
-        "role": "user",
-        "content": "Dolores est quisquam qui.",
-        "function": null,
-        "name": null
-    },
-    {
-        "role": "user",
-        "content": "Minus impedit commodi minus maiores.",
-        "function": null,
-        "name": null
+        "name": "get_existing_tags"
     }
 ]

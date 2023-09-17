@@ -1,5 +1,6 @@
 <?php
 
+use Facades\App\Domains\LlmFunctions\GetExistingTags\GetExistingTags;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
@@ -33,6 +34,15 @@ if (! function_exists('content_to_voice')) {
         FunctionCallDto $functionCallDto
     ): Message {
         return ContentToVoice::handle($functionCallDto);
+    }
+}
+
+
+if (! function_exists('get_existing_tags')) {
+    function get_existing_tags(
+        FunctionCallDto $functionCallDto
+    ): Message {
+        return GetExistingTags::handle($functionCallDto);
     }
 }
 
