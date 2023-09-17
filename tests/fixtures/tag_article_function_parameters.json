@@ -1,11 +1,7 @@
 {
     "type": "object",
     "properties": {
-        "article_id": {
-            "type": "string",
-            "description": "This is the id of the article that should be tagged"
-        },
-        "tasks": {
+        "tags": {
             "type": "array",
             "description": "Each tag can be in a list formatted as such: [{id: string or null if new tag, label: string}] The label is the name for the tag you are suggesting or the existing tag.",
             "items": {
@@ -14,5 +10,5 @@
             }
         }
     },
-    "required": ["tags", "article_id"]
+    "required": ["tags"]
 }

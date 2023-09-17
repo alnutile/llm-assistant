@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string $label
+ * @property int $id
  * @property bool $active
  */
 class Tag extends Model
@@ -17,7 +18,7 @@ class Tag extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'active' => "boolean"
+        'active' => 'boolean',
     ];
 
     public function messages(): BelongsToMany

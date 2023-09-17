@@ -4,15 +4,12 @@ namespace App\Domains\LlmFunctions\GetExistingTags;
 
 use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
 use App\Domains\LlmFunctions\LlmFunctionContract;
-use Facades\App\Domains\Tagging\TagModelDescription;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Illuminate\Support\Facades\DB;
 
 class GetExistingTags extends LlmFunctionContract
 {
-
-
     public function handle(FunctionCallDto $functionCallDto): Message
     {
 
@@ -25,18 +22,18 @@ class GetExistingTags extends LlmFunctionContract
          */
         $results = DB::select($functionCallDto->arguments['query']);
 
-        $results = collect($results)->map(function($item) {
-           return (array) $item;
-        })->map(function ($item){
+        $results = collect($results)->map(function ($item) {
+            return (array) $item;
+        })->map(function ($item) {
             $order = array_keys($item);
             $item = collect($item)->only($order)->toArray();
+
             return collect($item)->map(function ($value, $key) {
                 return "{$key}: {$value}";
             })->implode(', ');
         })->implode("\n");
 
-
-        $message = sprintf("Results of the query of tags table %s %s",
+        $message = sprintf('Results of the query of tags table %s %s',
             $functionCallDto->arguments['query'],
             $results
         );

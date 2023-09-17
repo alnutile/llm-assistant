@@ -1,10 +1,11 @@
 <?php
 
-use Facades\App\Domains\LlmFunctions\GetExistingTags\GetExistingTags;
 use App\Models\Message;
 use App\OpenAi\Dtos\FunctionCallDto;
 use Facades\App\Domains\LlmFunctions\ContentToVoice\ContentToVoice;
 use Facades\App\Domains\LlmFunctions\GetContentFromUrl\GetContentFromUrl;
+use Facades\App\Domains\LlmFunctions\GetExistingTags\GetExistingTags;
+use Facades\App\Domains\LlmFunctions\TagArticle\TagArticle;
 use Facades\App\Domains\LlmFunctions\TextToImage\TextToImage;
 use Facades\App\Domains\Scheduling\TaskRepository;
 use Illuminate\Support\Arr;
@@ -37,12 +38,19 @@ if (! function_exists('content_to_voice')) {
     }
 }
 
-
 if (! function_exists('get_existing_tags')) {
     function get_existing_tags(
         FunctionCallDto $functionCallDto
     ): Message {
         return GetExistingTags::handle($functionCallDto);
+    }
+}
+
+if (! function_exists('add_tags_to_article')) {
+    function add_tags_to_article(
+        FunctionCallDto $functionCallDto
+    ): Message {
+        return TagArticle::handle($functionCallDto);
     }
 }
 

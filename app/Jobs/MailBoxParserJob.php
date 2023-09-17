@@ -44,13 +44,6 @@ class MailBoxParserJob implements ShouldQueue
                 'active' => 1,
             ]);
 
-            /**
-             * @TODO
-             * The emails can have triggers like #tldr or #get_content
-             * Since this is my most common use case I will just assume this
-             */
-            $function = LlmFunction::whereLabel('get_content_from_url')->first();
-
             $content = $this->mailDto->body;
 
             /**
@@ -73,9 +66,19 @@ class MailBoxParserJob implements ShouldQueue
                 $tag1->id, $tag2->id,
             ]);
 
-            $message->llm_functions()->attach([
-                $function->id,
-            ]);
+            /**
+             * @NOTE
+             * These are the functions I want to use
+             */
+            $functions = ['get_content_from_url', 'add_tags_to_article', 'get_existing_tags'];
+
+            foreach ($functions as $function) {
+                $functionModel = LlmFunction::whereLabel('get_content_from_url')->first();
+
+                $message->llm_functions()->attach([
+                    $functionModel->id,
+                ]);
+            }
 
             MessageCreatedJob::dispatch($message);
 

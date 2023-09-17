@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Domains\EmailParser\MailDto;
 use App\Jobs\MailBoxParserJob;
 use App\Jobs\MessageCreatedJob;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
@@ -27,6 +28,8 @@ class MailBoxParserJobTest extends TestCase
         $job = new MailBoxParserJob($dto);
         $job->handle();
         $this->assertDatabaseCount('messages', 1);
+        $message = Message::first();
+        $this->assertCount(3, $message->llm_functions);
         Queue::assertPushed(MessageCreatedJob::class);
     }
 }
