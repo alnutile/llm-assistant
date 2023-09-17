@@ -3,10 +3,10 @@
 namespace Tests\Feature;
 
 use App\Domains\LlmFunctions\Dto\RoleTypeEnum;
-use Facades\App\Domains\Message\MessageReplyRepository;
-use Facades\App\OpenAi\ChatClient;
 use App\Models\Message;
 use App\Models\MetaData;
+use Facades\App\Domains\Message\MessageReplyRepository;
+use Facades\App\OpenAi\ChatClient;
 use Tests\TestCase;
 
 class MessageReplyRepositoryTest extends TestCase

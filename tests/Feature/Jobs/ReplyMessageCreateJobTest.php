@@ -3,7 +3,6 @@
 namespace Tests\Feature\Jobs;
 
 use App\Events\MessageStatusEvent;
-use App\Jobs\MessageCreatedJob;
 use App\Jobs\ReplyMessageCreateJob;
 use App\Models\Message;
 use App\OpenAi\Dtos\Response;
@@ -13,8 +12,8 @@ use Tests\TestCase;
 
 class ReplyMessageCreateJobTest extends TestCase
 {
-
-    public function test_reply_job() {
+    public function test_reply_job()
+    {
         Event::fake();
         $dto = Response::from([
             'content' => 'foobar',
@@ -24,11 +23,11 @@ class ReplyMessageCreateJobTest extends TestCase
         ]);
 
         $message = Message::factory()->create([
-            'parent_id' => null
+            'parent_id' => null,
         ]);
 
         $child = Message::factory()->create([
-            'parent_id' => $message->id
+            'parent_id' => $message->id,
         ]);
 
         MessageReplyRepository::shouldReceive('handle')

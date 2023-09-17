@@ -9,9 +9,7 @@ use Facades\App\OpenAi\ChatClient;
 
 class MessageReplyRepository extends MessageRepository
 {
-
     protected Message $child_message;
-
 
     public function handle(Message $message): Message
     {
@@ -49,7 +47,7 @@ class MessageReplyRepository extends MessageRepository
 
         $messages = Message::query()
             ->where('parent_id', $this->parent_message->id)
-            ->where("id", "!=", $this->child_message->id)
+            ->where('id', '!=', $this->child_message->id)
             ->oldest()
             ->limit(5)
             ->get();

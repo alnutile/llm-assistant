@@ -86,7 +86,8 @@ class MessageRepository
         return 'Acting as the users assistant please answer their question';
     }
 
-    protected function iterateToMakePrompts(array $prompts, Collection $messages) : array {
+    protected function iterateToMakePrompts(array $prompts, Collection $messages): array
+    {
         /** @var Message $message */
         foreach ($messages as $message) {
             /**
