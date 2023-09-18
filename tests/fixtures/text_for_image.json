@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "text_for_image": {
+            "type": "string",
+            "description": "This is the text that will be used to make an image using dalle-2 api"
+        }
+    },
+    "required": ["text_for_image"]
+}
