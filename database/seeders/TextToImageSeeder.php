@@ -15,7 +15,7 @@ class TextToImageSeeder extends Seeder
     {
         $parameters = get_fixture_v2('text_for_image.json', false);
         LlmFunction::create([
-            'label' => 'text_for_image',
+            'label' => 'text_to_image',
             'description' => 'Use this function to convert and image to text',
             'parameters' => $parameters,
         ]);
