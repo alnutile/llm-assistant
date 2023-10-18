@@ -35,9 +35,16 @@ class MessageCreatedJob implements ShouldQueue
             /** @var Message $message */
             $message = MessageRepository::handle($this->message);
 
+            if ($message === null) {
+                MessageStatusEvent::dispatch($this->message);
+
+                return;
+            }
+
             if ($message->role === RoleTypeEnum::Function) {
                 MessageCreatedJob::dispatch($this->message);
             }
+
             MessageStatusEvent::dispatch($this->message);
         } catch (\Exception $e) {
             logger('Error getting results');

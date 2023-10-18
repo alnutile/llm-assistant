@@ -24,7 +24,9 @@ class MessageResource extends JsonResource
             'meta_data' => MetaDataResource::collection($this->meta_data),
             'tags' => TagResource::collection($this->tags),
             'llm_functions' => LlmFunctionResource::collection($this->llm_functions),
-            'children' => MessageResource::collection($this->children()->whereNotNull('content')->where('role', '!=', 'function')->oldest()->get()),
+            'children' => MessageResource::collection($this->children()->whereNotNull('content')
+                ->oldest()->get()
+            ),
             'created_at' => $this->created_at->diffForHumans(),
             'created_at_formatted' => $this->created_at->diffForHumans(),
             'tasks' => TaskResource::collection($this->tasks),

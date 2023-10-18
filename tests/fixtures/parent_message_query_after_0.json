@@ -1,0 +1,14 @@
+[
+    {
+        "role": "system",
+        "content": "Acting as the users assistant and using the following meta data included in the question please answer their question,\n                Current Date is 2023202320232023-18-10 11:10\n                Only use the functions you have been provided with if needed to help the user with this question:### End Meta Data ### \n\n\n",
+        "function": null,
+        "name": null
+    },
+    {
+        "role": "user",
+        "content": "Get content from this url\n\nhttps:\/\/blog.crisp.se\/2016\/01\/25\/henrikkniberg\/making-sense-of-mvp",
+        "function": null,
+        "name": null
+    }
+]

@@ -25,7 +25,7 @@ class MessageRepository
         $this->messageBuilder = $messageBuilder;
     }
 
-    public function handle(Message $message): Message
+    public function handle(Message $message): ?Message
     {
         $this->parent_message = $message;
 
@@ -33,8 +33,14 @@ class MessageRepository
 
         $this->messageBuilder->setMessages($prompts);
 
+        $messages = $this->messageBuilder->getMessagesLimitTokenCount(remove_token_count: true);
+
+        if (empty($messages)) {
+            return null;
+        }
+
         return ChatClient::setMessage($message)
-            ->chat(messages: $this->messageBuilder->getMessagesLimitTokenCount(remove_token_count: true));
+            ->chat(messages: $messages);
     }
 
     protected function createPrompt(): MessagesDto
@@ -57,7 +63,29 @@ class MessageRepository
             ->limit(5)
             ->get();
 
-        $prompts = $this->iterateToMakePrompts($prompts, $messages);
+        /** @var Message $message */
+        foreach ($messages as $message) {
+            /**
+             * @see https://openai.com/blog/function-calling-and-other-api-updates
+             */
+            if ($message->role === RoleTypeEnum::Function) {
+                $prompts[] = MessageDto::from([
+                    'role' => $message->role->value,
+                    'content' => $message->content,
+                    'name' => $message->name,
+                ]);
+            } elseif ($this->callWasResultOfFunctionCall($message)) {
+                $prompts[] = MessageDto::from([
+                    'role' => RoleTypeEnum::Assistant,
+                    'content' => $message->function_call->toJson(),
+                ]);
+            } else {
+                $prompts[] = MessageDto::from([
+                    'role' => $message->role->value,
+                    'content' => $message->content,
+                ]);
+            }
+        }
 
         return MessagesDto::from([
             'messages' => $prompts,
