@@ -13,7 +13,6 @@ class GetContentFromUrl extends LlmFunctionContract
     public function handle(FunctionCallDto $functionCallDto): Message
     {
 
-
         $url = data_get($functionCallDto->arguments, 'url', null);
 
         if (! $url) {
