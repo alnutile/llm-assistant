@@ -14,6 +14,10 @@ return [
 
     'api_key' => env('OPENAI_API_KEY'),
     'organization' => env('OPENAI_ORGANIZATION'),
+    'assistants' => [
+      'news_assistant_id' =>  env('OPENAI_ASSISTANT_NEWS', 'testing'),
+      'bullet_journal_assistant_id' =>  env('OPENAI_ASSISTANT_BULLET_JOURNAL', 'testing'),
+    ],
     'mock' => env('OPENAI_MOCK', true),
     'chat_model' => env('OPENAI_CHAT_CLIENT_MODEL', 'gpt-3.5-turbo-16k'),
     'chat_model_with_function' => env('OPENAI_CHAT_CLIENT_MODEL_WITH_FUNCTIONS', 'gpt-3.5-turbo-16k'),

@@ -1,0 +1,10 @@
+{
+    "id": "file-5MccjmYetVyn4jAGsWy5iP6n",
+    "object": "file",
+    "bytes": 9316,
+    "created_at": 1701042129,
+    "filename": "openai_file_upload.csv",
+    "purpose": "assistants",
+    "status": "processed",
+    "status_details": null
+}

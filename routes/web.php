@@ -27,12 +27,7 @@ Route::get('/login/signed/{token}', [SignedUrlAuth::class,
     ->name('signed_url.login');
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return to_route('dashboard');
 });
 
 Route::middleware([

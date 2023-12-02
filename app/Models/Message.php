@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Pgvector\Laravel\Vector;
 
 /**
@@ -81,5 +82,17 @@ class Message extends Model
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+
+    public function assistants(): MorphMany
+    {
+        return $this->morphMany(Assistant::class, 'assistantable');
+    }
+
+    public function bullet_journal_assistants(): MorphMany
+    {
+        return $this->morphMany(Assistant::class, 'assistantable')
+            ->where("external_assistant_id", config("openai.assistants.bullet_journal_assistant_id"));
     }
 }
