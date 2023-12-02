@@ -19,7 +19,7 @@
         "laravel/tinker": "^2.8",
         "mis3085/tiktoken-for-laravel": "^0.1.2",
         "opcodesio/log-viewer": "^2.4",
-        "openai-php/laravel": "^0.6.0",
+        "openai-php/laravel": "dev-add-assistants-api",
         "pusher/pusher-php-server": "^7.2",
         "roach-php/core": "^2.0",
         "roach-php/laravel": "^2.0",
@@ -92,6 +92,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

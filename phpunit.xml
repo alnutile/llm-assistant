@@ -18,7 +18,8 @@
     <env name="MAIL_MAILER" value="array"/>
     <env name="QUEUE_CONNECTION" value="sync"/>
     <env name="RAPID_API_TOKEN" value="foobar"/>
-    <env name="OPENAI_MOCK" value="true"/>
+    <env name="RAPID_API_TOKEN" value="foobar"/>
+    <env name="OPENAI_ASSISTANT_BULLET_JOURNAL" value="testing"/>
     <env name="SESSION_DRIVER" value="array"/>
     <env name="TELESCOPE_ENABLED" value="false"/>
     <env name="OPENAI_MOCK" value="true"/>
