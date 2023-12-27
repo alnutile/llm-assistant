@@ -22,3 +22,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post(
     '/signed', [SignedUrlAuth::class, 'create']
 )->name('signed_url.create');
+
+
+Route::get('/upwork/callback', function (Request $request) {
+    $authorizationCode = $request->get('code');
+
+    logger("Code coming in " . $authorizationCode);
+    // With this authorization code, you can now request an access token
+    // by sending a POST request to the authorization server with your clientId, clientSecret
+    // grantType('authorization_code'), redirectUri, and authorizationCode you just received
+
+    // Make sure to handle errors appropriately and securely store access tokens.
+
+    return "OK";
+});
